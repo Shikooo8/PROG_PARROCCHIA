@@ -22,7 +22,8 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 
 
 
-# Descrizione del progetto
+# Descrizione del Progetto Personale 2026
+
 Progetto Personale 2026 
 Finalità per ora:
 Deve essere un sistema per la gestione del sito di una parrocchia, che mostra le informazioni principali, notizie, eventi, iniziative, con il login di utenti registrati e gli admin  e l'accesso a chi non ha login.
@@ -45,8 +46,13 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 -/authentication:
 --SecurityConfiguration (bozza)
 -/controller:
+--AdminUtentiController: @GetMapping("/admin/richieste"), @GetMapping("/admin/richieste/{id}/elimina"), @GetMapping("/admin/utenti")
 --AuthController:
+--EventoController:     @GetMapping("/eventi") return "eventi/list";
 --HomeController: @GetMapping("/")
+--IniziativaController:     @GetMapping("/iniziative") return "iniziative/list";
+--NotiziaController:     @GetMapping("/notizie")  return "notizie/list";
+--UtenteRichiestaController:     @GetMapping("/richiesta-registrazione") return "richiesta-registrazione/form",  @PostMapping("/richiesta-registrazione") return "redirect:/richiesta-registrazione?inviata";
 
 -/model:
 --Credenziali: Long id, username, password, ruolo, OnetoOne utente
@@ -60,14 +66,25 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 
 -/repository:
 (estendono CrudRepository<il loro modello, Long>)
---CredenzialiRepository :
---EventoRepository
---IniziativaRepository : 
+--CredenzialiRepository :     Boolean existsByUsername(String username);
+--EventoRepository:List<Evento> findByVisibilitaTrueOrderByDataAsc(), List<Evento> findByVisibilitaTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate data);
+--InformazioniGeneraliRepository: Optional<InformazioniGenerali> findFirstByOrderByIdAsc();
+--IniziativaRepository : List<Iniziativa> findByVisibilitaTrue();
+--NotiziaRepository:     List<Notizia> findAllByOrderByDataDesc();
+--UtenteRepository:     List<Utente> findByEmail(String email), List<Utente> findAll()
+--UtenteRichiestaRepository:List<UtenteRichiesta> findAllByOrderByIdDesc();
 
 -/service
---CredenzialiService:
---EventoService:
---IniziativaService: 
+--CredenzialiService: public boolean existsByUsername(String username),
+--EventoService:     public List<Evento> getEventiVisibili(),     public List<Evento> getEventiVisibiliProssimi(),     public Evento getEvento(Long id),     public Evento save(Evento evento),     public void nascondi(Long id),     public void elimina(Long id)
+--InformazioniGeneraliService: public InformazioniGenerali getInformazioni(),  public InformazioniGenerali save(InformazioniGenerali info)
+--IniziativaService:     public List<Iniziativa> getIniziativeVisibili()
+--NotiziaService:     public List<Notizia> getTutteLeNotizie(),     public List<Notizia> getUltimeNotizie(),     public Notizia save(Notizia notizia),     public void elimina(Long id)
+--UtenteRichiestaService:     public List<UtenteRichiesta> getTutteLeRichieste(),     public UtenteRichiesta save(UtenteRichiesta richiesta),     public void elimina(Long id)
+--UtenteService:     public List<Utente> getTuttiGliUtenti(),     public Utente registraUtente(Utente utente, String username, String passwordInChiaro)
+
+
+
 
 
 
@@ -75,9 +92,9 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 /sito_backend/src/main/resources/templates:
 
 -/admin (qui metteremo le pagine visibile solo agli amministratori):
+--richieste.html
 
 -/fragments:
---riquadroAltissimo.html (per ora vuoto)
+--riquadroAltissimo.html
 
 -index.html
-

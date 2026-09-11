@@ -1,8 +1,15 @@
 package it.parrocchiatrasfigurazione.sito_backend.repository;
+
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import it.parrocchiatrasfigurazione.sito_backend.model.Evento;
 
-public interface EventoRepository extends CrudRepository<Evento, Long>{
+public interface EventoRepository extends CrudRepository<Evento, Long> {
+    List<Evento> findByVisibilitàTrueOrderByDataAsc();
+
+    List<Evento> findByVisibilitàTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate data);
 
 }

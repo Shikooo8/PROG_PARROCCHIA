@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Parrocchia della Trasfigurazione</title>
+  <link rel="stylesheet" th:href="@{/css/stile.css}" />
+  <link rel="icon" type="image/jpeg" th:href="@{/css/cross.jpg}">
+</head>
+<body>
+  <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+  <main class="home-contenuto">
+
+    <section class="box-informazioni" th:if="${informazioni}">
+      <h1>Orari e informazioni</h1>
+      <p><strong>Indirizzo:</strong> <span th:text="${informazioni.indirizzo}">Via...</span></p>
+      <p><strong>Apertura:</strong>
+        <span th:text="${informazioni.orarioApertura}">08:00</span> -
+        <span th:text="${informazioni.orarioChiusura}">19:00</span>
+      </p>
+
+      <div>
+        <h3>Sante Messe feriali</h3>
+        <ul>
+          <li th:each="orario : ${informazioni.orarioMessaFeriale}" th:text="${orario}">18:30</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sante Messe festive</h3>
+        <ul>
+          <li th:each="orario : ${informazioni.orarioMessaFestivo}" th:text="${orario}">10:00</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="box-notizie">
+      <h2>Ultime notizie</h2>
+      <div th:if="${notizie == null or notizie.isEmpty()}">Nessuna notizia al momento.</div>
+      <article th:each="notizia : ${notizie}" class="card-notizia">
+        <h3 th:text="${notizia.titolo}">Titolo notizia</h3>
+        <p th:text="${notizia.descrizione}">Descrizione...</p>
+        <span class="data-notizia" th:text="${notizia.data}">01/01/2026</span>
+      </article>
+      <a th:href="@{/notizie}">Vedi tutte le notizie</a>
+    </section>
+
+    <section class="box-eventi">
+      <h2>Prossimi eventi</h2>
+      <div th:if="${eventi == null or eventi.isEmpty()}">Nessun evento in programma.</div>
+      <article th:each="evento : ${eventi}" class="card-evento">
+        <h3 th:text="${evento.titolo}">Titolo evento</h3>
+        <span th:text="${evento.data}">01/01/2026</span>
+        <p th:text="${evento.descrizione}">Descrizione...</p>
+      </article>
+      <a th:href="@{/eventi}">Vedi tutti gli eventi</a>
+    </section>
+
+    <section class="box-cta" sec:authorize="isAnonymous()" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      <p>Vuoi registrarti? Compila la richiesta e un amministratore ti attiverà l'account.</p>
+      <a th:href="@{/richiesta-registrazione}" class="btn-cta">Richiedi la registrazione</a>
+    </section>
+
+  </main>
+</body>
+</html>

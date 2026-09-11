@@ -5,4 +5,6 @@ import it.parrocchiatrasfigurazione.sito_backend.model.Credenziali;
 
 public interface CredenzialiRepository extends CrudRepository<Credenziali, Long>{
 
+    Boolean existsByUsername(String username);
+
 }

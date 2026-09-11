@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Richieste di registrazione</title>
+  <link rel="stylesheet" th:href="@{/css/stile.css}" />
+</head>
+<body>
+  <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+  <main class="admin-contenuto">
+    <h1>Richieste di registrazione</h1>
+
+    <div th:if="${errore}" class="msg-errore" th:text="${errore}">Errore</div>
+
+    <table class="tabella-richieste">
+      <thead>
+        <tr><th>Nome</th><th>Cognome</th><th>Motivazioni</th><th>Username</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr th:each="r : ${richieste}">
+          <td th:text="${r.nome}"></td>
+          <td th:text="${r.cognome}"></td>
+          <td th:text="${r.motivazioni}"></td>
+          <td th:text="${r.username}"></td>
+          <td>
+            <form th:action="@{/admin/richieste/{id}/elimina(id=${r.id})}" method="POST">
+              <button type="submit" class="btn-elimina">Elimina</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Registra nuovo utente</h2>
+    <form th:action="@{/admin/utenti}" method="POST" th:object="${utente}">
+      <div><label>Nome:</label> <input type="text" th:field="*{nome}" /></div>
+      <div><label>Cognome:</label> <input type="text" th:field="*{cognome}" /></div>
+      <div><label>Email:</label> <input type="email" th:field="*{email}" /></div>
+      <div><label>Username:</label> <input type="text" name="username" /></div>
+      <div><label>Password:</label> <input type="password" name="password" /></div>
+      <button type="submit">Salva e registra</button>
+    </form>
+  </main>
+</body>
+</html>

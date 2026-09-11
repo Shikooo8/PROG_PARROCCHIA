@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+  <header th:fragment="riquadroAltissimo" class="riquadro-altissimo">
+    <div class="riquadro-altissimo-contenuto">
+      <a th:href="@{/}" class="nome-parrocchia">
+        Parrocchia della Trasfigurazione
+      </a>
+      <nav class="riquadro-altissimo-nav">
+        <a th:href="@{/eventi}">Eventi</a>
+        <a th:href="@{/notizie}">Notizie</a>
+        <a th:href="@{/iniziative}">Iniziative</a>
+
+        <span sec:authorize="isAnonymous()" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+          <a th:href="@{/login}" class="btn-login">Login</a>
+        </span>
+
+        <span sec:authorize="isAuthenticated()" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+          <span th:if="${userDetails}" th:text="${userDetails.username}" class="utente-loggato"></span>
+          <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/richieste}" class="btn-admin">Area Admin</a>
+          <form th:action="@{/logout}" method="POST" class="form-logout">
+            <button type="submit" class="btn-logout">Logout</button>
+          </form>
+        </span>
+      </nav>
+    </div>
+  </header>
+</body>
+
+</html>

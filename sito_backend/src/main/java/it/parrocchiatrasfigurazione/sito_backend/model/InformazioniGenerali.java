@@ -3,10 +3,17 @@ package it.parrocchiatrasfigurazione.sito_backend.model;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 
 @Entity 
 public class InformazioniGenerali {
+
+   @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private Long id;
 
     private String indirizzo;
 
@@ -16,7 +23,7 @@ public class InformazioniGenerali {
     private List<java.time.LocalTime> orarioMessaFestivo;
 
 
-    
+
     public String getIndirizzo() {
         return indirizzo;
     }
@@ -48,6 +55,13 @@ public class InformazioniGenerali {
         this.orarioMessaFestivo = orarioMessaFestivo;
     }
 
+       public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
     

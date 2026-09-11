@@ -45,8 +45,8 @@ protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws 
 
 
     httpSecurity.authorizeHttpRequests(authorize -> {
-        authorize.requestMatchers(HttpMethod.GET, "/", "/fragments", "/login", "/css/", "/images/", "/react/", "/favicon.ico", "/api/utente/me").permitAll();
-        authorize.requestMatchers(HttpMethod.POST, "/login").permitAll();
+        authorize.requestMatchers(HttpMethod.GET, "/", "/fragments", "/richiesta-registrazione", "/login", "/css/", "/css/**", "/images/**", "/react/", "/favicon.ico", "/api/utente/me").permitAll();
+        authorize.requestMatchers(HttpMethod.POST, "/login", "/richiesta-registrazione").permitAll();
 
         //authorize.requestMatchers(HttpMethod.POST, "/api/film/*/recensione").hasAnyAuthority("USER", "ADMIN");
         //authorize.requestMatchers(HttpMethod.PUT, "/api/recensione/").hasAnyAuthority("USER", "ADMIN");

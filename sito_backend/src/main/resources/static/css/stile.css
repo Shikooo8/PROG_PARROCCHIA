@@ -1,0 +1,366 @@
+/* ==========================================================================
+   Variabili - Palette Colori
+   Marrone, Legno, Beige, Avana, Bianco e Celestino pastello
+   ========================================================================== */
+:root {
+    --marrone: #4A3018;        /* Marrone scuro */
+    --legno: #8B5A2B;          /* Legno caldo */
+    --avana: #D2B48C;          /* Avana */
+    --beige: #F5F5DC;          /* Beige */
+    --bianco: #FFFFFF;         /* Bianco */
+    --celestino: #B3DDF2;      /* Celestino pastello */
+
+    /* Colori testo e accessori */
+    --testo-principale: #332211;
+    --testo-sfumato: #6b4d31;
+}
+
+/* ==========================================================================
+   Reset e stili di base
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--beige);
+    color: var(--testo-principale);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: var(--marrone);
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+
+a {
+    color: var(--legno);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    color: var(--marrone);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Layout Generale
+   ========================================================================== */
+/* Contenitori principali per i due tipi di pagina */
+.admin-contenuto, 
+.home-contenuto {
+    max-width: 1000px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   Sezione Admin & Registrazione (File 1 & 3)
+   ========================================================================== */
+
+/* Messaggio di Errore */
+.msg-errore {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* Tabella delle richieste */
+.tabella-richieste {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 3rem;
+    background-color: var(--bianco);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabella-richieste th, 
+.tabella-richieste td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--avana);
+}
+
+.tabella-richieste th {
+    background-color: var(--legno);
+    color: var(--bianco);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.tabella-richieste tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Effetto hover righe tabella: usa il celestino pastello */
+.tabella-richieste tbody tr:hover {
+    background-color: var(--celestino); 
+    color: var(--marrone);
+}
+
+/* Form principale nella pagina admin (Registra nuovo utente) */
+.admin-contenuto > form {
+    background-color: var(--bianco);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--avana);
+}
+
+.admin-contenuto > form div {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.admin-contenuto > form label {
+    width: 130px;
+    font-weight: 600;
+    color: var(--marrone);
+}
+
+.admin-contenuto form input[type="text"],
+.admin-contenuto form input[type="email"],
+.admin-contenuto form input[type="password"] {
+    flex: 1;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid var(--avana);
+    border-radius: 6px;
+    background-color: var(--bianco);
+    color: var(--testo-principale);
+    transition: all 0.3s;
+}
+
+.admin-contenuto form input:focus {
+    outline: none;
+    border-color: var(--legno);
+    box-shadow: 0 0 0 3px var(--celestino);
+}
+
+/* Pulsante salva form */
+.admin-contenuto > form button {
+    margin-top: 15px;
+    margin-left: 130px; /* Allinea col form */
+}
+
+/* Form inline dentro la tabella (es. elimina) - annulla lo stile generale */
+.tabella-richieste form {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+/* Stili Bottoni Generici */
+button {
+    background-color: var(--legno);
+    color: var(--bianco);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: var(--marrone);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* Bottone Elimina (Personalizzato per distacco) */
+.btn-elimina {
+    background-color: #d9534f;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.btn-elimina:hover {
+    background-color: #c9302c;
+}
+
+/* ==========================================================================
+   Sezioni Home Page Parrocchia (File 2)
+   ========================================================================== */
+
+section {
+    margin-bottom: 3rem;
+}
+
+/* Stile Box Contenitori (Informazioni, Notizie, Eventi) */
+.box-informazioni,
+.box-notizie,
+.box-eventi {
+    background-color: var(--bianco);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(74, 48, 24, 0.08);
+    border-top: 6px solid var(--legno);
+}
+
+.box-informazioni p {
+    margin-bottom: 10px;
+}
+
+.box-informazioni ul {
+    list-style-type: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.box-informazioni li {
+    background-color: var(--beige);
+    padding: 6px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--avana);
+    color: var(--marrone);
+    font-weight: 500;
+}
+
+/* Stile Card per Notizie ed Eventi */
+.card-notizia, 
+.card-evento {
+    background-color: var(--beige);
+    padding: 18px 25px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--celestino); /* Tocco pastello per le card */
+    border-radius: 0 8px 8px 0;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.card-notizia:hover, 
+.card-evento:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transform: translateY(-2px);
+}
+
+.card-notizia h3, 
+.card-evento h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: var(--marrone);
+    font-size: 1.3rem;
+}
+
+.data-notizia, 
+.card-evento span {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--testo-sfumato);
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Box Call to Action (CTA) */
+.box-cta {
+    background-color: var(--celestino);
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px dashed var(--legno);
+    box-shadow: none;
+}
+
+.box-cta p {
+    color: var(--marrone);
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.btn-cta {
+    display: inline-block;
+    background-color: var(--marrone);
+    color: var(--bianco);
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+    background-color: var(--legno);
+    color: var(--bianco);
+    text-decoration: none;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(74, 48, 24, 0.3);
+}
+
+
+.riquadro-altissimo-nav  {
+    background-color: var(--testo-principale);
+    margin-top: 50px;
+    height: 40px;
+
+
+}
+
+
+.riquadro-altissimo-contenuto  {
+    background-color: var(--celestino);
+    height: 100px;
+}
+
+.riquadro-altissimo-nav > a {
+    color: var(--bianco);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: 
+        background-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+.riquadro-altissimo-nav > a:hover {
+    background-color: var(--legno);
+    color:var(--bianco)
+}
+
+
+.nav-button {
+    background-color: #d4af37; /* Oro */
+    color: white;
+    padding: 10px 25px;
+    text-decoration: none; 
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+}
+
+.nav-button:hover {
+    background-color: #bfa133; /* Oro leggermente più scuro */
+    border: 2px solid #997a00;
+}
