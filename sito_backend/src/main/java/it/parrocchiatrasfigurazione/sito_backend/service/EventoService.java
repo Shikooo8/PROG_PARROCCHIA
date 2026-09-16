@@ -25,7 +25,7 @@ public class EventoService {
 
     @Transactional(readOnly = true)
     public List<Evento> getEventiVisibiliProssimi() {
-        return eventoRepository.findByVisibilitàTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate.now());
+        return eventoRepository.findFirst3ByVisibilitàTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate.now());
     }
 
     @Transactional(readOnly = true)

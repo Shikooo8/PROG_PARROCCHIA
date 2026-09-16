@@ -9,4 +9,7 @@ public interface IniziativaRepository extends CrudRepository<Iniziativa, Long>{
 
     List<Iniziativa> findByVisibilitàTrue();
 
+    //TODO non ha senso ordinarli per id
+    List<Iniziativa> findFirst3ByVisibilitàTrueOrderByIdDesc();
+
 }

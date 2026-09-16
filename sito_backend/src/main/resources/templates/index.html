@@ -25,38 +25,27 @@
     <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
 
 
-    <!-- =====================================================
+<!-- =====================================================
      HERO
      ===================================================== -->
 
-    <section class="hero">
+<section class="hero">
 
-        <div class="hero-contenuto">
+    <div class="hero-contenuto">
 
-            <h1 class="hero-titolo">
-                Parrocchia Trasfigurazione
-            </h1>
-
-            <p class="hero-sottotitolo">
-                Una comunità, un cammino, una casa per tutti.
-            </p>
-
-            <div class="sezione-piede">
-
-                <a class="btn btn-primario" th:href="@{/iniziative}">
-                    Scopri le iniziative
-                </a>
-
-                <a class="btn btn-secondario" th:href="@{/eventi}">
-                    Guarda gli eventi
-                </a>
-
-            </div>
-
+        <div class="hero-immagine">
+            <img src="images/Transfiguration_Raphael.jpg" alt="Trasfigurazione di Raffaello">
         </div>
 
-    </section>
+        <div class="hero-testo">
+            <h1 class="hero-titolo">
+                Parrocchia della Trasfigurazione di Nostro Signore Gesù Cristo
+            </h1>
+        </div>
 
+    </div>
+
+</section>
 
     <!-- =====================================================
      INFORMAZIONI GENERALI / ORARI
@@ -188,7 +177,7 @@
             </div>
 
 
-            <div class="notizie-lista">
+            <div class="notizie">
 
                 <a class="notizia-riga" th:each="notizia : ${notizie}" th:href="@{/notizie/{id}(id=${notizia.id})}">
 

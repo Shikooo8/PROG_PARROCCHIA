@@ -7,10 +7,10 @@ insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'De
 insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'Paolo', 'Enea', 'e@a.a' );
 
 -- Evento
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento1', '2026-06-10', 'ciaociaociao', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento2', '2026-06-10', 'ciaociaociao', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento3', '2026-06-10', 'ciaociaociao', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento4', '2026-06-10', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento1', '2026-10-10', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento2', '2026-10-10', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento3', '2026-10-10', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento4', '2026-10-10', 'ciaociaociao', '1');
 
 
 -- InformazioniGenerale
@@ -23,9 +23,9 @@ insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) v
 insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) values (nextval('iniziativa_seq'), 'Iniziativa4', 'ciaociaociao', '1', 1);
 
 -- notizia
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'notizia1', 'ciaociaociao', '2026-09-10');
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'notizia2', 'ciaociaociao', '20206-09-01');
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'notizia3', 'ciaociaociao', '2026-09-13');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia1', 'ciaociaociao', '2026-09-10');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia2', 'ciaociaociao', '2026-09-01');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia3', 'ciaociaociao', '2026-09-13');
 insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia4', 'ciaociaociao', '2026-09-11');
 
 -- Credenziali

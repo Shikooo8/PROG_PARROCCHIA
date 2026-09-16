@@ -2,6 +2,7 @@ package it.parrocchiatrasfigurazione.sito_backend.service;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,10 @@ public class IniziativaService {
 
     public Iniziativa getIniziativa(Long id) {
         return iniziativaRepository.findById(id).get();
+    }
+
+    public List<Iniziativa> getIniziativeVisibiliProssime() {
+        return iniziativaRepository.findFirst3ByVisibilitàTrueOrderByIdDesc();
     }
 
 }
