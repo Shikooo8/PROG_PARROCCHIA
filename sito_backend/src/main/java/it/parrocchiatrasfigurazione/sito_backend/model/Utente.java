@@ -18,6 +18,7 @@ public class Utente {
     
     private String nome;
     private String cognome;
+    private java.time.LocalDate dataNascita;
     private String email;
 
 
@@ -70,5 +71,11 @@ public class Utente {
         this.id = id;
     }
 
+     public java.time.LocalDate getDataNascita() {
+        return dataNascita;
+    }
+    public void setDataNascita(java.time.LocalDate dataNascita) {
+        this.dataNascita = dataNascita;
+    }
 
 }

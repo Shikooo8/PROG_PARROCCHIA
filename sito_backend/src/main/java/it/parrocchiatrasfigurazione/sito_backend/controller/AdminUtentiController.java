@@ -34,10 +34,7 @@ public class AdminUtentiController {
     }
 
     @PostMapping("/utenti")
-    public String registraUtente(@ModelAttribute("utente") Utente utente,
-                                  @RequestParam String username,
-                                  @RequestParam String password,
-                                  Model model) {
+    public String registraUtente(@ModelAttribute("utente") Utente utente, @RequestParam String username, @RequestParam String password, Model model) {
         try {
             utenteService.registraUtente(utente, username, password);
             return "redirect:/admin/richieste?registrato";

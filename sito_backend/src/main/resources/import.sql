@@ -1,15 +1,15 @@
 
 --Utente
-insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'Anna', 'Ambrosi', 'a@a.a');
-insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'Barbara', 'Barro', 'b@a.a');
-insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'Carmine', 'Castel', 'c@a.a' );
-insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'Desiderio', 'Delpe', 'd@a.a' );
-insert into utente (id, nome, cognome, email) values (nextval('utente_seq'), 'Paolo', 'Enea', 'e@a.a' );
+insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Anna', 'Ambrosi', 'a@a.a', '1970-08-19');
+insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Barbara', 'Barro', 'b@a.a', '2000-03-03');
+insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Carmine', 'Castel', 'c@a.a', '1999-06-06');
+insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Desiderio', 'Delpe', 'd@a.a', '2004-01-08');
+insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Paolo', 'Enea', 'e@a.a','1962-07-07' );
 
 -- Evento
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento1', '2026-10-10', 'ciaociaociao', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento2', '2026-10-10', 'ciaociaociao', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento3', '2026-10-10', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento1', '2026-10-1', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento2', '2026-10-18', 'ciaociaociao', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento3', '2026-10-15', 'ciaociaociao', '1');
 insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Evento4', '2026-10-10', 'ciaociaociao', '1');
 
 
@@ -23,10 +23,10 @@ insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) v
 insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) values (nextval('iniziativa_seq'), 'Iniziativa4', 'ciaociaociao', '1', 1);
 
 -- notizia
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia1', 'ciaociaociao', '2026-09-10');
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia2', 'ciaociaociao', '2026-09-01');
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia3', 'ciaociaociao', '2026-09-13');
-insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia4', 'ciaociaociao', '2026-09-11');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia1', 'ciaociaociao', '2026-09-10 10:00');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia2', 'ciaociaociao', '2026-09-01 08:00');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia3', 'ciaociaociao', '2026-09-13 14:00');
+insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Notizia4', 'ciaociaociao', '2026-09-11 15:00');
 
 -- Credenziali
 insert into credenziali (id, username, password, ruolo, utente_id) values (nextval('credenziali_seq'), 'Utente1', '$2a$10$yWAIDyuEr78BBBFZ5cYh8.Nw4gUHFTRG5FwaWqNCGeOD8M4mh3.xy', 'USER', 1);

@@ -1,206 +1,200 @@
 <!DOCTYPE html>
-<html lang="it"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Eventi - Parrocchia Trasfigurazione</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/stile.css}">
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
+
 
 </head>
 
 <body>
 
-<!-- HEADER -->
+    <!-- HEADER -->
 
-<div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
-
-
-<!-- TITOLO -->
-
-<section class="fascia-titolo">
-
-    <div class="fascia-titolo-contenuto">
-
-        <div>
-
-            <h1>
-                Eventi
-            </h1>
-
-            <p class="breadcrumb">
-
-                <a th:href="@{/}">
-                    Home
-                </a>
-
-                / Eventi
-
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
 
 
-<!-- EVENTI -->
+    <!-- TITOLO -->
 
-<section class="sezione">
+    <section class="fascia-titolo">
 
-    <div class="container">
+        <div class="fascia-titolo-contenuto">
 
-        <div class="sezione-intestazione">
+            <div>
 
-            <h2 class="sezione-titolo">
-                I nostri eventi
-            </h2>
+                <h1>
+                    Eventi
+                </h1>
 
-            <p class="sezione-sottotitolo">
-                Scopri gli appuntamenti e gli eventi
-                della nostra comunità.
-            </p>
+                <p class="breadcrumb">
 
-        </div>
+                    <a th:href="@{/}">
+                        Home
+                    </a>
 
+                    / Eventi
 
-        <!-- Lista eventi -->
-
-        <div class="schede-griglia">
-
-            <a class="scheda"
-               th:each="evento : ${eventi}"
-               th:href="@{/eventi/{id}(id=${evento.id})}">
-
-                <!-- Segnaposto immagine -->
-
-                <div class="scheda-immagine-segnaposto">
-                    ✝
-                </div>
-
-
-                <div class="scheda-corpo">
-
-                    <span class="scheda-data"
-                          th:text="${#temporals.format(evento.data, 'dd/MM/yyyy')}">
-                        25/12/2026
-                    </span>
-
-
-                    <h2 class="scheda-titolo"
-                        th:text="${evento.titolo}">
-                        Titolo dell'evento
-                    </h2>
-
-
-                    <p class="scheda-testo"
-                       th:text="${evento.descrizione}">
-                        Descrizione dell'evento.
-                    </p>
-
-
-                    <span class="scheda-link-esplicito">
-                        Scopri di più
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            <!-- Nessun evento -->
-
-            <div class="tabella-vuota"
-                 th:if="${eventi == null or #lists.isEmpty(eventi)}">
-
-                Nessun evento disponibile.
+                </p>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- FOOTER -->
+    <!-- EVENTI -->
 
-<footer class="footer">
+    <section class="sezione">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="footer-griglia">
+            <div class="sezione-intestazione">
 
-            <div>
+                <h2 class="sezione-titolo">
+                    I nostri eventi
+                </h2>
 
-                <h3 class="footer-titolo">
-                    Parrocchia Trasfigurazione
-                </h3>
-
-                <p class="footer-testo">
-                    La nostra comunità parrocchiale.
+                <p class="sezione-sottotitolo">
+                    Scopri gli appuntamenti e gli eventi
+                    della nostra comunità.
                 </p>
 
             </div>
 
 
-            <div>
+            <!-- Lista eventi -->
 
-                <h3 class="footer-titolo">
-                    Navigazione
-                </h3>
+            <div class="schede-griglia">
 
-                <ul class="footer-links">
+                <a class="scheda" th:each="evento : ${eventi}" th:href="@{/eventi/{id}(id=${evento.id})}">
 
-                    <li>
-                        <a th:href="@{/}">
-                            Home
-                        </a>
-                    </li>
+                    <!-- Segnaposto immagine -->
 
-                    <li>
-                        <a th:href="@{/notizie}">
-                            Notizie
-                        </a>
-                    </li>
+                    <div class="scheda-immagine-segnaposto">
+                        ✝
+                    </div>
 
-                    <li>
-                        <a th:href="@{/eventi}">
-                            Eventi
-                        </a>
-                    </li>
 
-                    <li>
-                        <a th:href="@{/iniziative}">
-                            Iniziative
-                        </a>
-                    </li>
+                    <div class="scheda-corpo">
 
-                </ul>
+                        <span class="scheda-data" th:text="${#temporals.format(evento.data, 'dd/MM/yyyy')}">
+                            25/12/2026
+                        </span>
+
+
+                        <h2 class="scheda-titolo" th:text="${evento.titolo}">
+                            Titolo dell'evento
+                        </h2>
+
+
+                        <p class="scheda-testo" th:text="${evento.descrizione}">
+                            Descrizione dell'evento.
+                        </p>
+
+
+                        <span class="scheda-link-esplicito">
+                            Scopri di più
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <!-- Nessun evento -->
+
+                <div class="tabella-vuota" th:if="${eventi == null or #lists.isEmpty(eventi)}">
+
+                    Nessun evento disponibile.
+
+                </div>
 
             </div>
 
         </div>
 
+    </section>
 
-        <div class="footer-copy">
 
-            © Parrocchia Trasfigurazione
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-griglia">
+
+                <div>
+
+                    <h3 class="footer-titolo">
+                        Parrocchia Trasfigurazione
+                    </h3>
+
+                    <p class="footer-testo">
+                        La nostra comunità parrocchiale.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="footer-titolo">
+                        Navigazione
+                    </h3>
+
+                    <ul class="footer-links">
+
+                        <li>
+                            <a th:href="@{/}">
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/notizie}">
+                                Notizie
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/eventi}">
+                                Eventi
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/iniziative}">
+                                Iniziative
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-copy">
+
+                © Parrocchia Trasfigurazione
+
+            </div>
 
         </div>
 
-    </div>
-
-</footer>
+    </footer>
 
 </body>
+
 </html>
