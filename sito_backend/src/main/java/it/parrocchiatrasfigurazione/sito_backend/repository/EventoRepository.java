@@ -12,4 +12,6 @@ public interface EventoRepository extends CrudRepository<Evento, Long> {
 
     List<Evento> findFirst3ByVisibilitàTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate data);
 
+    List<Evento> findAllByOrderByDataAsc();
+
 }

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Amministrazione - Parrocchia della Trasfigurazione</title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}">
+    </header>
+
+
+    <!-- =====================================================
+         FASCIA TITOLO
+         ===================================================== -->
+
+    <section class="fascia-titolo">
+
+        <div class="fascia-titolo-contenuto">
+
+            <div>
+                <h1>Amministrazione</h1>
+
+                <div class="breadcrumb">
+                    <a th:href="@{/}">Home</a>
+                    &nbsp;/&nbsp;
+                    Amministrazione
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DASHBOARD AMMINISTRAZIONE
+         ===================================================== -->
+
+    <main class="sezione">
+
+        <div class="container">
+
+            <div class="sezione-intestazione">
+
+                <h2 class="sezione-titolo">
+                    Gestione del sito
+                </h2>
+
+                <p class="sezione-sottotitolo">
+                    Seleziona una sezione per gestire i contenuti
+                    della parrocchia.
+                </p>
+
+            </div>
+
+
+            <div class="admin-dashboard">
+
+
+                <!-- =================================================
+                     EVENTI
+                     ================================================= -->
+
+                <a class="admin-riquadro" th:href="@{/admin/eventi}">
+                    <div class="admin-riquadro-icona">
+                        📅
+                    </div>
+                    <div class="admin-riquadro-contenuto">
+                        <h3>Eventi</h3>
+                        <p>
+                            Crea, modifica ed elimina gli eventi
+                            della parrocchia.
+                        </p>
+                    </div>
+                </a>
+
+
+                <!-- =================================================
+                     INIZIATIVE
+                     ================================================= -->
+
+                <a class="admin-riquadro" th:href="@{/admin/iniziative}">
+
+                    <div class="admin-riquadro-icona">
+                        📋
+                    </div>
+
+                    <div class="admin-riquadro-contenuto">
+
+                        <h3>
+                            Iniziative
+                        </h3>
+
+                        <p>
+                            Gestisci le iniziative e le attività
+                            della comunità parrocchiale.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <!-- =================================================
+                     NOTIZIE
+                     ================================================= -->
+
+                <a class="admin-riquadro" th:href="@{/admin/notizie}">
+
+                    <div class="admin-riquadro-icona">
+                        📰
+                    </div>
+
+                    <div class="admin-riquadro-contenuto">
+
+                        <h3>
+                            Notizie
+                        </h3>
+
+                        <p>
+                            Pubblica e gestisci le notizie
+                            della parrocchia.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <!-- =================================================
+                     UTENTI
+                     ================================================= -->
+
+                <a class="admin-riquadro" th:href="@{/admin/utenti}">
+
+                    <div class="admin-riquadro-icona">
+                        👤
+                    </div>
+
+                    <div class="admin-riquadro-contenuto">
+
+                        <h3>
+                            Utenti
+                        </h3>
+
+                        <p>
+                            Visualizza e gestisci gli utenti
+                            registrati.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <!-- =================================================
+                     RICHIESTE REGISTRAZIONE
+                     ================================================= -->
+
+                <a class="admin-riquadro" th:href="@{/admin/richieste}">
+
+                    <div class="admin-riquadro-icona">
+                        👥
+                    </div>
+
+                    <div class="admin-riquadro-contenuto">
+
+                        <h3>
+                            Richieste di registrazione
+                        </h3>
+
+                        <p>
+                            Gestisci le richieste di registrazione
+                            degli utenti.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+
+</body>
+
+</html>

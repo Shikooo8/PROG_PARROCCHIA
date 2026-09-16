@@ -12,4 +12,6 @@ public interface IniziativaRepository extends CrudRepository<Iniziativa, Long>{
     //TODO non ha senso ordinarli per id
     List<Iniziativa> findFirst3ByVisibilitàTrueOrderByIdDesc();
 
+    List<Iniziativa> findAllByOrderByIdDesc();
+
 }

@@ -23,7 +23,6 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 
 
 # Descrizione del Progetto Personale 2026
-
 Progetto Personale 2026 
 Finalità per ora:
 Deve essere un sistema per la gestione del sito di una parrocchia, che mostra le informazioni principali, notizie, eventi, iniziative, con un login di utenti registrati e degli admin, ma sia anche in parte visibile a chi non ha login.
@@ -57,9 +56,10 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 -/authentication:
 --SecurityConfiguration
 -/controller:
---AdminUtentiController: @GetMapping("/admin/richieste"), @GetMapping("/admin/richieste/{id}/elimina"), @GetMapping("/admin/utenti")
+--AdminController: @GetMapping("/admin/richieste") return "admin/richieste, @PostMapping("/admin/richieste/{id}/elimina")return "redirect:/admin/richieste"; @PostMapping("/admin/utenti")return "redirect:/admin/richieste?registrato"; @GetMapping("/admin/index") return "admin/index", @GetMapping("/admin/eventi") return "admin/eventi", @GetMapping("/admin/iniziative")return "admin/iniziative"; @GetMapping("/admin/notizie")return "admin/notizie"; @GetMapping("/admin/utenti")return "admin/utenti";
 --AuthController:     @GetMapping("/login") return "login"
 --EventoController:     @GetMapping("/eventi") return "eventi/list";     @GetMapping("/eventi/{id}") return "eventi/show";
+--GlobalController:     @ModelAttribute("userDetails")
 --HomeController: @GetMapping("/") return "index"
 --IniziativaController:     @GetMapping("/iniziative") return "iniziative/list";         @GetMapping("/iniziative/{id}") return "iniziative/show";
 --NotiziaController:     @GetMapping("/notizie")  return "notizie/list";     @GetMapping("/notizia/{id}") return "notizie/show";
@@ -78,21 +78,22 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 -/repository:
 (estendono CrudRepository<il loro modello, Long>)
 --CredenzialiRepository :     Boolean existsByUsername(String username);
---EventoRepository:List<Evento> findByVisibilitaTrueOrderByDataAsc(), List<Evento> findFirst3ByVisibilitaTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate data);
+--EventoRepository:List<Evento> findByVisibilitaTrueOrderByDataAsc(), List<Evento> findFirst3ByVisibilitaTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate data); List<Evento> findAllByOrderByDataAsc();
 --InformazioniGeneraliRepository: Optional<InformazioniGenerali> findFirstByOrderByIdAsc();
---IniziativaRepository : List<Iniziativa> findByVisibilitaTrue();     List<Iniziativa> findFirst3ByVisibilitàTrueOrderByIdDesc();
+--IniziativaRepository : List<Iniziativa> findByVisibilitaTrue(); List<Iniziativa> findFirst3ByVisibilitàTrueOrderByIdDesc(); List<Iniziativa> findAllByOrderByIdDesc();
 --NotiziaRepository:     List<Notizia> findAllByOrderByDataDesc();
---UtenteRepository:     List<Utente> findByEmail(String email), List<Utente> findAll()
---UtenteRichiestaRepository:List<UtenteRichiesta> findAllByOrderByIdDesc();
+--UtenteRepository: List<Utente> findByEmail(String email), List<Utente> findAll(), List<Utente> findAllByOrderByCognomeAscNomeAsc();
+--UtenteRichiestaRepository:List<UtenteRichiesta> findAllByOrderByIdDesc(); 
 
 -/service
 --CredenzialiService: boolean existsByUsername(String username),
---EventoService: List<Evento> getEventiVisibili(), List<Evento> getEventiVisibiliProssimi(), Evento getEvento(Long id), Evento save(Evento evento), void nascondi(Long id),  void elimina(Long id)
+--EventoService: List<Evento> getEventiVisibili(), List<Evento> getAll(),  List<Evento> getEventiVisibiliProssimi(), Evento getEvento(Long id), Evento save(Evento evento), void nascondi(Long id),  void elimina(Long id)
 --InformazioniGeneraliService: InformazioniGenerali getInformazioni(), InformazioniGenerali save(InformazioniGenerali info)
---IniziativaService: List<Iniziativa> getIniziativeVisibili(), List<Iniziativa> getIniziativeVisibiliProssime()
+--IniziativaService: List<Iniziativa> getIniziativeVisibili(), List<Iniziativa> getIniziativeVisibiliProssime(), List<Iniziativa> getAll()
 --NotiziaService: List<Notizia> getTutteLeNotizie(), List<Notizia> getUltimeNotizie(), Notizia save(Notizia notizia), void elimina(Long id)
 --UtenteRichiestaService:    List<UtenteRichiesta> getTutteLeRichieste(), UtenteRichiesta save(UtenteRichiesta richiesta),  void elimina(Long id)
---UtenteService: List<Utente> getTuttiGliUtenti(), Utente registraUtente(Utente utente, String username, String passwordInChiaro)
+--UtenteService: List<Utente> getTuttiGliUtenti(), Utente registraUtente(Utente utente, String username, String passwordInChiaro), List<Utente> getTuttiDaCognome() {
+
 
 
 
@@ -111,8 +112,12 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 
 -/templates:
 
---/admin: (qui metteremo le pagine visibile solo agli amministratori):
----richieste.html (da fare)
+--/admin:
+---eventi.html
+---index.html
+---iniziative.html
+---richieste.html 
+---utenti.html
 
 --/eventi:
 ---list.html

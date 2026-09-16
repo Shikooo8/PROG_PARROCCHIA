@@ -24,6 +24,11 @@ public class EventoService {
     }
 
     @Transactional(readOnly = true)
+    public List<Evento> getAll() {
+        return eventoRepository.findAllByOrderByDataAsc();
+    }
+
+    @Transactional(readOnly = true)
     public List<Evento> getEventiVisibiliProssimi() {
         return eventoRepository.findFirst3ByVisibilitàTrueAndDataGreaterThanEqualOrderByDataAsc(LocalDate.now());
     }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body>
 
@@ -8,19 +9,13 @@
 
     <nav class="navbar">
 
-        <!-- Nome della parrocchia -->
+        <!-- Nome della parrocchia: porta alla Home -->
         <a class="navbar-logo" th:href="@{/}">
-            Parrocchia della Trasfigurazione di N.S.G.C
-            <span>Comunità parrocchiale</span>
+            Trasfigurazione di N.S.G.C
         </a>
 
         <!-- Navigazione -->
         <div class="navbar-links">
-
-            <a th:href="@{/}"
-               th:classappend="${pagina == 'home'} ? ' attivo' : ''">
-                Home
-            </a>
 
             <a th:href="@{/notizie}"
                th:classappend="${pagina == 'notizie'} ? ' attivo' : ''">
@@ -39,55 +34,26 @@
 
             <!-- Utente non autenticato -->
             <a class="navbar-cta"
-               th:if="${utenteLoggato == null or !utenteLoggato}"
+               sec:authorize="!isAuthenticated()"
                th:href="@{/login}">
                 Login
             </a>
 
             <!-- Utente autenticato -->
-            <span class="navbar-utente"
-                  th:if="${utenteLoggato != null and utenteLoggato}">
-                <span th:text="${nomeUtente}">Utente</span>
-            </span>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST">
 
-            <a class="navbar-cta"
-               th:if="${utenteLoggato != null and utenteLoggato}"
-               th:href="@{/logout}">
-                Logout
-            </a>
+                <button class="navbar-button" type="submit">
+                    Logout
+                </button>
+
+            </form>
 
             <!-- Area amministrazione -->
-            <div class="navbar-dropdown"
-                 th:if="${admin != null and admin}">
-
-                <a href="#">
-                    Amministrazione
-                </a>
-
-                <div class="navbar-dropdown-content">
-
-                    <a th:href="@{/admin/richieste}">
-                        Richieste registrazione
-                    </a>
-
-                    <a th:href="@{/admin/utenti}">
-                        Utenti
-                    </a>
-
-                    <a th:href="@{/admin/eventi}">
-                        Eventi
-                    </a>
-
-                    <a th:href="@{/admin/iniziative}">
-                        Iniziative
-                    </a>
-
-                    <a th:href="@{/admin/notizie}">
-                        Notizie
-                    </a>
-
-                </div>
-            </div>
+            <a class="navbar-cta"
+               sec:authorize="hasAuthority('ADMIN')"
+               th:href="@{/admin/index}">
+                Amministrazione
+            </a>
 
         </div>
 

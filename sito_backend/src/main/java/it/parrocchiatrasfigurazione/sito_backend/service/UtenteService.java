@@ -2,6 +2,7 @@ package it.parrocchiatrasfigurazione.sito_backend.service;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,4 +46,8 @@ public class UtenteService {
         credenzialiService.save(credenziali);
         return utente;
     }
-}
+
+    public List<Utente> getTuttiDaCognome() {
+        return utenteRepository.findAllByOrderByCognomeAscNomeAsc();
+    }
+}     

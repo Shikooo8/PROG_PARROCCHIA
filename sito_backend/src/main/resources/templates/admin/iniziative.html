@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Iniziative - Amministrazione</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
+
+
+
+</head>
+
+<body>
+
+    <header th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></header>
+
+    <main>
+
+        <section class="fascia-titolo">
+            <div class="fascia-titolo-contenuto">
+
+                <h1>Gestione iniziative</h1>
+
+                <a th:href="@{/admin/iniziative/nuova}" class="btn btn-primario">
+                    Crea nuova
+                </a>
+
+            </div>
+        </section>
+
+        <section class="sezione">
+            <div class="container">
+
+                <div class="tabella-riquadro">
+
+                    <table class="tabella">
+
+                        <thead>
+                            <tr>
+                                <th>Titolo</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr th:each="iniziativa : ${iniziative}">
+
+                                <td th:text="${iniziativa.titolo}">
+                                    Titolo
+                                </td>
+
+
+                                <td>
+
+                                    <a th:href="@{/admin/iniziative/{id}/modifica(id=${iniziativa.id})}"
+                                        class="btn btn-piccolo btn-secondario">
+                                        Modifica
+                                    </a>
+
+                                    <form th:action="@{/admin/iniziative/{id}/cancella(id=${iniziativa.id})}"
+                                        method="POST" style="display:inline;">
+
+                                        <button type="submit" class="btn btn-piccolo btn-pericolo">
+                                            Cancella
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+
+                            <tr th:if="${#lists.isEmpty(iniziative)}">
+                                <td colspan="3" class="tabella-vuota">
+                                    Nessuna iniziativa presente.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+</html>
