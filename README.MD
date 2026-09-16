@@ -22,8 +22,7 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 
 
 
-# Descrizione del Progetto Personale 2026
-Progetto Personale 2026 
+# Descrizione del Progetto Personale 2026Progetto Personale 2026 
 Finalità per ora:
 Deve essere un sistema per la gestione del sito di una parrocchia, che mostra le informazioni principali, notizie, eventi, iniziative, con un login di utenti registrati e degli admin, ma sia anche in parte visibile a chi non ha login.
 L'admin può creare, modificare e rimuovere iniziative, se vuole assegnandogli un utente come coordinatore, eventi e notizie. Per eventi ed iniziative può scegliere se renderle visibili o meno. 
@@ -116,6 +115,7 @@ sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend :
 ---eventi.html
 ---index.html
 ---iniziative.html
+---notizie (vuoto)
 ---richieste.html 
 ---utenti.html
 
