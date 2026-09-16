@@ -1,5 +1,6 @@
 package it.parrocchiatrasfigurazione.sito_backend.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Credenziali {
 
     private String ruolo;
 
-    @OneToOne 
+    @OneToOne(cascade = CascadeType.ALL)
     private Utente utente;
 
 

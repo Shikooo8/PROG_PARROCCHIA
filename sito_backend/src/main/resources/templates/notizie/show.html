@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${notizia.titolo} + ' - Parrocchia Trasfigurazione'">
+        Notizia - Parrocchia Trasfigurazione
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/stile.css}">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+<!-- TITOLO PAGINA -->
+
+<section class="fascia-titolo">
+
+    <div class="fascia-titolo-contenuto">
+
+        <div>
+
+            <h1>
+                Notizia
+            </h1>
+
+            <p class="breadcrumb">
+
+                <a th:href="@{/}">
+                    Home
+                </a>
+
+                /
+
+                <a th:href="@{/notizie}">
+                    Notizie
+                </a>
+
+                /
+
+                <span th:text="${notizia.titolo}">
+                    Notizia
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DETTAGLIO -->
+
+<section class="sezione">
+
+    <div class="container">
+
+        <div class="dettaglio">
+
+            <!-- Torna alla lista -->
+
+            <a class="dettaglio-torna"
+               th:href="@{/notizie}">
+                ← Torna alle notizie
+            </a>
+
+
+            <!-- Data -->
+
+            <div class="dettaglio-meta">
+
+                <span th:text="${#temporals.format(notizia.data, 'dd/MM/yyyy HH:mm')}">
+                    01/01/2026 18:00
+                </span>
+
+            </div>
+
+
+            <!-- Titolo -->
+
+            <h2 class="dettaglio-titolo"
+                th:text="${notizia.titolo}">
+                Titolo della notizia
+            </h2>
+
+
+            <!-- Testo -->
+
+            <div class="dettaglio-testo"
+                 th:text="${notizia.descrizione}">
+                Testo della notizia.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-griglia">
+
+            <div>
+
+                <h3 class="footer-titolo">
+                    Parrocchia Trasfigurazione
+                </h3>
+
+                <p class="footer-testo">
+                    La nostra comunità parrocchiale.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="footer-titolo">
+                    Navigazione
+                </h3>
+
+                <ul class="footer-links">
+
+                    <li>
+                        <a th:href="@{/}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/notizie}">
+                            Notizie
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/eventi}">
+                            Eventi
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/iniziative}">
+                            Iniziative
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-copy">
+
+            © Parrocchia Trasfigurazione
+
+        </div>
+
+    </div>
+
+</footer>
+
+</body>
+</html>

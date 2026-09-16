@@ -1,366 +1,849 @@
-/* ==========================================================================
-   Variabili - Palette Colori
-   Marrone, Legno, Beige, Avana, Bianco e Celestino pastello
-   ========================================================================== */
-:root {
-    --marrone: #4A3018;        /* Marrone scuro */
-    --legno: #8B5A2B;          /* Legno caldo */
-    --avana: #D2B48C;          /* Avana */
-    --beige: #F5F5DC;          /* Beige */
-    --bianco: #FFFFFF;         /* Bianco */
-    --celestino: #B3DDF2;      /* Celestino pastello */
+/* =========================================================
+   PARROCCHIA TRASFIGURAZIONE
+   Foglio di stile unico del sito
+   ========================================================= */
 
-    /* Colori testo e accessori */
-    --testo-principale: #332211;
-    --testo-sfumato: #6b4d31;
+/* ---------- Variabili colore ---------- */
+:root {
+  --marrone: #4A3018;
+  --legno: #8B5A2B;
+  --avana: #D2B48C;
+  --beige: #F5F5DC;
+  --bianco: #FFFFFF;
+  --celestino: #B3DDF2;
+
+  --testo-principale: #332211;
+  --testo-sfumato: #6b4d31;
+
+  --ombra: 0 4px 14px rgba(74, 48, 24, 0.15);
+  --ombra-hover: 0 10px 24px rgba(74, 48, 24, 0.25);
+  --raggio: 10px;
+  --raggio-piccolo: 6px;
+
+  --font-titoli: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-testo: 'Lato', 'Segoe UI', Arial, sans-serif;
 }
 
-/* ==========================================================================
-   Reset e stili di base
-   ========================================================================== */
+/* ---------- Reset di base ---------- */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--beige);
-    color: var(--testo-principale);
-    line-height: 1.6;
+  font-family: var(--font-testo);
+  color: var(--testo-principale);
+  background-color: var(--bianco);
+  line-height: 1.6;
 }
 
-h1, h2, h3 {
-    color: var(--marrone);
-    margin-bottom: 1rem;
-    margin-top: 1.5rem;
+img {
+  max-width: 100%;
+  display: block;
 }
 
 a {
-    color: var(--legno);
-    text-decoration: none;
-    font-weight: 600;
+  text-decoration: none;
+  color: inherit;
 }
 
-a:hover {
-    color: var(--marrone);
-    text-decoration: underline;
+ul {
+  list-style: none;
 }
 
-/* ==========================================================================
-   Layout Generale
-   ========================================================================== */
-/* Contenitori principali per i due tipi di pagina */
-.admin-contenuto, 
-.home-contenuto {
-    max-width: 1000px;
-    margin: 2.5rem auto;
-    padding: 0 1.5rem;
+h1, h2, h3, h4 {
+  font-family: var(--font-titoli);
+  color: var(--marrone);
+  line-height: 1.25;
 }
 
-/* ==========================================================================
-   Sezione Admin & Registrazione (File 1 & 3)
-   ========================================================================== */
-
-/* Messaggio di Errore */
-.msg-errore {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    border: 1px solid #f5c6cb;
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
-    font-weight: bold;
+.container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-/* Tabella delle richieste */
-.tabella-richieste {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 3rem;
-    background-color: var(--bianco);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-    overflow: hidden;
+/* ---------- Bottoni ---------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-testo);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  padding: 12px 28px;
+  border-radius: var(--raggio-piccolo);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-.tabella-richieste th, 
-.tabella-richieste td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--avana);
+.btn:hover {
+  transform: translateY(-2px);
 }
 
-.tabella-richieste th {
-    background-color: var(--legno);
-    color: var(--bianco);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+.btn-primario {
+  background-color: var(--legno);
+  color: var(--bianco);
 }
 
-.tabella-richieste tbody tr:last-child td {
-    border-bottom: none;
+.btn-primario:hover {
+  background-color: var(--marrone);
 }
 
-/* Effetto hover righe tabella: usa il celestino pastello */
-.tabella-richieste tbody tr:hover {
-    background-color: var(--celestino); 
-    color: var(--marrone);
+.btn-secondario {
+  background-color: transparent;
+  color: var(--marrone);
+  border-color: var(--marrone);
 }
 
-/* Form principale nella pagina admin (Registra nuovo utente) */
-.admin-contenuto > form {
-    background-color: var(--bianco);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--avana);
+.btn-secondario:hover {
+  background-color: var(--marrone);
+  color: var(--bianco);
 }
 
-.admin-contenuto > form div {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
+.btn-pericolo {
+  background-color: #b23b3b;
+  color: var(--bianco);
 }
 
-.admin-contenuto > form label {
-    width: 130px;
-    font-weight: 600;
-    color: var(--marrone);
+.btn-pericolo:hover {
+  background-color: #8a2c2c;
 }
 
-.admin-contenuto form input[type="text"],
-.admin-contenuto form input[type="email"],
-.admin-contenuto form input[type="password"] {
-    flex: 1;
-    max-width: 400px;
-    padding: 10px;
-    border: 1px solid var(--avana);
-    border-radius: 6px;
-    background-color: var(--bianco);
-    color: var(--testo-principale);
-    transition: all 0.3s;
+.btn-piccolo {
+  padding: 6px 16px;
+  font-size: 0.82rem;
 }
 
-.admin-contenuto form input:focus {
-    outline: none;
-    border-color: var(--legno);
-    box-shadow: 0 0 0 3px var(--celestino);
+/* =========================================================
+   HEADER / NAVBAR (riquadroAltissimo)
+   ========================================================= */
+.header-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bianco);
+  border-bottom: 1px solid var(--avana);
 }
 
-/* Pulsante salva form */
-.admin-contenuto > form button {
-    margin-top: 15px;
-    margin-left: 130px; /* Allinea col form */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 24px;
+  max-width: 1150px;
+  margin: 0 auto;
 }
 
-/* Form inline dentro la tabella (es. elimina) - annulla lo stile generale */
-.tabella-richieste form {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    box-shadow: none;
-    border: none;
+.navbar-logo {
+  font-family: var(--font-titoli);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--marrone);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
-/* Stili Bottoni Generici */
-button {
-    background-color: var(--legno);
-    color: var(--bianco);
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
+.navbar-logo span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--testo-sfumato);
+  text-transform: none;
 }
 
-button:hover {
-    background-color: var(--marrone);
+.navbar-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 26px;
 }
 
-button:active {
-    transform: scale(0.97);
+.navbar-links a {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--testo-principale);
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-/* Bottone Elimina (Personalizzato per distacco) */
-.btn-elimina {
-    background-color: #d9534f;
-    padding: 8px 15px;
-    font-size: 0.9rem;
-    font-weight: normal;
+.navbar-links a:hover,
+.navbar-links a.attivo {
+  color: var(--legno);
+  border-bottom-color: var(--legno);
 }
 
-.btn-elimina:hover {
-    background-color: #c9302c;
+.navbar-links .navbar-cta {
+  background-color: var(--legno);
+  color: var(--bianco);
+  padding: 8px 18px;
+  border-radius: var(--raggio-piccolo);
+  border-bottom: none;
 }
 
-/* ==========================================================================
-   Sezioni Home Page Parrocchia (File 2)
-   ========================================================================== */
-
-section {
-    margin-bottom: 3rem;
+.navbar-links .navbar-cta:hover {
+  background-color: var(--marrone);
+  color: var(--bianco);
 }
 
-/* Stile Box Contenitori (Informazioni, Notizie, Eventi) */
-.box-informazioni,
-.box-notizie,
-.box-eventi {
-    background-color: var(--bianco);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(74, 48, 24, 0.08);
-    border-top: 6px solid var(--legno);
+.navbar-utente {
+  font-size: 0.85rem;
+  color: var(--testo-sfumato);
+  font-style: italic;
 }
 
-.box-informazioni p {
-    margin-bottom: 10px;
+/* menu a tendina area amministrazione */
+.navbar-dropdown {
+  position: relative;
 }
 
-.box-informazioni ul {
-    list-style-type: none;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--bianco);
+  box-shadow: var(--ombra);
+  border-radius: var(--raggio-piccolo);
+  min-width: 190px;
+  padding: 8px 0;
+  margin-top: 10px;
 }
 
-.box-informazioni li {
-    background-color: var(--beige);
-    padding: 6px 15px;
-    border-radius: 20px;
-    border: 1px solid var(--avana);
-    color: var(--marrone);
-    font-weight: 500;
+.navbar-dropdown:hover .navbar-dropdown-content,
+.navbar-dropdown:focus-within .navbar-dropdown-content {
+  display: block;
 }
 
-/* Stile Card per Notizie ed Eventi */
-.card-notizia, 
-.card-evento {
-    background-color: var(--beige);
-    padding: 18px 25px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    border-left: 5px solid var(--celestino); /* Tocco pastello per le card */
-    border-radius: 0 8px 8px 0;
-    transition: box-shadow 0.3s, transform 0.3s;
+.navbar-dropdown-content a {
+  display: block;
+  padding: 10px 18px;
+  text-transform: none;
+  font-weight: 400;
+  border-bottom: none;
 }
 
-.card-notizia:hover, 
-.card-evento:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transform: translateY(-2px);
+.navbar-dropdown-content a:hover {
+  background-color: var(--beige);
+  color: var(--marrone);
 }
 
-.card-notizia h3, 
-.card-evento h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
-    color: var(--marrone);
-    font-size: 1.3rem;
+/* =========================================================
+   HERO (home page)
+   ========================================================= */
+.hero {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--marrone);
+  background-image: linear-gradient(rgba(51, 34, 17, 0.55), rgba(51, 34, 17, 0.55)), url('/images/hero-parrocchia.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 40px 20px;
 }
 
-.data-notizia, 
-.card-evento span {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--testo-sfumato);
-    margin-bottom: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
+.hero-contenuto {
+  max-width: 850px;
+  color: var(--bianco);
 }
 
-/* Box Call to Action (CTA) */
-.box-cta {
-    background-color: var(--celestino);
-    padding: 40px;
-    text-align: center;
-    border-radius: 12px;
-    border: 2px dashed var(--legno);
-    box-shadow: none;
+.hero-titolo {
+  font-size: 2.6rem;
+  color: var(--bianco);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-.box-cta p {
-    color: var(--marrone);
-    font-size: 1.2rem;
-    margin-bottom: 25px;
-    font-weight: 500;
+.hero-sottotitolo {
+  margin-top: 18px;
+  font-size: 1.15rem;
+  color: var(--celestino);
 }
 
-.btn-cta {
-    display: inline-block;
-    background-color: var(--marrone);
-    color: var(--bianco);
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+/* =========================================================
+   SEZIONI GENERICHE
+   ========================================================= */
+.sezione {
+  padding: 70px 0;
 }
 
-.btn-cta:hover {
-    background-color: var(--legno);
-    color: var(--bianco);
-    text-decoration: none;
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(74, 48, 24, 0.3);
+.sezione-alt {
+  background-color: var(--beige);
 }
 
-
-.riquadro-altissimo-nav  {
-    background-color: var(--testo-principale);
-    margin-top: 50px;
-    height: 40px;
-
-
+.sezione-intestazione {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 44px auto;
 }
 
-
-.riquadro-altissimo-contenuto  {
-    background-color: var(--celestino);
-    height: 100px;
+.sezione-titolo {
+  font-size: 2rem;
+  margin-bottom: 12px;
 }
 
-.riquadro-altissimo-nav > a {
-    color: var(--bianco);
-    text-decoration: none;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: 
-        background-color 0.2s ease,
-        color 0.2s ease;
-
+.sezione-sottotitolo {
+  color: var(--testo-sfumato);
+  font-size: 1.02rem;
 }
 
-.riquadro-altissimo-nav > a:hover {
-    background-color: var(--legno);
-    color:var(--bianco)
+.sezione-piede {
+  text-align: center;
+  margin-top: 40px;
 }
 
-
-.nav-button {
-    background-color: #d4af37; /* Oro */
-    color: white;
-    padding: 10px 25px;
-    text-decoration: none; 
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border: 2px solid transparent;
-    cursor: pointer;
-    text-align: center;
+.breadcrumb {
+  font-size: 0.85rem;
+  color: var(--celestino);
 }
 
-.nav-button:hover {
-    background-color: #bfa133; /* Oro leggermente più scuro */
-    border: 2px solid #997a00;
+.breadcrumb a {
+  color: var(--bianco);
+}
+
+/* fascia titolo di pagina interna (stile "Catechesi ed Incontri") */
+.fascia-titolo {
+  position: relative;
+  min-height: 190px;
+  display: flex;
+  align-items: center;
+  background-color: var(--marrone);
+  background-image: linear-gradient(rgba(51, 34, 17, 0.65), rgba(51, 34, 17, 0.65)), url('/images/fascia-titolo.jpg');
+  background-size: cover;
+  background-position: center;
+  color: var(--bianco);
+}
+
+.fascia-titolo-contenuto {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.fascia-titolo h1 {
+  color: var(--bianco);
+  font-size: 2.1rem;
+}
+
+/* =========================================================
+   BLOCCO INFORMAZIONI / ORARI MESSE
+   ========================================================= */
+.orari-griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
+  margin-top: 10px;
+}
+
+.orario-scheda {
+  background-color: var(--bianco);
+  border: 1px solid var(--avana);
+  border-radius: var(--raggio);
+  padding: 30px 26px;
+  text-align: center;
+  box-shadow: var(--ombra);
+}
+
+.orario-scheda-titolo {
+  font-family: var(--font-titoli);
+  font-size: 1.2rem;
+  color: var(--marrone);
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--avana);
+  padding-bottom: 10px;
+}
+
+.orario-lista li {
+  font-size: 1.05rem;
+  padding: 4px 0;
+  color: var(--testo-principale);
+}
+
+.orario-lista li + li {
+  border-top: 1px dashed var(--avana);
+}
+
+.orario-vuoto {
+  color: var(--testo-sfumato);
+  font-style: italic;
+}
+
+.info-contatti {
+  margin-top: 30px;
+  text-align: center;
+  color: var(--testo-sfumato);
+}
+
+.info-contatti strong {
+  color: var(--marrone);
+}
+
+/* =========================================================
+   GRIGLIA DI SCHEDE (eventi / iniziative / catechesi-style)
+   ========================================================= */
+.schede-griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.scheda-griglia-compatta {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.scheda {
+  display: block;
+  background-color: var(--bianco);
+  border-radius: var(--raggio);
+  overflow: hidden;
+  box-shadow: var(--ombra);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--avana);
+}
+
+.scheda:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--ombra-hover);
+}
+
+.scheda-immagine {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  background-color: var(--avana);
+}
+
+.scheda-immagine-segnaposto {
+  width: 100%;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--avana), var(--legno));
+  color: var(--bianco);
+  font-family: var(--font-titoli);
+  font-size: 2.4rem;
+}
+
+.scheda-corpo {
+  padding: 22px 24px 26px 24px;
+}
+
+.scheda-data {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--legno);
+  margin-bottom: 8px;
+}
+
+.scheda-titolo {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.scheda-testo {
+  font-size: 0.95rem;
+  color: var(--testo-sfumato);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.scheda-meta {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--testo-sfumato);
+}
+
+.scheda-link-esplicito {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 700;
+  color: var(--legno);
+  border-bottom: 2px solid var(--legno);
+}
+
+/* =========================================================
+   PAGINA DI DETTAGLIO (evento / iniziativa / notizia)
+   ========================================================= */
+.dettaglio {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.dettaglio-immagine {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--raggio);
+  margin-bottom: 30px;
+}
+
+.dettaglio-meta {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--legno);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.dettaglio-titolo {
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+.dettaglio-testo {
+  font-size: 1.05rem;
+  color: var(--testo-principale);
+  white-space: pre-line;
+}
+
+.dettaglio-riquadro {
+  margin-top: 40px;
+  padding: 24px;
+  background-color: var(--beige);
+  border-radius: var(--raggio);
+  border: 1px solid var(--avana);
+}
+
+.dettaglio-riquadro h3 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+
+.dettaglio-torna {
+  display: inline-block;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: var(--testo-sfumato);
+}
+
+.dettaglio-torna:hover {
+  color: var(--marrone);
+}
+
+/* =========================================================
+   NOTIZIE (solo titolo che fa da link)
+   ========================================================= */
+.notizie-lista {
+  max-width: 760px;
+  margin: 0 auto;
+  border-top: 1px solid var(--avana);
+}
+
+.notizia-riga {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 6px;
+  border-bottom: 1px solid var(--avana);
+  transition: padding-left 0.2s ease;
+}
+
+.notizia-riga:hover {
+  padding-left: 10px;
+  background-color: var(--beige);
+}
+
+.notizia-titolo {
+  font-family: var(--font-titoli);
+  font-size: 1.15rem;
+  color: var(--marrone);
+  font-weight: 700;
+}
+
+.notizia-riga:hover .notizia-titolo {
+  color: var(--legno);
+}
+
+.notizia-data {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  color: var(--testo-sfumato);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   FORM (login, richiesta registrazione, admin)
+   ========================================================= */
+.form-riquadro {
+  max-width: 520px;
+  margin: 0 auto;
+  background-color: var(--bianco);
+  border: 1px solid var(--avana);
+  border-radius: var(--raggio);
+  box-shadow: var(--ombra);
+  padding: 40px 36px;
+}
+
+.form-riquadro-largo {
+  max-width: 720px;
+}
+
+.form-gruppo {
+  margin-bottom: 22px;
+}
+
+.form-gruppo label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--marrone);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.form-gruppo input[type="text"],
+.form-gruppo input[type="password"],
+.form-gruppo input[type="email"],
+.form-gruppo input[type="date"],
+.form-gruppo input[type="time"],
+.form-gruppo textarea,
+.form-gruppo select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--avana);
+  border-radius: var(--raggio-piccolo);
+  font-family: var(--font-testo);
+  font-size: 1rem;
+  color: var(--testo-principale);
+  background-color: var(--beige);
+}
+
+.form-gruppo textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.form-gruppo input:focus,
+.form-gruppo textarea:focus,
+.form-gruppo select:focus {
+  outline: none;
+  border-color: var(--legno);
+  background-color: var(--bianco);
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-checkbox input {
+  width: auto;
+}
+
+.form-azioni {
+  margin-top: 28px;
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+.form-errore {
+  display: block;
+  color: #b23b3b;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.messaggio-globale {
+  text-align: center;
+  margin: 0 auto 26px auto;
+  max-width: 720px;
+}
+
+.avviso {
+  padding: 16px 20px;
+  border-radius: var(--raggio-piccolo);
+  font-size: 0.95rem;
+}
+
+.avviso-successo {
+  background-color: #e2f3e5;
+  color: #2f6b3a;
+  border: 1px solid #b8ddc0;
+}
+
+.avviso-errore {
+  background-color: #fbe6e6;
+  color: #8a2c2c;
+  border: 1px solid #f0bcbc;
+}
+
+/* =========================================================
+   TABELLE (area admin)
+   ========================================================= */
+.tabella-riquadro {
+  overflow-x: auto;
+  border: 1px solid var(--avana);
+  border-radius: var(--raggio);
+  box-shadow: var(--ombra);
+}
+
+.tabella {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bianco);
+}
+
+.tabella th,
+.tabella td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.tabella th {
+  background-color: var(--marrone);
+  color: var(--bianco);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.tabella tbody tr:nth-child(even) {
+  background-color: var(--beige);
+}
+
+.tabella tbody tr:hover {
+  background-color: var(--celestino);
+}
+
+.tabella-vuota {
+  padding: 30px;
+  text-align: center;
+  color: var(--testo-sfumato);
+  font-style: italic;
+}
+
+.admin-colonne {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .admin-colonne {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-blocco-titolo {
+  margin-bottom: 18px;
+  font-size: 1.3rem;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background-color: var(--marrone);
+  color: var(--beige);
+  padding: 50px 0 24px 0;
+  margin-top: 40px;
+}
+
+.footer-griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(245, 245, 220, 0.2);
+}
+
+.footer-titolo {
+  color: var(--bianco);
+  font-family: var(--font-titoli);
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+}
+
+.footer-testo {
+  font-size: 0.9rem;
+  color: var(--avana);
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  font-size: 0.9rem;
+  color: var(--avana);
+}
+
+.footer-links a:hover {
+  color: var(--celestino);
+}
+
+.footer-copy {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 0.8rem;
+  color: var(--avana);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 720px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    gap: 16px;
+  }
+
+  .hero {
+    min-height: 440px;
+  }
+
+  .hero-titolo {
+    font-size: 1.9rem;
+  }
+
+  .sezione {
+    padding: 50px 0;
+  }
+
+  .form-riquadro {
+    padding: 28px 22px;
+  }
+
+  .notizia-riga {
+    flex-direction: column;
+    gap: 4px;
+  }
 }

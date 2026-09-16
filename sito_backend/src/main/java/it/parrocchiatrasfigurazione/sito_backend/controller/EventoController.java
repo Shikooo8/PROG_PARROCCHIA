@@ -3,6 +3,7 @@ package it.parrocchiatrasfigurazione.sito_backend.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.parrocchiatrasfigurazione.sito_backend.service.EventoService;
 
@@ -20,4 +21,12 @@ public class EventoController {
         model.addAttribute("eventi", eventoService.getEventiVisibili());
         return "eventi/list";
     }
+
+    @GetMapping("/eventi/{id}")
+    public String mostraEvento(@PathVariable Long id, Model model) {
+        model.addAttribute("evento", eventoService.getEvento(id));
+        model.addAttribute("pagina", "eventi");
+        return "eventi/show";
+    }
+
 }

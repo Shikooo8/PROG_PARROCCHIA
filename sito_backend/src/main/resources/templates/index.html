@@ -1,65 +1,468 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Parrocchia della Trasfigurazione</title>
-  <link rel="stylesheet" th:href="@{/css/stile.css}" />
-  <link rel="icon" type="image/jpeg" th:href="@{/css/cross.jpg}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Parrocchia Trasfigurazione</title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+
+    <link rel="icon" type="image/jpeg" th:href="@{/images/cross.jpg}">
+
+
 </head>
+
 <body>
-  <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
 
-  <main class="home-contenuto">
+    <!-- =====================================================
+     HEADER
+     ===================================================== -->
 
-    <section class="box-informazioni" th:if="${informazioni}">
-      <h1>Orari e informazioni</h1>
-      <p><strong>Indirizzo:</strong> <span th:text="${informazioni.indirizzo}">Via...</span></p>
-      <p><strong>Apertura:</strong>
-        <span th:text="${informazioni.orarioApertura}">08:00</span> -
-        <span th:text="${informazioni.orarioChiusura}">19:00</span>
-      </p>
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
 
-      <div>
-        <h3>Sante Messe feriali</h3>
-        <ul>
-          <li th:each="orario : ${informazioni.orarioMessaFeriale}" th:text="${orario}">18:30</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Sante Messe festive</h3>
-        <ul>
-          <li th:each="orario : ${informazioni.orarioMessaFestivo}" th:text="${orario}">10:00</li>
-        </ul>
-      </div>
+
+    <!-- =====================================================
+     HERO
+     ===================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-contenuto">
+
+            <h1 class="hero-titolo">
+                Parrocchia Trasfigurazione
+            </h1>
+
+            <p class="hero-sottotitolo">
+                Una comunità, un cammino, una casa per tutti.
+            </p>
+
+            <div class="sezione-piede">
+
+                <a class="btn btn-primario" th:href="@{/iniziative}">
+                    Scopri le iniziative
+                </a>
+
+                <a class="btn btn-secondario" th:href="@{/eventi}">
+                    Guarda gli eventi
+                </a>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <section class="box-notizie">
-      <h2>Ultime notizie</h2>
-      <div th:if="${notizie == null or notizie.isEmpty()}">Nessuna notizia al momento.</div>
-      <article th:each="notizia : ${notizie}" class="card-notizia">
-        <h3 th:text="${notizia.titolo}">Titolo notizia</h3>
-        <p th:text="${notizia.descrizione}">Descrizione...</p>
-        <span class="data-notizia" th:text="${notizia.data}">01/01/2026</span>
-      </article>
-      <a th:href="@{/notizie}">Vedi tutte le notizie</a>
+
+    <!-- =====================================================
+     INFORMAZIONI GENERALI / ORARI
+     ===================================================== -->
+
+    <section class="sezione">
+
+        <div class="container">
+
+            <div class="sezione-intestazione">
+
+                <h2 class="sezione-titolo">
+                    Informazioni e orari
+                </h2>
+
+                <p class="sezione-sottotitolo">
+                    Tutte le informazioni principali della nostra
+                    comunità parrocchiale.
+                </p>
+
+            </div>
+
+
+            <div class="orari-griglia">
+
+                <!-- Orari messe feriali -->
+
+                <div class="orario-scheda">
+
+                    <h3 class="orario-scheda-titolo">
+                        Messe feriali
+                    </h3>
+
+                    <ul class="orario-lista">
+
+                        <li th:each="orario : ${informazioni.orarioMessaFeriale}" th:text="${orario}">
+                            18:00
+                        </li>
+
+                        <li class="orario-vuoto" th:if="${informazioni.orarioMessaFeriale == null
+                                or #lists.isEmpty(informazioni.orarioMessaFeriale)}">
+                            Nessun orario disponibile
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Orari messe festive -->
+
+                <div class="orario-scheda">
+
+                    <h3 class="orario-scheda-titolo">
+                        Messe festive
+                    </h3>
+
+                    <ul class="orario-lista">
+
+                        <li th:each="orario : ${informazioni.orarioMessaFestivo}" th:text="${orario}">
+                            10:30
+                        </li>
+
+                        <li class="orario-vuoto" th:if="${informazioni.orarioMessaFestivo == null
+                                or #lists.isEmpty(informazioni.orarioMessaFestivo)}">
+                            Nessun orario disponibile
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <!-- Informazioni di contatto -->
+
+            <div class="info-contatti" th:if="${informazioni != null}">
+
+                <p th:if="${informazioni.indirizzo != null}">
+                    <strong>Indirizzo:</strong>
+                    <span th:text="${informazioni.indirizzo}">
+                        Via della Parrocchia 1
+                    </span>
+                </p>
+
+                <p th:if="${informazioni.orarioApertura != null
+                       and informazioni.orarioChiusura != null}">
+
+                    <strong>Segreteria:</strong>
+
+                    <span th:text="${informazioni.orarioApertura}">
+                        09:00
+                    </span>
+
+                    -
+
+                    <span th:text="${informazioni.orarioChiusura}">
+                        12:00
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <section class="box-eventi">
-      <h2>Prossimi eventi</h2>
-      <div th:if="${eventi == null or eventi.isEmpty()}">Nessun evento in programma.</div>
-      <article th:each="evento : ${eventi}" class="card-evento">
-        <h3 th:text="${evento.titolo}">Titolo evento</h3>
-        <span th:text="${evento.data}">01/01/2026</span>
-        <p th:text="${evento.descrizione}">Descrizione...</p>
-      </article>
-      <a th:href="@{/eventi}">Vedi tutti gli eventi</a>
+
+    <!-- =====================================================
+     ULTIME NOTIZIE
+     ===================================================== -->
+
+    <section class="sezione sezione-alt">
+
+        <div class="container">
+
+            <div class="sezione-intestazione">
+
+                <h2 class="sezione-titolo">
+                    Ultime notizie
+                </h2>
+
+                <p class="sezione-sottotitolo">
+                    Le ultime comunicazioni della parrocchia.
+                </p>
+
+            </div>
+
+
+            <div class="notizie-lista">
+
+                <a class="notizia-riga" th:each="notizia : ${notizie}" th:href="@{/notizie/{id}(id=${notizia.id})}">
+
+                    <span class="notizia-titolo" th:text="${notizia.titolo}">
+                        Titolo della notizia
+                    </span>
+
+                    <span class="notizia-data" th:text="${#temporals.format(notizia.data, 'dd/MM/yyyy HH:mm')}">
+                        01/01/2026
+                    </span>
+
+                </a>
+
+
+                <div class="tabella-vuota" th:if="${notizie == null or #lists.isEmpty(notizie)}">
+
+                    Nessuna notizia disponibile.
+
+                </div>
+
+            </div>
+
+
+            <div class="sezione-piede">
+
+                <a class="btn btn-secondario" th:href="@{/notizie}">
+                    Tutte le notizie
+                </a>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <section class="box-cta" sec:authorize="isAnonymous()" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-      <p>Vuoi registrarti? Compila la richiesta e un amministratore ti attiverà l'account.</p>
-      <a th:href="@{/richiesta-registrazione}" class="btn-cta">Richiedi la registrazione</a>
+
+    <!-- =====================================================
+     PROSSIMI EVENTI
+     ===================================================== -->
+
+    <section class="sezione">
+
+        <div class="container">
+
+            <div class="sezione-intestazione">
+
+                <h2 class="sezione-titolo">
+                    Prossimi eventi
+                </h2>
+
+                <p class="sezione-sottotitolo">
+                    Scopri gli appuntamenti della nostra comunità.
+                </p>
+
+            </div>
+
+
+            <div class="schede-griglia">
+
+                <a class="scheda" th:each="evento : ${eventi}" th:href="@{/eventi/{id}(id=${evento.id})}">
+
+                    <!--
+                    Per ora utilizziamo l'immagine segnaposto.
+                    Quando aggiungerai l'immagine a Evento,
+                    questo blocco potrà essere sostituito
+                    con una img.
+                -->
+
+                    <div class="scheda-immagine-segnaposto">
+                        ✝
+                    </div>
+
+                    <div class="scheda-corpo">
+
+                        <span class="scheda-data" th:text="${#temporals.format(evento.data, 'dd/MM/yyyy')}">
+                            25/12/2026
+                        </span>
+
+                        <h3 class="scheda-titolo" th:text="${evento.titolo}">
+                            Titolo evento
+                        </h3>
+
+                        <p class="scheda-testo" th:text="${evento.descrizione}">
+                            Descrizione dell'evento.
+                        </p>
+
+                        <span class="scheda-link-esplicito">
+                            Scopri di più
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <div class="tabella-vuota" th:if="${eventi == null or #lists.isEmpty(eventi)}">
+
+                    Nessun evento in programma.
+
+                </div>
+
+            </div>
+
+
+            <div class="sezione-piede">
+
+                <a class="btn btn-secondario" th:href="@{/eventi}">
+                    Tutti gli eventi
+                </a>
+
+            </div>
+
+        </div>
+
     </section>
 
-  </main>
+
+    <!-- =====================================================
+     INIZIATIVE
+     ===================================================== -->
+
+    <section class="sezione sezione-alt">
+
+        <div class="container">
+
+            <div class="sezione-intestazione">
+
+                <h2 class="sezione-titolo">
+                    Iniziative
+                </h2>
+
+                <p class="sezione-sottotitolo">
+                    Le attività e le iniziative della comunità.
+                </p>
+
+            </div>
+
+
+            <div class="schede-griglia">
+
+                <a class="scheda" th:each="iniziativa : ${iniziative}"
+                    th:href="@{/iniziative/{id}(id=${iniziativa.id})}">
+
+                    <div class="scheda-immagine-segnaposto">
+                        ✝
+                    </div>
+
+                    <div class="scheda-corpo">
+
+                        <h3 class="scheda-titolo" th:text="${iniziativa.titolo}">
+                            Titolo iniziativa
+                        </h3>
+
+                        <p class="scheda-testo" th:text="${iniziativa.descrizione}">
+                            Descrizione dell'iniziativa.
+                        </p>
+
+                        <span class="scheda-link-esplicito">
+                            Scopri di più
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <div class="tabella-vuota" th:if="${iniziative == null
+                         or #lists.isEmpty(iniziative)}">
+
+                    Nessuna iniziativa disponibile.
+
+                </div>
+
+            </div>
+
+
+            <div class="sezione-piede">
+
+                <a class="btn btn-secondario" th:href="@{/iniziative}">
+                    Tutte le iniziative
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-griglia">
+
+                <div>
+
+                    <h3 class="footer-titolo">
+                        Parrocchia Trasfigurazione
+                    </h3>
+
+                    <p class="footer-testo">
+                        La nostra comunità parrocchiale.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="footer-titolo">
+                        Navigazione
+                    </h3>
+
+                    <ul class="footer-links">
+
+                        <li>
+                            <a th:href="@{/}">
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/notizie}">
+                                Notizie
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/eventi}">
+                                Eventi
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/iniziative}">
+                                Iniziative
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="footer-titolo">
+                        Contatti
+                    </h3>
+
+                    <p class="footer-testo" th:if="${informazioni != null}" th:text="${informazioni.indirizzo}">
+                        Indirizzo della parrocchia
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-copy">
+
+                © Parrocchia Trasfigurazione
+
+            </div>
+
+        </div>
+
+    </footer>
+
 </body>
+
 </html>

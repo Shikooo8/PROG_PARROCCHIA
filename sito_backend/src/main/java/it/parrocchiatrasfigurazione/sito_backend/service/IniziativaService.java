@@ -22,4 +22,8 @@ public class IniziativaService {
         return iniziativaRepository.findByVisibilitàTrue();
     }
 
+    public Iniziativa getIniziativa(Long id) {
+        return iniziativaRepository.findById(id).get();
+    }
+
 }

@@ -38,7 +38,7 @@ public class UtenteService {
         credenziali.setPassword(passwordEncoder.encode(passwordInChiaro));
         credenziali.setRuolo(Credenziali.DEFAULT_ROLE);
         credenziali.setUtente(utente);
-        utente.setCredenziali(credenziali);
+   //     utente.setCredenziali(credenziali);
 
         // grazie al cascade = CascadeType.ALL su Credenziali -> Utente,
         // salvare le credenziali salva anche l'utente collegato

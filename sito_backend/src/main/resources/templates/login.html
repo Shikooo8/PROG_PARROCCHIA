@@ -1,42 +1,244 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Login</title>
-     <link rel="stylesheet" th:href="@{/css/stile.css}" />
-  <link rel="icon" type="image/jpeg" th:href="@{/css/cross.jpg}">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Parrocchia Trasfigurazione</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/stile.css}">
 
 </head>
+
 <body>
-    <header>
-        <h1>Benvenuto! Loggati o Chiedi di essere registrato</h1>
-        <p><a th:href="@{/}" class="header-link">Annulla</a></p>
-    </header>
 
-    <div class="nav-container">
-        <form th:action="@{/login}" method="POST" class="form-box">
+<!-- HEADER -->
+
+<div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
 
 
+<!-- TITOLO PAGINA -->
 
-            <div class="form-group">
-                <label class="form-label">Username:</label>
-                <input type="text" name="username" required />
-            </div>
+<section class="fascia-titolo">
 
-            <div class="form-group">
-                <label class="form-label">Password:</label>
-                <input type="password" name="password" required />
+    <div class="fascia-titolo-contenuto">
 
+        <div>
 
-            </div>
+            <h1>
+                Accesso
+            </h1>
 
-            <button type="submit" class="nav-button">Login</button>
-        </form>
-        <a th:href="@{/richiesta-registrazione}" class="nav-button">
-            <span>Manda richiesta per registrarti</span>
-        </a>
+            <p class="breadcrumb">
+                <a th:href="@{/}">
+                    Home
+                </a>
+                / Login
+            </p>
+
+        </div>
+
     </div>
-    
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section class="sezione">
+
+    <div class="container">
+
+        <!-- Messaggio di errore -->
+
+        <div class="messaggio-globale"
+             th:if="${param.error}">
+
+            <div class="avviso avviso-errore">
+
+                Username o password non corretti.
+
+            </div>
+
+        </div>
+
+
+        <!-- Logout effettuato -->
+
+        <div class="messaggio-globale"
+             th:if="${param.logout}">
+
+            <div class="avviso avviso-successo">
+
+                Logout effettuato correttamente.
+
+            </div>
+
+        </div>
+
+
+        <div class="form-riquadro">
+
+            <div class="sezione-intestazione">
+
+                <h2 class="sezione-titolo">
+                    Login
+                </h2>
+
+                <p class="sezione-sottotitolo">
+                    Accedi con le credenziali che ti sono
+                    state assegnate.
+                </p>
+
+            </div>
+
+
+            <form th:action="@{/login}"
+                  method="post">
+
+                <div class="form-gruppo">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input type="text"
+                           id="username"
+                           name="username"
+                           autocomplete="username"
+                           required>
+
+                </div>
+
+
+                <div class="form-gruppo">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           autocomplete="current-password"
+                           required>
+
+                </div>
+
+
+                <div class="form-azioni">
+
+                    <a class="btn btn-secondario"
+                       th:href="@{/}">
+                        Annulla
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primario">
+                        Accedi
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div class="info-contatti">
+
+                <p>
+                    Non hai ancora un account?
+                </p>
+
+                <p>
+                    <a class="scheda-link-esplicito"
+                       th:href="@{/richiesta-registrazione}">
+                        Richiedi la registrazione
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-griglia">
+
+            <div>
+
+                <h3 class="footer-titolo">
+                    Parrocchia Trasfigurazione
+                </h3>
+
+                <p class="footer-testo">
+                    La nostra comunità parrocchiale.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3 class="footer-titolo">
+                    Navigazione
+                </h3>
+
+                <ul class="footer-links">
+
+                    <li>
+                        <a th:href="@{/}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/notizie}">
+                            Notizie
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/eventi}">
+                            Eventi
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/iniziative}">
+                            Iniziative
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-copy">
+
+            © Parrocchia Trasfigurazione
+
+        </div>
+
+    </div>
+
+</footer>
 
 </body>
 </html>

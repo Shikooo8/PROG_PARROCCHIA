@@ -30,8 +30,7 @@ public class EventoService {
 
     @Transactional(readOnly = true)
     public Evento getEvento(Long id) {
-        return eventoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Evento con id " + id + " non trovato"));
+        return eventoRepository.findById(id).get();
     }
 
     @Transactional

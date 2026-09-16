@@ -22,6 +22,11 @@ public class NotiziaService {
         return notiziaRepository.findAllByOrderByDataDesc();
     }
 
+     @Transactional(readOnly = true)
+    public Notizia getNotizia(Long id) {
+        return notiziaRepository.findById(id).get();
+        }
+
     @Transactional(readOnly = true)
     public List<Notizia> getUltimeNotizie() { //TODO usare una query
         return notiziaRepository.findAllByOrderByDataDesc().stream().limit(3).toList();

@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Utente {
@@ -21,8 +20,6 @@ public class Utente {
     private String cognome;
     private String email;
 
-    @OneToOne 
-    private Credenziali credenziali;
 
     @ManyToMany (mappedBy = "iscrizioni")
     private List<Iniziativa> iniziative; //un utente si può registrare a tante iniziative
@@ -71,12 +68,6 @@ public class Utente {
     }
     public void setId(Long id) {
         this.id = id;
-    }
-    public Credenziali getCredenziali() {
-        return credenziali;
-    }
-    public void setCredenziali(Credenziali credenziali) {
-        this.credenziali = credenziali;
     }
 
 

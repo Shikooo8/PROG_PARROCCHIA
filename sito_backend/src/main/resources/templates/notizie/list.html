@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Notizie - Parrocchia Trasfigurazione</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/stile.css}">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+<!-- TITOLO -->
+
+<section class="fascia-titolo">
+
+    <div class="fascia-titolo-contenuto">
+
+        <div>
+
+            <h1>
+                Notizie
+            </h1>
+
+            <p class="breadcrumb">
+
+                <a th:href="@{/}">
+                    Home
+                </a>
+
+                / Notizie
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NOTIZIE -->
+
+<section class="sezione">
+
+    <div class="container">
+
+        <div class="sezione-intestazione">
+
+            <h2 class="sezione-titolo">
+                Le ultime notizie
+            </h2>
+
+            <p class="sezione-sottotitolo">
+                Comunicazioni e notizie dalla
+                comunità parrocchiale.
+            </p>
+
+        </div>
+
+
+        <div class="notizie-lista">
+
+            <a class="notizia-riga"
+               th:each="notizia : ${notizie}"
+               th:href="@{/notizie/{id}(id=${notizia.id})}">
+
+                <span class="notizia-titolo"
+                      th:text="${notizia.titolo}">
+                    Titolo della notizia
+                </span>
+
+                <span class="notizia-data"
+                      th:text="${#temporals.format(notizia.data, 'dd/MM/yyyy HH:mm')}">
+                    01/01/2026 18:00
+                </span>
+
+            </a>
+
+
+            <div class="tabella-vuota"
+                 th:if="${notizie == null or #lists.isEmpty(notizie)}">
+
+                Nessuna notizia disponibile.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-griglia">
+
+            <div>
+
+                <h3 class="footer-titolo">
+                    Parrocchia Trasfigurazione
+                </h3>
+
+                <p class="footer-testo">
+                    La nostra comunità parrocchiale.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="footer-titolo">
+                    Navigazione
+                </h3>
+
+                <ul class="footer-links">
+
+                    <li>
+                        <a th:href="@{/}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/notizie}">
+                            Notizie
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/eventi}">
+                            Eventi
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/iniziative}">
+                            Iniziative
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-copy">
+
+            © Parrocchia Trasfigurazione
+
+        </div>
+
+    </div>
+
+</footer>
+
+</body>
+</html>

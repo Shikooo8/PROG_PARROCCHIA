@@ -3,6 +3,7 @@ package it.parrocchiatrasfigurazione.sito_backend.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.parrocchiatrasfigurazione.sito_backend.service.NotiziaService;
 
@@ -20,4 +21,12 @@ public class NotiziaController {
         model.addAttribute("notizie", notiziaService.getTutteLeNotizie());
         return "notizie/list";
     }
+
+    @GetMapping("/notizia/{id}")
+    public String mostraNotizia(@PathVariable Long id, Model model) {
+        model.addAttribute("notizia", notiziaService.getNotizia(id));
+        model.addAttribute("pagina", "notizie");
+        return "notizie/show";
+    }
+
 }

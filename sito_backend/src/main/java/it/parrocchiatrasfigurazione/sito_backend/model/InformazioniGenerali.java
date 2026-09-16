@@ -22,7 +22,7 @@ public class InformazioniGenerali {
     private List<java.time.LocalTime> orarioMessaFeriale;
     private List<java.time.LocalTime> orarioMessaFestivo;
 
-
+//TODO AGGIUNGERE DESCRIZIONE
 
     public String getIndirizzo() {
         return indirizzo;

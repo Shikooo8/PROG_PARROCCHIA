@@ -6,4 +6,6 @@ import it.parrocchiatrasfigurazione.sito_backend.model.Notizia;
 
 public interface NotiziaRepository extends CrudRepository<Notizia, Long> {
     List<Notizia> findAllByOrderByDataDesc();
+
+    
 }
