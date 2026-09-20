@@ -1021,3 +1021,26 @@ h1, h2, h3, h4 {
     gap: 4px;
   }
 }
+
+.btn-celestino {
+    background-color: var(--celestino);
+    color: var(--testo-principale);
+}
+
+.btn-celestino:hover {
+    background-color: #8fc9e5;
+    color: var(--testo-principale);
+}
+
+.richiesta-motivazione {
+    max-width: 350px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.richiesta-motivazione {
+  max-width: 350px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+

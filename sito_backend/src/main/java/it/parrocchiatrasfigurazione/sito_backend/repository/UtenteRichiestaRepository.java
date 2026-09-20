@@ -6,4 +6,5 @@ import it.parrocchiatrasfigurazione.sito_backend.model.UtenteRichiesta;
 
 public interface UtenteRichiestaRepository extends CrudRepository<UtenteRichiesta, Long> {
     List<UtenteRichiesta> findAllByOrderByIdDesc();
+
 }

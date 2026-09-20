@@ -2,12 +2,14 @@ package it.parrocchiatrasfigurazione.sito_backend.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Utente {
@@ -27,6 +29,10 @@ public class Utente {
 
     @OneToMany (mappedBy = "coordinatore")
     private List<Iniziativa> iniziativeCoordinate; //un utente può gestire tante iniziative
+
+    @OneToOne(mappedBy = "utente", cascade = CascadeType.REMOVE)
+    private Credenziali credenziali;
+
 
 
     //====================================== GETTERS & SETTERS ==============================
@@ -77,5 +83,13 @@ public class Utente {
     public void setDataNascita(java.time.LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
+    public Credenziali getCredenziali() {
+        return credenziali;
+    }
+    public void setCredenziali(Credenziali credenziali) {
+        this.credenziali = credenziali;
+    }
+
+    
 
 }

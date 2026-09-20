@@ -1,150 +1,143 @@
 <!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Richieste registrazione - Amministrazione</title>
+
   <link rel="stylesheet" th:href="@{/css/stile.css}">
   <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
 
 </head>
 
 <body>
-
   <header th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></header>
-
   <main>
-
+    <!-- Fascia titolo -->
     <section class="fascia-titolo">
+
       <div class="fascia-titolo-contenuto">
-        <h1>Richieste registrazione</h1>
+
+        <div>
+          <div class="breadcrumb">
+            <a th:href="@{/admin/index}">Amministrazione</a>
+            /
+            Richieste registrazione
+          </div>
+
+          <h1>Richieste registrazione</h1>
+        </div>
+
       </div>
+
     </section>
 
+
+    <!-- Elenco richieste -->
     <section class="sezione">
+
       <div class="container">
 
-        <div class="admin-colonne">
+        <div class="sezione-intestazione">
 
-          <!-- Registrazione manuale -->
-          <div>
-            <h2 class="admin-blocco-titolo">
-              Registra nuovo utente
-            </h2>
+          <h2 class="sezione-titolo">
+            Richieste in attesa
+          </h2>
 
-            <div class="form-riquadro">
+          <p class="sezione-sottotitolo">
+            Controlla le richieste di registrazione e scegli se approvarle o respingerle.
+          </p>
 
-              <form th:action="@{/admin/utenti/crea}" method="POST">
+        </div>
 
-                <div class="form-gruppo">
-                  <label for="nome">Nome</label>
-                  <input type="text" id="nome" name="nome" required>
-                </div>
 
-                <div class="form-gruppo">
-                  <label for="cognome">Cognome</label>
-                  <input type="text" id="cognome" name="cognome" required>
-                </div>
+        <div class="tabella-riquadro">
 
-                <div class="form-gruppo">
-                  <label for="email">Email</label>
-                  <input type="email" id="email" name="email" required>
-                </div>
+          <table class="tabella">
 
-                <div class="form-gruppo">
-                  <label for="password">Password</label>
-                  <input type="password" id="password" name="password" required>
-                </div>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Data di nascita</th>
+                <th>Motivazione</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
 
-                <div class="form-azioni">
-                  <button type="submit" class="btn btn-primario">
-                    Registra utente
-                  </button>
-                </div>
 
-              </form>
+            <tbody>
 
-            </div>
-          </div>
+              <tr th:each="richiesta : ${richieste}">
 
-          <!-- Elenco richieste -->
-          <div>
-            <h2 class="admin-blocco-titolo">
-              Richieste in attesa
-            </h2>
+                <td th:text="${richiesta.nome}">
+                  Nome
+                </td>
 
-            <div class="tabella-riquadro">
+                <td th:text="${richiesta.cognome}">
+                  Cognome
+                </td>
 
-              <table class="tabella">
+                <td th:text="${richiesta.dataNascita}">
+                  -
+                </td>
 
-                <thead>
-                  <tr>
-                    <th>Cognome</th>
-                    <th>Nome</th>
-                    <th>Azioni</th>
-                  </tr>
-                </thead>
+                <td class="richiesta-motivazione" th:text="${richiesta.motivazioni}">
+                  Motivazione
+                </td>
 
-                <tbody>
+                <td>
 
-                  <tr th:each="richiesta : ${richieste}">
+                  <!-- APPROVA -->
+                  <form th:action="@{/admin/richieste/{id}/approva(id=${richiesta.id})}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-piccolo btn-celestino">
+                      Approva
+                    </button>
+                  </form>
 
-                    <td th:text="${richiesta.cognome}">
-                      Cognome
-                    </td>
+                  <!-- RESPINGI -->
+                  <form th:action="@{/admin/richieste/{id}/cancella(id=${richiesta.id})}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-piccolo btn-pericolo">
+                      Respingi
+                    </button>
+                  </form>
 
-                    <td th:text="${richiesta.nome}">
-                      Nome
-                    </td>
+                </td>
 
-                    <td th:text="${richiesta.motivazioni}">
-                      Motivazioni
-                    </td>
+              </tr>
 
-                    <td>
 
-                      <form th:action="@{/admin/richieste/{id}/accetta(id=${richiesta.id})}" method="POST"
-                        style="display:inline;">
+              <!-- Nessuna richiesta -->
+              <tr th:if="${#lists.isEmpty(richieste)}">
 
-                        <button type="submit" class="btn btn-piccolo btn-primario">
-                          Registra
-                        </button>
+                <td colspan="5" class="tabella-vuota">
+                  Nessuna richiesta di registrazione.
+                </td>
 
-                      </form>
+              </tr>
 
-                      <form th:action="@{/admin/richieste/{id}/cancella(id=${richiesta.id})}" method="POST"
-                        style="display:inline;">
+            </tbody>
 
-                        <button type="submit" class="btn btn-piccolo btn-pericolo">
-                          Cancella
-                        </button>
-
-                      </form>
-
-                    </td>
-
-                  </tr>
-
-                  <tr th:if="${#lists.isEmpty(richieste)}">
-                    <td colspan="4" class="tabella-vuota">
-                      Nessuna richiesta di registrazione.
-                    </td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
+          </table>
 
         </div>
 
       </div>
+
     </section>
 
   </main>
+  <footer class="footer">
+    <div class="container">
 
+      <div class="footer-copy">
+        &copy; 2026 Parrocchia Trasfigurazione
+      </div>
+
+    </div>
+
+  </footer>
 </body>
 
 </html>

@@ -59,7 +59,7 @@
                                     </a>
 
                                     <form th:action="@{/admin/iniziative/{id}/cancella(id=${iniziativa.id})}"
-                                        method="POST" style="display:inline;">
+                                        method="POST" style="display:inline;"  onsubmit="return confirm('Sei sicuro di voler eliminare questa iniziativa?');">
 
                                         <button type="submit" class="btn btn-piccolo btn-pericolo">
                                             Cancella

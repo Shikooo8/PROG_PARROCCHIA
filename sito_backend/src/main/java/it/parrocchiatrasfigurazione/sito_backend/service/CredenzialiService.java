@@ -21,8 +21,7 @@ public class CredenzialiService {
     }
 
     public void save(Credenziali credenziali) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
+        this.credenzialiRepository.save(credenziali);
+        }
 
 }

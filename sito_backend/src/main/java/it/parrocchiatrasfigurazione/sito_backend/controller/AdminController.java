@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.service.UtenteRichiestaService;
 import it.parrocchiatrasfigurazione.sito_backend.service.UtenteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @RequestMapping("/admin")
@@ -47,23 +44,16 @@ public class AdminController {
         return "admin/richieste";
     }
 
-    @PostMapping("/richieste/{id}/elimina")
+    @PostMapping("/richieste/{id}/cancella")
     public String eliminaRichiesta(@PathVariable Long id) {
         utenteRichiestaService.elimina(id);
         return "redirect:/admin/richieste";
     }
 
-    @PostMapping("/utenti")
-    public String registraUtente(@ModelAttribute("utente") Utente utente, @RequestParam String username,
-            @RequestParam String password, Model model) {
-        try {
-            utenteService.registraUtente(utente, username, password);
-            return "redirect:/admin/richieste?registrato";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("errore", e.getMessage());
-            model.addAttribute("richieste", utenteRichiestaService.getTutteLeRichieste());
-            return "admin/richieste";
-        }
+    @PostMapping("/richieste/{id}/approva")
+    public String approva(@PathVariable Long id) {
+        utenteRichiestaService.approva(id);
+        return "redirect:/admin/richieste";
     }
 
     // GESTIONE EVENTI
@@ -74,7 +64,6 @@ public class AdminController {
 
         return "admin/eventi/list";
     }
-    
 
     // GESTIONE INIZIATIVE
 
@@ -83,8 +72,6 @@ public class AdminController {
         model.addAttribute("iniziative", iniziativaService.getAll());
         return "admin/iniziative/list";
     }
-
-
 
     // GESTIONE NOTIZIE
 
@@ -99,6 +86,12 @@ public class AdminController {
         model.addAttribute("utenti", utenteService.getTuttiDaCognome());
 
         return "admin/utenti";
+    }
+
+    @PostMapping("/utenti/{id}/cancella")
+    public String deleteUtente(@PathVariable Long id) {
+        utenteService.delete(id);
+        return "redirect:/admin/utenti";
     }
 
 }

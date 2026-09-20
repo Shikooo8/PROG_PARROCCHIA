@@ -1,5 +1,6 @@
 package it.parrocchiatrasfigurazione.sito_backend.service;
 
+import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository;
 import java.util.List;
 
 import org.jspecify.annotations.Nullable;
@@ -14,14 +15,16 @@ import it.parrocchiatrasfigurazione.sito_backend.repository.UtenteRepository;
 @Service
 public class UtenteService {
 
+    private final IniziativaRepository iniziativaRepository;
     private final UtenteRepository utenteRepository;
     private final CredenzialiService credenzialiService;
     private final PasswordEncoder passwordEncoder;
 
-    public UtenteService(UtenteRepository utenteRepository, CredenzialiService credenzialiService, PasswordEncoder passwordEncoder) {
+    public UtenteService(UtenteRepository utenteRepository, CredenzialiService credenzialiService, PasswordEncoder passwordEncoder, IniziativaRepository iniziativaRepository) {
         this.utenteRepository = utenteRepository;
         this.credenzialiService = credenzialiService;
         this.passwordEncoder = passwordEncoder;
+        this.iniziativaRepository = iniziativaRepository;
     }
 
     @Transactional(readOnly = true)
@@ -30,24 +33,20 @@ public class UtenteService {
     }
 
     @Transactional
-    public Utente registraUtente(Utente utente, String username, String passwordInChiaro) { //TODO password in chiaro
-        if (credenzialiService.existsByUsername(username)) {
-            throw new IllegalArgumentException("Username già esistente: " + username);
-        }
-        Credenziali credenziali = new Credenziali();
-        credenziali.setUsername(username);
-        credenziali.setPassword(passwordEncoder.encode(passwordInChiaro));
-        credenziali.setRuolo(Credenziali.DEFAULT_ROLE);
-        credenziali.setUtente(utente);
-   //     utente.setCredenziali(credenziali);
-
-        // grazie al cascade = CascadeType.ALL su Credenziali -> Utente,
-        // salvare le credenziali salva anche l'utente collegato
-        credenzialiService.save(credenziali);
-        return utente;
+    public void save(Utente utente){
+        this.utenteRepository.save(utente);
     }
 
     public List<Utente> getTuttiDaCognome() {
         return utenteRepository.findAllByOrderByCognomeAscNomeAsc();
+    }
+
+
+    @Transactional
+    public void delete(Long id) {
+        iniziativaRepository.rimuoviCoordinatore(id);
+        utenteRepository.deleteById(id);
+
+        //TODO rimuovere le iscrizioni
     }
 }     

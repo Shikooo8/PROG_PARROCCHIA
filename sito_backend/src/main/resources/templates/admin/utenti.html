@@ -55,9 +55,9 @@
 
                                 <td>
 
-                                    <form th:action="@{/admin/utenti/{id}/cancella(id=${utente.id})}" method="POST">
+                                    <form th:action="@{/admin/utenti/{id}/cancella(id=${utente.id})}" method="POST"  onsubmit="return confirm('Sei sicuro di voler eliminare questo utente?');">
 
-                                        <button type="submit" class="btn btn-piccolo btn-pericolo">
+                                        <button type="submit" class="btn btn-piccolo btn-pericolo" >
                                             Cancella
                                         </button>
 

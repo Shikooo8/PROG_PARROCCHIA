@@ -1,9 +1,12 @@
 package it.parrocchiatrasfigurazione.sito_backend.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity 
 public class UtenteRichiesta {
@@ -11,10 +14,16 @@ public class UtenteRichiesta {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank 
     private String nome;
+    @NotBlank 
     private String cognome;
+    private String email;
+    private LocalDate dataNascita;
     private String motivazioni;
+    @NotBlank 
     private String username;
+    @NotBlank 
     private String password;
 
     
@@ -54,6 +63,19 @@ public class UtenteRichiesta {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public LocalDate getDataNascita() {
+        return dataNascita;
+    }
+    public void setDataNascita(LocalDate dataNascita) {
+        this.dataNascita = dataNascita;
+    }
+    
 
     
 

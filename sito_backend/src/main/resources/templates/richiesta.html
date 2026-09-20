@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richiesta di registrazione</title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
+
+</head>
+
+<body>
+    <header th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></header>
+    <main>
+        <!-- Fascia titolo -->
+        <section class="fascia-titolo">
+
+            <div class="fascia-titolo-contenuto">
+
+                <div>
+
+                    <div class="breadcrumb">
+                        <a th:href="@{/}">Home</a>
+                        /
+                        Richiesta di registrazione
+                    </div>
+
+                    <h1>Richiesta di registrazione</h1>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Messaggio di invio -->
+        <div th:if="${param.inviata}" class="messaggio-globale sezione">
+
+            <div class="container">
+
+                <div class="avviso avviso-successo">
+                    La richiesta di registrazione è stata inviata.
+                    Un amministratore la controllerà e, se approvata,
+                    verrà creato il tuo account.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Form -->
+        <section class="sezione">
+
+            <div class="container">
+
+                <div class="form-riquadro form-riquadro-largo">
+
+                    <div class="sezione-intestazione">
+
+                        <h2 class="sezione-titolo">
+                            Richiedi un account
+                        </h2>
+
+                        <p class="sezione-sottotitolo">
+                            Compila il modulo per richiedere la registrazione
+                            al sito della Parrocchia Trasfigurazione.
+                        </p>
+
+                    </div>
+
+
+                    <form th:action="@{/richiesta-registrazione}" th:object="${richiesta}" method="POST">
+
+
+                        <!-- Nome -->
+                        <div class="form-gruppo">
+
+                            <label for="nome">
+                                Nome *
+                            </label>
+
+                            <input type="text" id="nome" th:field="*{nome}" placeholder="Inserisci il tuo nome"
+                                required>
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Cognome -->
+                        <div class="form-gruppo">
+
+                            <label for="cognome">
+                                Cognome *
+                            </label>
+
+                            <input type="text" id="cognome" th:field="*{cognome}" placeholder="Inserisci il tuo cognome"
+                                required>
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Data di nascita -->
+                        <div class="form-gruppo">
+
+                            <label for="dataNascita">
+                                Data di nascita
+                            </label>
+
+                            <input type="date" id="dataNascita" th:field="*{dataNascita}">
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('dataNascita')}"
+                                th:errors="*{dataNascita}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="form-gruppo">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input type="email" id="email" th:field="*{email}" placeholder="esempio@email.it">
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Username -->
+                        <div class="form-gruppo">
+
+                            <label for="username">
+                                Username *
+                            </label>
+
+                            <input type="text" id="username" th:field="*{username}" placeholder="Scegli un nome utente"
+                                required>
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="form-gruppo">
+
+                            <label for="password">
+                                Password *
+                            </label>
+
+                            <input type="password" id="password" th:field="*{password}"
+                                placeholder="Scegli una password" required>
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Motivazione -->
+                        <div class="form-gruppo">
+
+                            <label for="motivazioni">
+                                Motivazione
+                            </label>
+
+                            <textarea id="motivazioni" th:field="*{motivazioni}"
+                                placeholder="Spiega brevemente perché desideri registrarti al sito..."></textarea>
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('motivazioni')}"
+                                th:errors="*{motivazioni}">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Informazione -->
+                        <div class="dettaglio-riquadro">
+
+                            <h3>
+                                Cosa succede dopo?
+                            </h3>
+
+                            <p>
+                                Dopo l'invio, la richiesta verrà esaminata
+                                da un amministratore della parrocchia.
+                                Se la richiesta verrà approvata, il tuo
+                                account sarà creato e potrai effettuare
+                                il login con le credenziali che hai scelto.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Errore globale -->
+                        <div th:if="${#fields.hasGlobalErrors()}" class="messaggio-globale">
+
+                            <div class="avviso avviso-errore" th:each="errore : ${#fields.globalErrors()}"
+                                th:text="${errore}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- Azioni -->
+                        <div class="form-azioni">
+
+                            <a th:href="@{/}" class="btn btn-secondario">
+                                Annulla
+                            </a>
+
+                            <button type="submit" class="btn btn-primario">
+                                Invia richiesta
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main> <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+
+            <div class="footer-copy">
+                &copy; 2026 Parrocchia Trasfigurazione
+            </div>
+
+        </div>
+
+    </footer>
+</body>
+
+</html>
