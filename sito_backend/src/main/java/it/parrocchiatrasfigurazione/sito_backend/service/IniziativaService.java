@@ -6,7 +6,6 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.parrocchiatrasfigurazione.sito_backend.model.Evento;
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
 import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository;
 
@@ -35,6 +34,26 @@ public class IniziativaService {
     @Transactional(readOnly = true)
     public List<Iniziativa> getAll() {
         return iniziativaRepository.findAllByOrderByIdDesc();
+    }
+
+
+    @Transactional
+    public Iniziativa save(Iniziativa iniziativa) {
+      /*  String titolo = iniziativa.getTitolo();
+        java.time.LocalDate data = iniziativa.getData();
+        if(iniziativa.getId() == null){
+            if(iniziativaRepository.existsByTitoloAndData(titolo, data))
+                throw new DuplicateIniziativaException(titolo, data);
+        } else {
+            if(iniziativaRepository.existsByTitoloAndDataAndIdNot(titolo, data, iniziativa.getId()))
+                throw new DuplicateIniziativaException(titolo,data);
+        }----------------------------*/
+        return iniziativaRepository.save(iniziativa);
+    }
+
+       @Transactional
+    public void delete(Long id) {
+        iniziativaRepository.deleteById(id);
     }
 
 }

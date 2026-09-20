@@ -1,6 +1,5 @@
 package it.parrocchiatrasfigurazione.sito_backend.controller;
 
-import it.parrocchiatrasfigurazione.sito_backend.repository.UtenteRepository;
 import it.parrocchiatrasfigurazione.sito_backend.service.EventoService;
 import it.parrocchiatrasfigurazione.sito_backend.service.IniziativaService;
 import it.parrocchiatrasfigurazione.sito_backend.service.NotiziaService;
@@ -75,9 +74,6 @@ public class AdminController {
 
         return "admin/eventi/list";
     }
-
-
-
     
 
     // GESTIONE INIZIATIVE
@@ -85,9 +81,11 @@ public class AdminController {
     @GetMapping("/iniziative")
     public String mostraGestioneIniziative(Model model) {
         model.addAttribute("iniziative", iniziativaService.getAll());
-        return "admin/iniziative";
+        return "admin/iniziative/list";
     }
 
+
+    
     // GESTIONE NOTIZIE
 
     @GetMapping("/notizie")

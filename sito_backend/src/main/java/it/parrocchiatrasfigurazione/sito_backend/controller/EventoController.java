@@ -12,7 +12,6 @@ import it.parrocchiatrasfigurazione.sito_backend.exception.DuplicateEventoExcept
 import it.parrocchiatrasfigurazione.sito_backend.model.Evento;
 import it.parrocchiatrasfigurazione.sito_backend.service.EventoService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller

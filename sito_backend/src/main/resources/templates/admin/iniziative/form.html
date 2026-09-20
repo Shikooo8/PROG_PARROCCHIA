@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${iniziativa.id == null ? 'Nuova iniziativa' : 'Modifica iniziativa'}">
+        Iniziativa
+    </title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+
+    <!-- Header comune -->
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+    <main>
+
+        <!-- Fascia titolo -->
+        <section class="fascia-titolo">
+            <div class="fascia-titolo-contenuto">
+                <div>
+
+                    <div class="breadcrumb">
+                        <a th:href="@{/admin/index}">Amministrazione</a>
+                        /
+                        <a th:href="@{/admin/iniziative}">Iniziative</a>
+                    </div>
+
+                    <h1 th:text="${iniziativa.id == null ? 'Nuova iniziativa' : 'Modifica iniziativa'}">
+                        Iniziativa
+                    </h1>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Form -->
+        <section class="sezione">
+            <div class="container">
+
+                <div class="form-riquadro form-riquadro-largo">
+
+                    <div class="sezione-intestazione">
+
+                        <h2 class="sezione-titolo"
+                            th:text="${iniziativa.id == null
+                                     ? 'Crea una nuova iniziativa'
+                                     : 'Modifica i dati dell’iniziativa'}">
+                            Iniziativa
+                        </h2>
+
+                        <p class="sezione-sottotitolo">
+                            Inserisci le informazioni dell'iniziativa e scegli se renderla visibile sul sito.
+                        </p>
+
+                    </div>
+
+
+                    <!--
+                        ERRORE GLOBALE
+
+                        Per ora il controllo delle eccezioni è disattivato.
+                        Quando verrà aggiunta un'eccezione per le iniziative,
+                        sarà possibile utilizzare BindingResult.
+
+                        Esempio nel controller:
+
+                        catch (DuplicateIniziativaException e) {
+                            bindingResult.reject(
+                                "iniziativa.duplicate",
+                                e.getMessage()
+                            );
+                            return "admin/iniziative/form";
+                        }
+
+                        E nel template:
+
+                        <div th:if="${#fields.hasGlobalErrors()}"
+                             class="messaggio-globale">
+
+                            <div class="avviso avviso-errore"
+                                 th:each="errore : ${#fields.globalErrors()}"
+                                 th:text="${errore.defaultMessage}">
+                            </div>
+
+                        </div>
+                    -->
+
+                    <!--
+                    <div th:if="${#fields.hasGlobalErrors()}"
+                         class="messaggio-globale">
+
+                        <div class="avviso avviso-errore"
+                             th:each="errore : ${#fields.globalErrors()}"
+                             th:text="${errore.defaultMessage}">
+                        </div>
+
+                    </div>
+                    -->
+
+
+                    <!--
+                        In creazione:
+                        POST /admin/iniziative/nuova
+
+                        In modifica:
+                        POST /admin/iniziative/{id}/modifica
+                    -->
+                    <form th:object="${iniziativa}"
+                          th:action="${iniziativa.id == null}
+                                     ? @{/admin/iniziative/nuovo}
+                                     : @{/admin/iniziative/{id}/modifica(id=${iniziativa.id})}"
+                          method="post">
+
+
+                        <!-- Titolo -->
+                        <div class="form-gruppo">
+
+                            <label for="titolo">
+                                Titolo
+                            </label>
+
+                            <input type="text"
+                                   id="titolo"
+                                   th:field="*{titolo}"
+                                   placeholder="Titolo dell'iniziativa"
+                                   required>
+
+                            <!--
+                            Errore di validazione del titolo.
+
+                            <span class="form-errore"
+                                  th:if="${#fields.hasErrors('titolo')}"
+                                  th:errors="*{titolo}">
+                            </span>
+                            -->
+
+                        </div>
+
+
+                        <!-- Descrizione -->
+                        <div class="form-gruppo">
+
+                            <label for="descrizione">
+                                Descrizione
+                            </label>
+
+                            <textarea id="descrizione"
+                                      th:field="*{descrizione}"
+                                      placeholder="Inserisci la descrizione dell'iniziativa..."
+                                      required></textarea>
+
+                            <!--
+                            Errore di validazione della descrizione.
+
+                            <span class="form-errore"
+                                  th:if="${#fields.hasErrors('descrizione')}"
+                                  th:errors="*{descrizione}">
+                            </span>
+                            -->
+
+                        </div>
+
+
+                        <!-- Coordinatore -->
+                        <div class="form-gruppo">
+
+                            <label for="coordinatore">
+                                Coordinatore
+                            </label>
+
+                            <select id="coordinatore"
+                                    th:field="*{coordinatore}">
+
+                                <option value="">
+                                    Nessun coordinatore
+                                </option>
+
+                                <option th:each="utente : ${utenti}"
+                                        th:value="${utente.id}"
+                                        th:text="${utente.nome + ' ' + utente.cognome}">
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Visibilità -->
+                        <div class="form-gruppo">
+
+                            <div class="form-checkbox">
+
+                                <input type="checkbox"
+                                       id="visibilità"
+                                       th:field="*{visibilità}">
+
+                                <label for="visibilità">
+                                    Rendere visibile l'iniziativa sul sito
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <!--
+                            ISCRITTI
+
+                            L'elenco degli iscritti non viene modificato
+                            direttamente da questo form.
+
+                            Le iscrizioni saranno gestite separatamente
+                            attraverso la pagina dell'iniziativa.
+                        -->
+
+
+                        <!-- Azioni -->
+                        <div class="form-azioni">
+
+                            <a th:href="@{/admin/iniziative}"
+                               class="btn btn-secondario">
+                                Annulla
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primario"
+                                    th:text="${iniziativa.id == null
+                                              ? 'Crea iniziativa'
+                                              : 'Salva modifiche'}">
+                                Salva
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-copy">
+                &copy; 2026 Parrocchia Trasfigurazione
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
