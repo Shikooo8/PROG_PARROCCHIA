@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${notizia.id == null ? 'Nuova notizia' : 'Modifica notizia'}">
+        Notizia
+    </title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+
+    <!-- Header comune -->
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+    <main>
+
+        <!-- Fascia titolo -->
+        <section class="fascia-titolo">
+
+            <div class="fascia-titolo-contenuto">
+
+                <div>
+
+                    <div class="breadcrumb">
+                        <a th:href="@{/admin/index}">
+                            Amministrazione
+                        </a>
+                        /
+                        <a th:href="@{/admin/notizie}">
+                            Notizie
+                        </a>
+                        /
+                        <span th:text="${notizia.id == null ? 'Nuova' : 'Modifica'}">
+                            Notizia
+                        </span>
+                    </div>
+
+                    <h1 th:text="${notizia.id == null ? 'Nuova notizia' : 'Modifica notizia'}">
+                        Notizia
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Form -->
+        <section class="sezione">
+
+            <div class="container">
+
+                <div class="form-riquadro form-riquadro-largo">
+
+
+                    <!-- Intestazione -->
+                    <div class="sezione-intestazione">
+
+                        <h2 class="sezione-titolo"
+                            th:text="${notizia.id == null
+                                      ? 'Crea una nuova notizia'
+                                      : 'Modifica i dati della notizia'}">
+                            Notizia
+                        </h2>
+
+                        <p class="sezione-sottotitolo">
+                            Inserisci il titolo e il contenuto della notizia.
+                        </p>
+
+                    </div>
+
+
+                    <!--
+                        ERRORE GLOBALE
+
+                        Per ora non è previsto un controllo tramite
+                        eccezione per le notizie.
+
+                        Quando verrà aggiunta un'eccezione, sarà possibile
+                        utilizzare BindingResult come negli eventi.
+
+                        Esempio:
+
+                        catch (DuplicateNotiziaException e) {
+
+                            bindingResult.reject(
+                                "notizia.duplicate",
+                                e.getMessage()
+                            );
+
+                            return "notizie/form";
+                        }
+                    -->
+
+                    <!--
+                    <div th:if="${#fields.hasGlobalErrors()}"
+                         class="messaggio-globale">
+
+                        <div class="avviso avviso-errore"
+                             th:each="errore : ${#fields.globalErrors()}"
+                             th:text="${errore.defaultMessage}">
+                        </div>
+
+                    </div>
+                    -->
+
+
+                    <!--
+                        In creazione:
+                        POST /admin/notizie/nuovo
+
+                        In modifica:
+                        POST /admin/notizie/{id}/modifica
+                    -->
+                    <form th:object="${notizia}"
+                          th:action="${notizia.id == null}
+                                     ? @{/admin/notizie/nuovo}
+                                     : @{/admin/notizie/{id}/modifica(id=${notizia.id})}"
+                          method="post">
+
+
+                        <!-- Titolo -->
+                        <div class="form-gruppo">
+
+                            <label for="titolo">
+                                Titolo
+                            </label>
+
+                            <input type="text"
+                                   id="titolo"
+                                   th:field="*{titolo}"
+                                   placeholder="Titolo della notizia"
+                                   required>
+
+
+                            <!--
+                            Errore di validazione del titolo:
+
+                            <span class="form-errore"
+                                  th:if="${#fields.hasErrors('titolo')}"
+                                  th:errors="*{titolo}">
+                            </span>
+                            -->
+
+                        </div>
+
+
+                        <!-- Descrizione -->
+                        <div class="form-gruppo">
+
+                            <label for="descrizione">
+                                Contenuto della notizia
+                            </label>
+
+                            <textarea id="descrizione"
+                                      th:field="*{descrizione}"
+                                      placeholder="Inserisci il contenuto della notizia..."
+                                      required></textarea>
+
+
+                            <!--
+                            Errore di validazione della descrizione:
+
+                            <span class="form-errore"
+                                  th:if="${#fields.hasErrors('descrizione')}"
+                                  th:errors="*{descrizione}">
+                            </span>
+                            -->
+
+                        </div>
+
+
+                        <!-- Data -->
+                        <div class="form-gruppo">
+
+                            <label for="data">
+                                Data e ora
+                            </label>
+
+                            <input type="datetime-local"
+                                   id="data"
+                                   th:field="*{data}"
+                                   required>
+
+
+                            <!--
+                            Errore di validazione della data:
+
+                            <span class="form-errore"
+                                  th:if="${#fields.hasErrors('data')}"
+                                  th:errors="*{data}">
+                            </span>
+                            -->
+
+                        </div>
+
+
+                        <!-- Azioni -->
+                        <div class="form-azioni">
+
+                            <a th:href="@{/admin/notizie}"
+                               class="btn btn-secondario">
+                                Annulla
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primario"
+                                    th:text="${notizia.id == null
+                                              ? 'Pubblica notizia'
+                                              : 'Salva modifiche'}">
+                                Salva
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-copy">
+                &copy; 2026 Parrocchia Trasfigurazione
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

@@ -85,13 +85,13 @@ public class AdminController {
     }
 
 
-    
+
     // GESTIONE NOTIZIE
 
     @GetMapping("/notizie")
     public String mostraGestioneNotizie(Model model) {
         model.addAttribute("notizie", notiziaService.getTutteLeNotizie());
-        return "admin/notizie";
+        return "admin/notizie/list";
     }
 
     @GetMapping("/utenti")

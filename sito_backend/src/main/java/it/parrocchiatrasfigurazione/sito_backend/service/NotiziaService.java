@@ -38,7 +38,7 @@ public class NotiziaService {
     }
 
     @Transactional
-    public void elimina(Long id) {
+    public void delete(Long id) {
         notiziaRepository.deleteById(id);
     }
 } 

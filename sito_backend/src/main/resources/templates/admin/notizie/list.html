@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notizie</title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+
+    <!-- Header comune -->
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+    <main>
+
+        <!-- Fascia titolo -->
+        <section class="fascia-titolo">
+
+            <div class="fascia-titolo-contenuto">
+
+                <div>
+
+                    <div class="breadcrumb">
+                        <a th:href="@{/admin/index}">
+                            Amministrazione
+                        </a>
+                        /
+                        Notizie
+                    </div>
+
+                    <h1>
+                        Notizie
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Elenco notizie -->
+        <section class="sezione">
+
+            <div class="container">
+
+                <!-- Intestazione -->
+                <div class="sezione-intestazione">
+
+                    <h2 class="sezione-titolo">
+                        Gestione delle notizie
+                    </h2>
+
+                    <p class="sezione-sottotitolo">
+                        Visualizza, modifica o elimina le notizie pubblicate sul sito.
+                    </p>
+
+                </div>
+
+
+                <!-- Nuova notizia -->
+                <div class="sezione-piede"
+                     style="margin-top: 0; margin-bottom: 30px;">
+
+                    <a th:href="@{/admin/notizie/nuovo}"
+                       class="btn btn-primario">
+                        + Nuova notizia
+                    </a>
+
+                </div>
+
+
+                <!-- Lista -->
+                <div class="notizie-lista"
+                     th:if="${notizie != null and !notizie.isEmpty()}">
+
+                    <div class="notizia-riga"
+                         th:each="notizia : ${notizie}">
+
+                        <!-- Parte cliccabile della notizia -->
+                        <a th:href="@{/notizia/{id}(id=${notizia.id})}"
+                           style="flex: 1;">
+
+                            <span class="notizia-titolo"
+                                  th:text="${notizia.titolo}">
+                                Titolo della notizia
+                            </span>
+
+                        </a>
+
+
+                        <!-- Data -->
+                        <span class="notizia-data"
+                              th:text="${#temporals.format(notizia.data, 'dd/MM/yyyy HH:mm')}">
+                            01/01/2026 12:00
+                        </span>
+
+
+                        <!-- Azioni admin -->
+                        <div style="display: flex; gap: 8px; flex-shrink: 0;">
+
+                            <!-- Modifica -->
+                            <a th:href="@{/admin/notizie/{id}/modifica(id=${notizia.id})}"
+                               class="btn btn-piccolo btn-secondario">
+                                Modifica
+                            </a>
+
+
+                            <!-- Elimina -->
+                            <form th:action="@{/admin/notizie/{id}/cancella(id=${notizia.id})}"
+                                  method="post"
+                                  style="display: inline;"
+                                  onsubmit="return confirm('Sei sicuro di voler eliminare questa notizia?');">
+
+                                <button type="submit"
+                                        class="btn btn-piccolo btn-pericolo">
+                                    Elimina
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Nessuna notizia -->
+                <div class="tabella-riquadro"
+                     th:if="${notizie == null or notizie.isEmpty()}">
+
+                    <div class="tabella-vuota">
+                        Non ci sono ancora notizie nel sistema.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-copy">
+                &copy; 2026 Parrocchia Trasfigurazione
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
