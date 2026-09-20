@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 
 import it.parrocchiatrasfigurazione.sito_backend.service.CredenzialiService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller 

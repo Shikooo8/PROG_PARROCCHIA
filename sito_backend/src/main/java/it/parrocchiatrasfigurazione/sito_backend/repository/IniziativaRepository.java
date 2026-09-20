@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
-import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 
 public interface IniziativaRepository extends CrudRepository<Iniziativa, Long> {
 

@@ -3,12 +3,10 @@ package it.parrocchiatrasfigurazione.sito_backend.service;
 import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository;
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.parrocchiatrasfigurazione.sito_backend.model.Credenziali;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.repository.UtenteRepository;
 

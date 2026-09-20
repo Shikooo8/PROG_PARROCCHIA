@@ -37,7 +37,7 @@ public class NotiziaController {
 
 //========================= ADMIN ================================
 
-      @GetMapping("/admin/notizie/nuovo")
+    @GetMapping("/admin/notizie/nuovo")
     public String showNewNotiziaForm( Model model) {
         model.addAttribute("notizia", new Notizia());
         return "admin/notizie/form";
@@ -60,7 +60,7 @@ public class NotiziaController {
     }
 
 
-     @GetMapping("/admin/notizie/{id}/modifica")
+    @GetMapping("/admin/notizie/{id}/modifica")
     public String showExistingNotiziaForm(@PathVariable Long id, Model model) {
         model.addAttribute("notizia", notiziaService.getNotizia(id));
                 return "admin/notizie/form";

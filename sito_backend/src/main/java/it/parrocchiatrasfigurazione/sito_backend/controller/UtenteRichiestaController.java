@@ -38,6 +38,6 @@ public class UtenteRichiestaController {
         
         richiesta.setPassword(passwordEncoder.encode(richiesta.getPassword()));
         utenteRichiestaService.save(richiesta);
-        return "redirect:/richiesta-registrazione?inviata";
+        return "redirect:/richiesta-registrazione?inviata"; //TODO mi sa che non porta da nessuna parte
     }
 }
