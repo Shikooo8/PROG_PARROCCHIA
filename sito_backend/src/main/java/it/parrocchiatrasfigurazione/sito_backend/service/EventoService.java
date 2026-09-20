@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.parrocchiatrasfigurazione.sito_backend.exception.DuplicateEventoException;
 import it.parrocchiatrasfigurazione.sito_backend.model.Evento;
 import it.parrocchiatrasfigurazione.sito_backend.repository.EventoRepository;
 
@@ -40,6 +41,15 @@ public class EventoService {
 
     @Transactional
     public Evento save(Evento evento) {
+        String titolo = evento.getTitolo();
+        java.time.LocalDate data = evento.getData();
+        if(evento.getId() == null){
+            if(eventoRepository.existsByTitoloAndData(titolo, data))
+                throw new DuplicateEventoException(titolo, data);
+        } else {
+            if(eventoRepository.existsByTitoloAndDataAndIdNot(titolo, data, evento.getId()))
+                throw new DuplicateEventoException(titolo,data);
+        }
         return eventoRepository.save(evento);
     }
 
@@ -51,7 +61,8 @@ public class EventoService {
     }
 
     @Transactional
-    public void elimina(Long id) {
+    public void delete(Long id) {
         eventoRepository.deleteById(id);
     }
+
 }

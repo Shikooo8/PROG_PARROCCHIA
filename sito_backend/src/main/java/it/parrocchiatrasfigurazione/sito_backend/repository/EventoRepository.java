@@ -14,4 +14,9 @@ public interface EventoRepository extends CrudRepository<Evento, Long> {
 
     List<Evento> findAllByOrderByDataAsc();
 
+    Boolean existsByTitoloAndData(String titolo, LocalDate data);
+    Boolean existsByTitoloAndDataAndIdNot(String titolo, LocalDate data, Long id);
+
+    
+
 }

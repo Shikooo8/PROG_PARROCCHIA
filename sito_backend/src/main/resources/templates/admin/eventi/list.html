@@ -62,13 +62,15 @@
                                     </a>
 
                                     <form th:action="@{/admin/eventi/{id}/cancella(id=${evento.id})}" method="POST"
-                                        style="display:inline;">
+                                        style="display:inline;"
+                                        onsubmit="return confirm('Sei sicuro di voler eliminare questo evento?');">
 
                                         <button type="submit" class="btn btn-piccolo btn-pericolo">
                                             Cancella
                                         </button>
 
                                     </form>
+
 
                                 </td>
 

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${evento.id == null ? 'Nuovo evento' : 'Modifica evento'}">
+        Evento
+    </title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+
+    <!-- Header comune -->
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+    <main>
+
+        <!-- Fascia titolo -->
+        <section class="fascia-titolo">
+            <div class="fascia-titolo-contenuto">
+                <div>
+                    <div class="breadcrumb">
+                        <a th:href="@{/admin/index}">Amministrazione</a>
+                        /
+                        <a th:href="@{/admin/eventi}">Eventi</a>
+                    </div>
+
+                    <h1 th:text="${evento.id == null ? 'Nuovo evento' : 'Modifica evento'}">
+                        Evento
+                    </h1>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Form -->
+        <section class="sezione">
+            <div class="container">
+
+                <div class="form-riquadro form-riquadro-largo">
+
+                    <div class="sezione-intestazione">
+                        <h2 class="sezione-titolo"
+                            th:text="${evento.id == null ? 'Crea un nuovo evento' : 'Modifica i dati dell’evento'}">
+                            Evento
+                        </h2>
+
+                        <p class="sezione-sottotitolo">
+                            Compila i campi dell'evento e scegli se renderlo visibile sul sito.
+                        </p>
+                    </div>
+
+
+                    <!--
+                        In creazione:
+                        POST /admin/eventi/nuovo
+
+                        In modifica:
+                        POST /admin/eventi/{id}/modifica
+                    -->
+                    <form th:object="${evento}" th:action="${evento.id == null}
+                                     ? @{/admin/eventi/nuovo}
+                                     : @{/admin/eventi/{id}/modifica(id=${evento.id})}" method="post">
+
+
+                        <!-- Titolo -->
+                        <div class="form-gruppo">
+                            <label for="titolo">Titolo</label>
+
+                            <input type="text" id="titolo" th:field="*{titolo}" placeholder="Titolo dell'evento"
+                                required>
+
+                            <!--
+                            Se in futuro aggiungerai una validazione
+                            lato server, puoi usare:
+
+                            <span class="form-errore"
+                                  th:if="${#fields.hasErrors('titolo')}"
+                                  th:errors="*{titolo}">
+                            </span>
+                            -->
+                        </div>
+
+
+                        <!-- Data -->
+                        <div class="form-gruppo">
+                            <label for="data">Data</label>
+
+                            <input type="date" id="data" th:field="*{data}" required>
+
+                            <span class="form-errore" th:if="${errore}" th:text="${errore}">
+                            </span>
+                        </div>
+
+
+                        <!-- Descrizione -->
+                        <div class="form-gruppo">
+                            <label for="descrizione">Descrizione</label>
+
+                            <textarea id="descrizione" th:field="*{descrizione}"
+                                placeholder="Inserisci la descrizione dell'evento..." required></textarea>
+                        </div>
+
+
+                        <!-- Visibilità -->
+                        <div class="form-gruppo">
+                            <div class="form-checkbox">
+
+                                <input type="checkbox" id="visibilità" th:field="*{visibilità}">
+
+                                <label for="visibilità">
+                                    Rendere visibile l'evento sul sito
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div th:if="${#fields.hasGlobalErrors()}" class="messaggio-globale">
+
+                            <div class="avviso avviso-errore" th:each="errore : ${#fields.globalErrors()}"
+                                th:text="${errore}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- Azioni -->
+                        <div class="form-azioni">
+
+                            <a th:href="@{/admin/eventi}" class="btn btn-secondario">
+                                Annulla
+                            </a>
+
+                            <button type="submit" class="btn btn-primario"
+                                th:text="${evento.id == null ? 'Crea evento' : 'Salva modifiche'}">
+                                Salva
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+
+            <div class="footer-copy">
+                &copy; 2026 Parrocchia Trasfigurazione
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.service.UtenteRichiestaService;
 import it.parrocchiatrasfigurazione.sito_backend.service.UtenteService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -23,13 +25,21 @@ public class AdminController {
     private UtenteRichiestaService utenteRichiestaService;
     private UtenteService utenteService;
 
-    public AdminController(UtenteRichiestaService utenteRichiestaService, UtenteService utenteService, IniziativaService iniziativaService, EventoService eventoService, NotiziaService notiziaService) {
+    public AdminController(UtenteRichiestaService utenteRichiestaService, UtenteService utenteService,
+            IniziativaService iniziativaService, EventoService eventoService, NotiziaService notiziaService) {
         this.utenteRichiestaService = utenteRichiestaService;
         this.utenteService = utenteService;
         this.iniziativaService = iniziativaService;
         this.eventoService = eventoService;
         this.notiziaService = notiziaService;
     }
+
+    @GetMapping("/index")
+    public String mostraAmministrazione() {
+        return "admin/index";
+    }
+
+    // GESTIONE RICHIESTE
 
     @GetMapping("/richieste")
     public String richieste(Model model) {
@@ -45,7 +55,8 @@ public class AdminController {
     }
 
     @PostMapping("/utenti")
-    public String registraUtente(@ModelAttribute("utente") Utente utente, @RequestParam String username, @RequestParam String password, Model model) {
+    public String registraUtente(@ModelAttribute("utente") Utente utente, @RequestParam String username,
+            @RequestParam String password, Model model) {
         try {
             utenteService.registraUtente(utente, username, password);
             return "redirect:/admin/richieste?registrato";
@@ -56,40 +67,40 @@ public class AdminController {
         }
     }
 
-
-
-    //amministrazione
-
-    @GetMapping("/index")
-    public String mostraAmministrazione() {
-        return "admin/index";
-    }
+    // GESTIONE EVENTI
 
     @GetMapping("/eventi")
-    public String mostraGestioneEventi(Model model){
-        model.addAttribute("eventi", eventoService.getAll()); 
+    public String mostraGestioneEventi(Model model) {
+        model.addAttribute("eventi", eventoService.getAll());
 
-        return "admin/eventi";
+        return "admin/eventi/list";
     }
 
+
+
+    
+
+    // GESTIONE INIZIATIVE
+
     @GetMapping("/iniziative")
-    public String mostraGestioneIniziative(Model model){
+    public String mostraGestioneIniziative(Model model) {
         model.addAttribute("iniziative", iniziativaService.getAll());
         return "admin/iniziative";
     }
+
+    // GESTIONE NOTIZIE
+
     @GetMapping("/notizie")
-    public String mostraGestioneNotizie(Model model){
+    public String mostraGestioneNotizie(Model model) {
         model.addAttribute("notizie", notiziaService.getTutteLeNotizie());
         return "admin/notizie";
     }
+
     @GetMapping("/utenti")
-    public String mostraGestioneUtenti(Model model){
+    public String mostraGestioneUtenti(Model model) {
         model.addAttribute("utenti", utenteService.getTuttiDaCognome());
 
         return "admin/utenti";
     }
 
-    
-   
-    
 }
