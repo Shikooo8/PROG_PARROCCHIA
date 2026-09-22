@@ -62,7 +62,7 @@ public class AdminController {
     public String mostraGestioneEventi(Model model) {
         model.addAttribute("eventi", eventoService.getAll());
 
-        return "admin/eventi/list";
+        return "admin/eventiList";
     }
 
     // GESTIONE INIZIATIVE
@@ -70,7 +70,7 @@ public class AdminController {
     @GetMapping("/iniziative")
     public String mostraGestioneIniziative(Model model) {
         model.addAttribute("iniziative", iniziativaService.getAll());
-        return "admin/iniziative/list";
+        return "admin/iniziativeList";
     }
 
     // GESTIONE NOTIZIE
@@ -78,7 +78,7 @@ public class AdminController {
     @GetMapping("/notizie")
     public String mostraGestioneNotizie(Model model) {
         model.addAttribute("notizie", notiziaService.getTutteLeNotizie());
-        return "admin/notizie/list";
+        return "admin/notizieList";
     }
 
     @GetMapping("/utenti")

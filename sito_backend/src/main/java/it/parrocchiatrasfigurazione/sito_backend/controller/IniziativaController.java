@@ -1,6 +1,9 @@
 package it.parrocchiatrasfigurazione.sito_backend.controller;
 
 import it.parrocchiatrasfigurazione.sito_backend.service.UtenteService;
+
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,9 +36,14 @@ public class IniziativaController {
     }
 
         @GetMapping("/iniziative/{id}")
-    public String mostraIniziativa(@PathVariable Long id, Model model) {
+    public String mostraIniziativa(@PathVariable Long id, Model model, Authentication authentication) {
         model.addAttribute("iniziativa", iniziativaService.getIniziativa(id));
         model.addAttribute("pagina", "iniziative");
+
+        boolean loggato = authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken); //TODO perché ci sono tutti questi &&??
+        model.addAttribute("utenteLoggato", loggato);
+
+
         return "iniziative/show";
     }
 
@@ -46,21 +54,21 @@ public class IniziativaController {
     public String showNewIniziativaForm( Model model) {
         model.addAttribute("iniziativa", new Iniziativa());
         model.addAttribute("utenti", utenteService.getTuttiDaCognome());
-        return "admin/iniziative/form";
+        return "admin/iniziativeForm";
     }
 
 
     @PostMapping("/admin/iniziative/nuovo")
     public String saveNewIniziativa(@Valid @ModelAttribute ("iniziativa") Iniziativa iniziativa, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "admin/iniziative/form";
+            return "admin/iniziativeForm";
         }
       //  try{
             iniziativaService.save(iniziativa);
             return "redirect:/admin/iniziative";
         /*} catch(DuplicateIniziativaException e){
             bindingResult.reject("iniziativa.duplicate", e.getMessage()); 
-            return "admin/iniziative/form";
+            return "admin/iniziativeForm";
 
         }*/
     }
@@ -70,13 +78,13 @@ public class IniziativaController {
     public String showExistingIniziativaForm(@PathVariable Long id, Model model) {
         model.addAttribute("iniziativa", iniziativaService.getIniziativa(id));
         model.addAttribute("utenti", utenteService.getTuttiDaCognome());
-        return "admin/iniziative/form";
+        return "admin/iniziativeForm";
     }
 
     @PostMapping("/admin/iniziative/{id}/modifica")
     public String saveExistentEvent(@PathVariable Long id, @Valid @ModelAttribute ("iniziativa") Iniziativa iniziativa, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            return "admin/iniziative/form";
+            return "admin/iniziativeForm";
         }
      //   try{
             iniziativa.setId(id);
@@ -85,7 +93,7 @@ public class IniziativaController {
 
 /*} catch(DuplicateIniziativaException e){
             bindingResult.reject("iniziativa.duplicate"); 
-            return "admin/iniziative/form";
+            return "admin/iniziativeForm";
         }
  */
         

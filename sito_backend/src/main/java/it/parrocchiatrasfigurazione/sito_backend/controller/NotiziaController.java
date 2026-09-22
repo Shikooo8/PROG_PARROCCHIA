@@ -27,7 +27,7 @@ public class NotiziaController {
         return "notizie/list";
     }
 
-    @GetMapping("/notizia/{id}")
+    @GetMapping("/notizie/{id}")
     public String mostraNotizia(@PathVariable Long id, Model model) {
         model.addAttribute("notizia", notiziaService.getNotizia(id));
         model.addAttribute("pagina", "notizie");
@@ -40,21 +40,21 @@ public class NotiziaController {
     @GetMapping("/admin/notizie/nuovo")
     public String showNewNotiziaForm( Model model) {
         model.addAttribute("notizia", new Notizia());
-        return "admin/notizie/form";
+        return "admin/notizieForm";
     }
 
 
     @PostMapping("/admin/notizie/nuovo")
     public String saveNewNotizia(@Valid @ModelAttribute ("notizia") Notizia notizia, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "admin/notizie/form";
+            return "admin/notizieForm";
         }
       //  try{
             notiziaService.save(notizia);
             return "redirect:/admin/notizie";
         /*} catch(DuplicateNotiziaException e){
             bindingResult.reject("notizia.duplicate", e.getMessage()); 
-            return "admin/notizie/form";
+            return "admin/notizieForm";
 
         }*/
     }
@@ -63,13 +63,13 @@ public class NotiziaController {
     @GetMapping("/admin/notizie/{id}/modifica")
     public String showExistingNotiziaForm(@PathVariable Long id, Model model) {
         model.addAttribute("notizia", notiziaService.getNotizia(id));
-                return "admin/notizie/form";
+                return "admin/notizieForm";
     }
 
     @PostMapping("/admin/notizie/{id}/modifica")
     public String saveExistentEvent(@PathVariable Long id, @Valid @ModelAttribute ("notizia") Notizia notizia, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            return "admin/notizie/form";
+            return "admin/notizieForm";
         }
      //   try{
             notizia.setId(id);
@@ -78,7 +78,7 @@ public class NotiziaController {
 
 /*} catch(DuplicateNotiziaException e){
             bindingResult.reject("notizia.duplicate"); 
-            return "admin/notizie/form";
+            return "admin/notizieForm";
         }
  */
         

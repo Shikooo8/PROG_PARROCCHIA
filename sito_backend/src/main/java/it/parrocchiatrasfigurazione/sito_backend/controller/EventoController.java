@@ -44,21 +44,21 @@ public class EventoController {
     @GetMapping("/admin/eventi/nuovo")
     public String showNewEventoForm( Model model) {
         model.addAttribute("evento", new Evento());
-        return "admin/eventi/form";
+        return "admin/eventiForm";
     }
 
 
     @PostMapping("/admin/eventi/nuovo")
     public String saveNewEvento(@Valid @ModelAttribute ("evento") Evento evento, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "admin/eventi/form";
+            return "admin/eventiForm";
         }
         try{
             eventoService.save(evento);
             return "redirect:/admin/eventi";
         } catch(DuplicateEventoException e){
             bindingResult.reject("evento.duplicate", e.getMessage()); 
-            return "admin/eventi/form";
+            return "admin/eventiForm";
 
         }
     }
@@ -67,13 +67,13 @@ public class EventoController {
      @GetMapping("/admin/eventi/{id}/modifica")
     public String showExistingEventoForm(@PathVariable Long id, Model model) {
         model.addAttribute("evento", eventoService.getEvento(id));
-        return "admin/eventi/form";
+        return "admin/eventiForm";
     }
 
     @PostMapping("/admin/eventi/{id}/modifica")
     public String saveExistentEvent(@PathVariable Long id, @Valid @ModelAttribute ("evento") Evento evento, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            return "admin/eventi/form";
+            return "admin/eventiForm";
         }
         try{
             evento.setId(id);
@@ -83,7 +83,7 @@ public class EventoController {
 
         } catch(DuplicateEventoException e){
             bindingResult.reject("evento.duplicate"); 
-            return "admin/eventi/form";
+            return "admin/eventiForm";
         }
     }
 
