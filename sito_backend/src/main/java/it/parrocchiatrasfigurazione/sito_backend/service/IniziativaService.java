@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
+import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository;
 
 @Service
@@ -55,5 +56,44 @@ public class IniziativaService {
     public void delete(Long id) {
         iniziativaRepository.deleteById(id);
     }
+
+
+    public void addUtenteIscritto(Long iniziativaId, Utente utente) {
+    Iniziativa iniziativa = iniziativaRepository.findById(iniziativaId)
+            .orElseThrow(() -> new RuntimeException("Iniziativa non trovata")); //TODO errrore a caso
+
+    if (!iniziativa.getIscrizioni().contains(utente)) {
+        iniziativa.getIscrizioni().add(utente);
+        iniziativaRepository.save(iniziativa);
+    }
+}
+
+public void removeUtenteIscritto(Long iniziativaId, Utente utente) {
+    Iniziativa iniziativa = iniziativaRepository.findById(iniziativaId)
+            .orElseThrow(() -> new RuntimeException("Iniziativa non trovata")); //TODO errrore a caso
+
+    iniziativa.getIscrizioni().remove(utente);
+    iniziativaRepository.save(iniziativa);
+}
+
+public boolean isUtenteIscritto(Long iniziativaId, Utente utente) {
+
+    Iniziativa iniziativa = getIniziativa(iniziativaId);
+
+    return iniziativa.getIscrizioni().contains(utente);
+}
+
+public boolean isCoordinatore(Long iniziativaId, Utente utente) {
+
+    Iniziativa iniziativa = getIniziativa(iniziativaId);
+
+    return iniziativa.getCoordinatore() != null
+            && iniziativa.getCoordinatore().getId().equals(utente.getId());
+}
+
+
+
+
+
 
 }

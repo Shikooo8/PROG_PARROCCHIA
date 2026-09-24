@@ -24,8 +24,9 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 
 
 ## Errori trovati
-- Non visualizzo l'elenco dei partecipanti o il coordinatore
-
+- Modificando il coordinatore, scompaiono i partecipanti 
+- non posso cancellare l'escirzione ad una iniziativa dalla parte dell'admin.
+- La gestione dell'iscrizione del coordinatore non ha senso
 
 # Descrizione del Progetto Personale 2026Progetto Personale 2026 
 

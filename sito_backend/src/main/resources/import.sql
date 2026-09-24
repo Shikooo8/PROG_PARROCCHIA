@@ -38,3 +38,7 @@ insert into credenziali (id, username, password, ruolo, utente_id) values (nextv
 --utente richiesta
 insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazioni, username, password) values (nextval('utente_richiesta_seq'), 'Nuovo', 'Novizio', 'a@a.a',' 1970-10-19' ,'voglio entrare', 'Utente9', '$2a$10$yWAIDyuEr78BBBFZ5cYh8.Nw4gUHFTRG5FwaWqNCGeOD8M4mh3.xy');
 insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazioni, username, password) values (nextval('utente_richiesta_seq'), 'Marco', 'Marco', 'm@m.com',' 1990-10-23' ,'voglio  aaaaaaaa fatemi entrare', 'Utente10', 'paolo');
+
+-- iscrizioni - inziiative
+insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 1);
+insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 51);

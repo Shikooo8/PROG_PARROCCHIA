@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -14,17 +15,20 @@
     <link rel="stylesheet" th:href="@{/css/stile.css}">
     <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
 
-
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
 
 
-    <!-- TITOLO PAGINA -->
+    <!-- =====================================================
+         TITOLO PAGINA
+         ===================================================== -->
 
     <section class="fascia-titolo">
 
@@ -63,7 +67,9 @@
     </section>
 
 
-    <!-- DETTAGLIO -->
+    <!-- =====================================================
+         DETTAGLIO INIZIATIVA
+         ===================================================== -->
 
     <section class="sezione">
 
@@ -73,36 +79,232 @@
 
                 <!-- Torna alla lista -->
 
-                <a class="dettaglio-torna" th:href="@{/iniziative}">
+                <a class="dettaglio-torna"
+                   th:href="@{/iniziative}">
+
                     ← Torna alle iniziative
+
                 </a>
 
 
-                <!-- Immagine -->
+                <!-- =================================================
+                     IMMAGINE
+                     ================================================= -->
+
+                <!--
+                    Per ora viene mostrato il segnaposto.
+                    Quando aggiungerai l'immagine all'entità
+                    Iniziativa, questo blocco potrà essere sostituito
+                    con un <img>.
+                -->
 
                 <div class="scheda-immagine-segnaposto">
+
                     ✝
+
                 </div>
 
 
-                <!-- Titolo -->
+                <!-- =================================================
+                     TITOLO
+                     ================================================= -->
 
-                <h2 class="dettaglio-titolo" th:text="${iniziativa.titolo}">Titolo dell'iniziativa</h2>
+                <h2 class="dettaglio-titolo"
+                    th:text="${iniziativa.titolo}">
 
-                <!-- Descrizione -->
+                    Titolo dell'iniziativa
 
-                <div class="dettaglio-testo" th:text="${iniziativa.descrizione}">Descrizione dell'iniziativa.</div>
+                </h2>
 
 
-                <!--
-                Questa parte è intenzionalmente lasciata
-                fuori dalla visualizzazione pubblica.
+                <!-- =================================================
+                     DESCRIZIONE
+                     ================================================= -->
 
-                Gli iscritti e il coordinatore saranno
-                gestiti in una successiva area riservata
-                ad admin e coordinatore.
-            -->
-                
+                <div class="dettaglio-testo"
+                     th:text="${iniziativa.descrizione}">
+
+                    Descrizione dell'iniziativa.
+
+                </div>
+
+
+                <!-- =================================================
+                     INFORMAZIONI PER UTENTI LOGGATI
+                     ================================================= -->
+
+                <div sec:authorize="isAuthenticated()"
+                     class="dettaglio-riquadro">
+
+                    <h3>
+                        Informazioni sull'iniziativa
+                    </h3>
+
+
+                    <!-- ==============================
+                         COORDINATORE
+                         ============================== -->
+
+                    <div th:if="${iniziativa.coordinatore != null}">
+
+                        <p>
+
+                            <strong>
+                                Coordinatore:
+                            </strong>
+
+                            <span th:text="${iniziativa.coordinatore.nome + ' ' + iniziativa.coordinatore.cognome}">
+                                Nome Cognome
+                            </span>
+
+                        </p>
+
+                    </div>
+
+
+                    <div th:if="${iniziativa.coordinatore == null}">
+
+                        <p class="sezione-sottotitolo">
+
+                            Non è stato assegnato alcun coordinatore.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- ==============================
+                         ISCRIZIONE
+                         ============================== -->
+
+                    <div style="margin-top: 20px;">
+
+                        <!--
+                            Utente NON iscritto:
+                            mostra "Iscriviti".
+                        -->
+
+                        <div th:if="${!iscritto}">
+
+                            <form th:action="@{/iniziativa/{id}/iscriviti(id=${iniziativa.id})}"
+                                  method="post">
+
+                                <button class="btn btn-primario"
+                                        type="submit">
+
+                                    Iscriviti
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!--
+                            Utente già iscritto:
+                            mostra "Cancella iscrizione".
+                        -->
+
+                        <div th:if="${iscritto}">
+
+                            <form th:action="@{/iniziativa/{id}/cancella-iscrizione(id=${iniziativa.id})}"
+                                  method="post">
+
+                                <button class="btn btn-pericolo"
+                                        type="submit">
+
+                                    Cancella iscrizione
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     LISTA ISCRITTI
+                     
+                     Visibile:
+                     - all'ADMIN
+                     - al COORDINATORE dell'iniziativa
+                     ================================================= -->
+
+                <div th:if="${coordinatore or #authorization.expression('hasAuthority(''ADMIN'')')}"
+                     class="dettaglio-riquadro">
+
+                    <h3>
+                        Utenti iscritti
+                    </h3>
+
+
+                    <!-- Nessun iscritto -->
+
+                    <div th:if="${iniziativa.iscrizioni == null or iniziativa.iscrizioni.isEmpty()}">
+
+                        <p class="sezione-sottotitolo">
+
+                            Nessun utente iscritto a questa iniziativa.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Almeno un iscritto -->
+
+                    <div th:if="${iniziativa.iscrizioni != null and !iniziativa.iscrizioni.isEmpty()}">
+
+                        <ul class="orario-lista">
+
+                            <li th:each="iscritto : ${iniziativa.iscrizioni}">
+
+                                <span
+                                    th:text="${iscritto.nome + ' ' + iscritto.cognome}">
+                                    Nome Cognome
+                                </span>
+
+
+                                <!--
+                                    Pulsante per rimuovere l'iscrizione.
+
+                                    Lo gestiremo nel controller con:
+
+                                    POST
+                                    /iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella
+
+                                -->
+
+                                <form
+                                    th:action="@{/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella(
+                                        iniziativaId=${iniziativa.id},
+                                        utenteId=${iscritto.id}
+                                    )}"
+                                    method="post"
+                                    style="display: inline; margin-left: 10px;">
+
+                                    <button class="btn btn-pericolo btn-piccolo"
+                                            type="submit">
+
+                                        Cancella
+
+                                    </button>
+
+                                </form>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
 
             </div>
 
@@ -111,7 +313,9 @@
     </section>
 
 
-    <!-- FOOTER -->
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
 
     <footer class="footer">
 
@@ -119,49 +323,72 @@
 
             <div class="footer-griglia">
 
+
+                <!-- ==============================
+                     DESCRIZIONE
+                     ============================== -->
+
                 <div>
 
                     <h3 class="footer-titolo">
+
                         Parrocchia Trasfigurazione
+
                     </h3>
 
                     <p class="footer-testo">
+
                         La nostra comunità parrocchiale.
+
                     </p>
 
                 </div>
 
 
+                <!-- ==============================
+                     NAVIGAZIONE
+                     ============================== -->
+
                 <div>
 
                     <h3 class="footer-titolo">
+
                         Navigazione
+
                     </h3>
 
                     <ul class="footer-links">
 
                         <li>
+
                             <a th:href="@{/}">
                                 Home
                             </a>
+
                         </li>
 
                         <li>
+
                             <a th:href="@{/notizie}">
                                 Notizie
                             </a>
+
                         </li>
 
                         <li>
+
                             <a th:href="@{/eventi}">
                                 Eventi
                             </a>
+
                         </li>
 
                         <li>
+
                             <a th:href="@{/iniziative}">
                                 Iniziative
                             </a>
+
                         </li>
 
                     </ul>
@@ -170,6 +397,8 @@
 
             </div>
 
+
+            <!-- Copyright -->
 
             <div class="footer-copy">
 

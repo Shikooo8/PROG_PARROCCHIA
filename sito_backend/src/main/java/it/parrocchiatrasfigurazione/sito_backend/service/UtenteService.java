@@ -47,4 +47,8 @@ public class UtenteService {
 
         //TODO rimuovere le iscrizioni
     }
+
+    public Utente getUtenteById(Long utenteId) {
+       return utenteRepository.findById(utenteId).get();
+    }
 }     

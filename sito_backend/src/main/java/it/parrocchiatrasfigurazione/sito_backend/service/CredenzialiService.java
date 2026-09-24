@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.parrocchiatrasfigurazione.sito_backend.model.Credenziali;
+import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.repository.CredenzialiRepository;
 
 @Service
@@ -23,5 +24,12 @@ public class CredenzialiService {
     public void save(Credenziali credenziali) {
         this.credenzialiRepository.save(credenziali);
         }
+
+   public Utente getUtenteByUsername(String username) {
+    return credenzialiRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Credenziali non trovate")) //TODO errore a caso
+            .getUtente();
+}
+
 
 }
