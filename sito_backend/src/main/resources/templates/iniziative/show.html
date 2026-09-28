@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -79,8 +78,7 @@
 
                 <!-- Torna alla lista -->
 
-                <a class="dettaglio-torna"
-                   th:href="@{/iniziative}">
+                <a class="dettaglio-torna" th:href="@{/iniziative}">
 
                     ← Torna alle iniziative
 
@@ -109,8 +107,7 @@
                      TITOLO
                      ================================================= -->
 
-                <h2 class="dettaglio-titolo"
-                    th:text="${iniziativa.titolo}">
+                <h2 class="dettaglio-titolo" th:text="${iniziativa.titolo}">
 
                     Titolo dell'iniziativa
 
@@ -121,8 +118,7 @@
                      DESCRIZIONE
                      ================================================= -->
 
-                <div class="dettaglio-testo"
-                     th:text="${iniziativa.descrizione}">
+                <div class="dettaglio-testo" th:text="${iniziativa.descrizione}">
 
                     Descrizione dell'iniziativa.
 
@@ -133,8 +129,7 @@
                      INFORMAZIONI PER UTENTI LOGGATI
                      ================================================= -->
 
-                <div sec:authorize="isAuthenticated()"
-                     class="dettaglio-riquadro">
+                <div sec:authorize="isAuthenticated()" class="dettaglio-riquadro">
 
                     <h3>
                         Informazioni sull'iniziativa
@@ -172,25 +167,15 @@
 
                     </div>
 
+                    <div style="margin-top: 20px;"
+                        th:if="${!coordinatore and !#authorization.expression('hasAuthority(''ADMIN'')')}">
 
-                    <!-- ==============================
-                         ISCRIZIONE
-                         ============================== -->
-
-                    <div style="margin-top: 20px;">
-
-                        <!--
-                            Utente NON iscritto:
-                            mostra "Iscriviti".
-                        -->
-
+                        <!-- Utente NON iscritto -->
                         <div th:if="${!iscritto}">
 
-                            <form th:action="@{/iniziativa/{id}/iscriviti(id=${iniziativa.id})}"
-                                  method="post">
+                            <form th:action="@{/iniziativa/{id}/iscriviti(id=${iniziativa.id})}" method="post">
 
-                                <button class="btn btn-primario"
-                                        type="submit">
+                                <button class="btn btn-primario" type="submit">
 
                                     Iscriviti
 
@@ -201,18 +186,13 @@
                         </div>
 
 
-                        <!--
-                            Utente già iscritto:
-                            mostra "Cancella iscrizione".
-                        -->
-
+                        <!-- Utente già iscritto -->
                         <div th:if="${iscritto}">
 
                             <form th:action="@{/iniziativa/{id}/cancella-iscrizione(id=${iniziativa.id})}"
-                                  method="post">
+                                method="post">
 
-                                <button class="btn btn-pericolo"
-                                        type="submit">
+                                <button class="btn btn-pericolo" type="submit">
 
                                     Cancella iscrizione
 
@@ -223,6 +203,7 @@
                         </div>
 
                     </div>
+
 
                 </div>
 
@@ -236,7 +217,7 @@
                      ================================================= -->
 
                 <div th:if="${coordinatore or #authorization.expression('hasAuthority(''ADMIN'')')}"
-                     class="dettaglio-riquadro">
+                    class="dettaglio-riquadro">
 
                     <h3>
                         Utenti iscritti
@@ -264,8 +245,7 @@
 
                             <li th:each="iscritto : ${iniziativa.iscrizioni}">
 
-                                <span
-                                    th:text="${iscritto.nome + ' ' + iscritto.cognome}">
+                                <span th:text="${iscritto.nome + ' ' + iscritto.cognome}">
                                     Nome Cognome
                                 </span>
 
@@ -280,16 +260,12 @@
 
                                 -->
 
-                                <form
-                                    th:action="@{/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella(
+                                <form th:action="@{/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella(
                                         iniziativaId=${iniziativa.id},
                                         utenteId=${iscritto.id}
-                                    )}"
-                                    method="post"
-                                    style="display: inline; margin-left: 10px;">
+                                    )}" method="post" style="display: inline; margin-left: 10px;">
 
-                                    <button class="btn btn-pericolo btn-piccolo"
-                                            type="submit">
+                                    <button class="btn btn-pericolo btn-piccolo" type="submit">
 
                                         Cancella
 

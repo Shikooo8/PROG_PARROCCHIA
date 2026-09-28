@@ -40,5 +40,7 @@ insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazion
 insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazioni, username, password) values (nextval('utente_richiesta_seq'), 'Marco', 'Marco', 'm@m.com',' 1990-10-23' ,'voglio  aaaaaaaa fatemi entrare', 'Utente10', 'paolo');
 
 -- iscrizioni - inziiative
-insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 1);
+insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 101);
 insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 51);
+insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 151);
+insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (51, 151);

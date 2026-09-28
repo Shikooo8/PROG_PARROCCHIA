@@ -12,7 +12,7 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 - Vedere Eventi, Iniziative e Notizie
 
 ### Funzionalità utenti registrati (assistenti)
-- Iscriversi ad iniziative
+- Iscriversi e disiscriversi dalle iniziative
 - Coordinare le iniziative assegnate
 
 ### Funzionalità riservate all’amministratore (preti)
@@ -20,13 +20,15 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 - Aggiungere, modifica ed eliminare eventi
 - Aggiungere, modifica ed eliminare iniziative
 - Aggiungere, modifica ed eliminare notizie
-- gestire gli utenti
+- Gestire gli utenti
 
+
+### Proposte da aggiungere
+- Domande solo per gli iscritti, che possono essere pubblicate se frequenti.
 
 ## Errori trovati
-- Modificando il coordinatore, scompaiono i partecipanti 
-- non posso cancellare l'escirzione ad una iniziativa dalla parte dell'admin.
-- La gestione dell'iscrizione del coordinatore non ha senso
+- Quando si elimina un utente, bisogna prima controllare che non faccia parte di alcuna iniziativa
+- Non si modificano le informazioni generali
 
 # Descrizione del Progetto Personale 2026Progetto Personale 2026 
 

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Modifica informazioni generali
+    </title>
+
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+
+    <link rel="icon" type="image/png" th:href="@{/images/cross.png}">
+
+</head>
+
+<body>
+    <!-- =====================================================
+     HEADER COMUNE
+     ===================================================== -->
+
+    <div th:replace="~{fragments/riquadroAltissimo :: riquadroAltissimo}"></div>
+
+
+    <main>
+
+
+        <!-- =====================================================
+         FASCIA TITOLO
+         ===================================================== -->
+
+        <section class="fascia-titolo">
+
+            <div class="fascia-titolo-contenuto">
+
+                <div>
+
+                    <div class="breadcrumb">
+
+                        <a th:href="@{/admin/index}">
+                            Amministrazione
+                        </a>
+
+                        /
+
+                        <span>
+                            Informazioni generali
+                        </span>
+
+                    </div>
+
+
+                    <h1>
+                        Informazioni generali
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+         FORM
+         ===================================================== -->
+
+        <section class="sezione">
+
+            <div class="container">
+
+                <div class="form-riquadro form-riquadro-largo">
+
+
+                    <!-- =================================================
+                     INTESTAZIONE
+                     ================================================= -->
+
+                    <div class="sezione-intestazione">
+
+                        <h2 class="sezione-titolo">
+                            Modifica le informazioni della parrocchia
+                        </h2>
+
+                        <p class="sezione-sottotitolo">
+
+                            Modifica l'indirizzo, gli orari di apertura
+                            e gli orari delle messe.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                     FORM
+                     ================================================= -->
+
+                    <form th:object="${informazioni}" th:action="@{/admin/informazioni-generali}" method="post">
+
+
+                        <!-- =================================================
+                         INDIRIZZO
+                         ================================================= -->
+
+                        <div class="form-gruppo">
+
+                            <label for="indirizzo">
+                                Indirizzo
+                            </label>
+
+                            <input type="text" id="indirizzo" th:field="*{indirizzo}"
+                                placeholder="Indirizzo della parrocchia" required>
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('indirizzo')}"
+                                th:errors="*{indirizzo}">
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                         ORARI DI APERTURA
+                         ================================================= -->
+
+                        <div class="form-gruppo">
+
+                            <label for="orarioApertura">
+                                Orario di apertura
+                            </label>
+
+                            <input type="time" id="orarioApertura" th:field="*{orarioApertura}">
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('orarioApertura')}"
+                                th:errors="*{orarioApertura}">
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="form-gruppo">
+
+                            <label for="orarioChiusura">
+                                Orario di chiusura
+                            </label>
+
+                            <input type="time" id="orarioChiusura" th:field="*{orarioChiusura}">
+
+                            <span class="form-errore" th:if="${#fields.hasErrors('orarioChiusura')}"
+                                th:errors="*{orarioChiusura}">
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                         MESSE FERIALI
+                         ================================================= -->
+
+                        <div class="form-gruppo">
+
+                            <label>
+                                Orari delle messe feriali
+                            </label>
+
+                            <p class="sezione-sottotitolo">
+
+                                Inserisci gli orari delle messe nei giorni
+                                feriali. Lascia vuoti gli spazi non utilizzati.
+
+                            </p>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFeriale0">
+                                    Messa feriale 1
+                                </label>
+
+                                <input type="time" id="messaFeriale0" name="orarioMessaFeriale[0]" th:value="${informazioni.orarioMessaFeriale != null
+                                       and #lists.size(informazioni.orarioMessaFeriale) > 0
+                                       ? informazioni.orarioMessaFeriale[0]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFeriale1">
+                                    Messa feriale 2
+                                </label>
+
+                                <input type="time" id="messaFeriale1" name="orarioMessaFeriale[1]" th:value="${informazioni.orarioMessaFeriale != null
+                                       and #lists.size(informazioni.orarioMessaFeriale) > 1
+                                       ? informazioni.orarioMessaFeriale[1]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFeriale2">
+                                    Messa feriale 3
+                                </label>
+
+                                <input type="time" id="messaFeriale2" name="orarioMessaFeriale[2]" th:value="${informazioni.orarioMessaFeriale != null
+                                       and #lists.size(informazioni.orarioMessaFeriale) > 2
+                                       ? informazioni.orarioMessaFeriale[2]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFeriale3">
+                                    Messa feriale 4
+                                </label>
+
+                                <input type="time" id="messaFeriale3" name="orarioMessaFeriale[3]" th:value="${informazioni.orarioMessaFeriale != null
+                                       and #lists.size(informazioni.orarioMessaFeriale) > 3
+                                       ? informazioni.orarioMessaFeriale[3]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFeriale4">
+                                    Messa feriale 5
+                                </label>
+
+                                <input type="time" id="messaFeriale4" name="orarioMessaFeriale[4]" th:value="${informazioni.orarioMessaFeriale != null
+                                       and #lists.size(informazioni.orarioMessaFeriale) > 4
+                                       ? informazioni.orarioMessaFeriale[4]
+                                       : ''}">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                         MESSE FESTIVE
+                         ================================================= -->
+
+                        <div class="form-gruppo">
+
+                            <label>
+                                Orari delle messe festive
+                            </label>
+
+                            <p class="sezione-sottotitolo">
+
+                                Inserisci gli orari delle messe festive.
+                                Lascia vuoti gli spazi non utilizzati.
+
+                            </p>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFestiva0">
+                                    Messa festiva 1
+                                </label>
+
+                                <input type="time" id="messaFestiva0" name="orarioMessaFestivo[0]" th:value="${informazioni.orarioMessaFestivo != null
+                                       and #lists.size(informazioni.orarioMessaFestivo) > 0
+                                       ? informazioni.orarioMessaFestivo[0]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFestiva1">
+                                    Messa festiva 2
+                                </label>
+
+                                <input type="time" id="messaFestiva1" name="orarioMessaFestivo[1]" th:value="${informazioni.orarioMessaFestivo != null
+                                       and #lists.size(informazioni.orarioMessaFestivo) > 1
+                                       ? informazioni.orarioMessaFestivo[1]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFestiva2">
+                                    Messa festiva 3
+                                </label>
+
+                                <input type="time" id="messaFestiva2" name="orarioMessaFestivo[2]" th:value="${informazioni.orarioMessaFestivo != null
+                                       and #lists.size(informazioni.orarioMessaFestivo) > 2
+                                       ? informazioni.orarioMessaFestivo[2]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFestiva3">
+                                    Messa festiva 4
+                                </label>
+
+                                <input type="time" id="messaFestiva3" name="orarioMessaFestivo[3]" th:value="${informazioni.orarioMessaFestivo != null
+                                       and #lists.size(informazioni.orarioMessaFestivo) > 3
+                                       ? informazioni.orarioMessaFestivo[3]
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-gruppo">
+
+                                <label for="messaFestiva4">
+                                    Messa festiva 5
+                                </label>
+
+                                <input type="time" id="messaFestiva4" name="orarioMessaFestivo[4]" th:value="${informazioni.orarioMessaFestivo != null
+                                       and #lists.size(informazioni.orarioMessaFestivo) > 4
+                                       ? informazioni.orarioMessaFestivo[4]
+                                       : ''}">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                         ERRORI GLOBALI
+                         ================================================= -->
+
+                        <div th:if="${#fields.hasGlobalErrors()}" class="messaggio-globale">
+
+                            <div class="avviso avviso-errore" th:each="errore : ${#fields.globalErrors()}"
+                                th:text="${errore}">
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                         AZIONI
+                         ================================================= -->
+
+                        <div class="form-azioni">
+
+                            <a th:href="@{/admin/index}" class="btn btn-secondario">
+
+                                Annulla
+
+                            </a>
+
+
+                            <button type="submit" class="btn btn-primario">
+
+                                Salva modifiche
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-copy">
+
+                &copy; 2026 Parrocchia Trasfigurazione
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 package it.parrocchiatrasfigurazione.sito_backend.controller;
 
-import it.parrocchiatrasfigurazione.sito_backend.repository.InformazioniGeneraliRepository;
 import it.parrocchiatrasfigurazione.sito_backend.service.UtenteService;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -22,17 +21,15 @@ import jakarta.validation.Valid;
 @Controller
 public class IniziativaController {
 
-    private final InformazioniGeneraliRepository informazioniGeneraliRepository;
     private final UtenteService utenteService;
     private IniziativaService iniziativaService;
     private CredenzialiService credenzialiService;
 
     public IniziativaController(IniziativaService iniziativaService, UtenteService utenteService,
-            CredenzialiService credenzialiService, InformazioniGeneraliRepository informazioniGeneraliRepository) {
+            CredenzialiService credenzialiService) {
         this.iniziativaService = iniziativaService;
         this.utenteService = utenteService;
         this.credenzialiService = credenzialiService;
-        this.informazioniGeneraliRepository = informazioniGeneraliRepository;
     }
 
     @GetMapping("/iniziative")
@@ -40,50 +37,45 @@ public class IniziativaController {
         model.addAttribute("iniziative", iniziativaService.getIniziativeVisibili());
         return "iniziative/list";
     }
-@GetMapping("/iniziative/{id}")
-public String mostraIniziativa(
-        @PathVariable Long id,
-        Model model,
-        Authentication authentication) {
 
-    Iniziativa iniziativa = iniziativaService.getIniziativa(id);
+    @GetMapping("/iniziative/{id}")
+    public String mostraIniziativa(
+            @PathVariable Long id,
+            Model model,
+            Authentication authentication) {
 
-    model.addAttribute("iniziativa", iniziativa);
-    model.addAttribute("pagina", "iniziative");
+        Iniziativa iniziativa = iniziativaService.getIniziativa(id);
 
-    boolean loggato = authentication != null
-            && authentication.isAuthenticated()
-            && !(authentication instanceof AnonymousAuthenticationToken);
+        model.addAttribute("iniziativa", iniziativa);
+        model.addAttribute("pagina", "iniziative");
 
-    model.addAttribute("utenteLoggato", loggato);
+        boolean loggato = authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken);
 
-    // Valori di default: indispensabili anche per utenti anonimi
-    boolean iscritto = false;
-    boolean coordinatore = false;
+        model.addAttribute("utenteLoggato", loggato);
 
-    if (loggato) {
+        // Valori di default: indispensabili anche per utenti anonimi
+        boolean iscritto = false;
+        boolean coordinatore = false;
 
-        Utente utente =
-                credenzialiService.getUtenteByUsername(authentication.getName());
+        if (loggato) {
 
-        iscritto =
-                iniziativaService.isUtenteIscritto(id, utente);
+            Utente utente = credenzialiService.getUtenteByUsername(authentication.getName());
 
-        coordinatore =
-                iniziativaService.isCoordinatore(id, utente);
+            iscritto = iniziativaService.isUtenteIscritto(id, utente);
+
+            coordinatore = iniziativaService.isCoordinatore(id, utente);
+        }
+
+        model.addAttribute("iscritto", iscritto);
+        model.addAttribute("coordinatore", coordinatore);
+
+        return "iniziative/show";
     }
 
-    model.addAttribute("iscritto", iscritto);
-    model.addAttribute("coordinatore", coordinatore);
-
-    return "iniziative/show";
-}
-
-
     @PostMapping("/iniziativa/{id}/iscriviti")
-    public String iscrizioneUtente(
-            @PathVariable Long id,
-            Authentication authentication) {
+    public String iscrizioneUtente(@PathVariable Long id, Authentication authentication) {
 
         String username = authentication.getName();
 
@@ -94,28 +86,29 @@ public String mostraIniziativa(
         return "redirect:/iniziative/" + id;
     }
 
- @PostMapping("/iniziativa/{id}/cancella-iscrizione")
-    public String cancellaIscrizioneUtente( @PathVariable Long id,  Authentication authentication) {
+    @PostMapping("/iniziativa/{id}/cancella-iscrizione")
+    public String cancellaIscrizioneUtente(@PathVariable Long id, Authentication authentication) {
 
         String username = authentication.getName();
 
         Utente utente = credenzialiService.getUtenteByUsername(username);
 
-        iniziativaService.removeUtenteIscritto(id, utente); //TODO credo bisogni cambiare anche nel'altro senso della relazione
+        iniziativaService.removeUtenteIscritto(id, utente); // TODO credo bisogni cambiare anche nel'altro senso della
+                                                            // relazione
 
         return "redirect:/iniziative/" + id;
     }
 
- @PostMapping("/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella")
-    public String cancellaIscrizioneAltroUtente( @PathVariable Long iniziativaId, @PathVariable Long utenteId) {
+    @PostMapping("/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella")
+    public String cancellaIscrizioneAltroUtente(@PathVariable Long iniziativaId, @PathVariable Long utenteId) {
 
-        Utente utente = utenteService.getUtenteById(utenteId); //TODO odio tutto
+        Utente utente = utenteService.getUtenteById(utenteId); // TODO odio tutto
 
-        iniziativaService.removeUtenteIscritto(iniziativaId, utente); //TODO credo bisogni cambiare anche nel'altro senso della relazione
+        iniziativaService.removeUtenteIscritto(iniziativaId, utente); // TODO credo bisogni cambiare anche nel'altro
+                                                                      // senso della relazione
 
         return "redirect:/iniziative/" + iniziativaId;
     }
-
 
     // ==================== ADMIN =========================
 
@@ -152,23 +145,27 @@ public String mostraIniziativa(
     }
 
     @PostMapping("/admin/iniziative/{id}/modifica")
-    public String saveExistentEvent(@PathVariable Long id, @Valid @ModelAttribute("iniziativa") Iniziativa iniziativa,
-            BindingResult bindingResult, Model model) {
+    public String saveExistentIniziativa(
+            @PathVariable Long id,
+            @Valid @ModelAttribute("iniziativa") Iniziativa datiIniziativa,
+            BindingResult bindingResult,
+            Model model) {
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("utenti", utenteService.getTuttiDaCognome());
             return "admin/iniziativeForm";
         }
-        // try{
-        iniziativa.setId(id);
-        this.iniziativaService.save(iniziativa);
+
+        Iniziativa iniziativa = iniziativaService.getIniziativa(id);
+
+        iniziativa.setTitolo(datiIniziativa.getTitolo());
+        iniziativa.setDescrizione(datiIniziativa.getDescrizione());
+        iniziativa.setVisibilità(datiIniziativa.isVisibilità());
+        iniziativa.setCoordinatore(datiIniziativa.getCoordinatore());
+
+        iniziativaService.save(iniziativa);
+
         return "redirect:/admin/iniziative";
-
-        /*
-         * } catch(DuplicateIniziativaException e){
-         * bindingResult.reject("iniziativa.duplicate");
-         * return "admin/iniziativeForm";
-         * }
-         */
-
     }
 
     @PostMapping("/admin/iniziative/{id}/cancella")
