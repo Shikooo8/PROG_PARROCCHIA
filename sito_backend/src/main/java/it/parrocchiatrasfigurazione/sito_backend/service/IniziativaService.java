@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.parrocchiatrasfigurazione.sito_backend.model.Evento;
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository;
@@ -12,9 +14,11 @@ import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository
 @Service
 public class IniziativaService {
     private IniziativaRepository iniziativaRepository;
+    private FileStorageService fileStorageService;
 
-    public IniziativaService(IniziativaRepository iniziativaRepository){
+    public IniziativaService(IniziativaRepository iniziativaRepository, FileStorageService fileStorageService) {
         this.iniziativaRepository = iniziativaRepository;
+        this.fileStorageService = fileStorageService;
 
     }
 
@@ -36,63 +40,76 @@ public class IniziativaService {
         return iniziativaRepository.findAllByOrderByIdDesc();
     }
 
-
-    @Transactional
+    @Transactional // TODO save ??
     public Iniziativa save(Iniziativa iniziativa) {
-      /*  String titolo = iniziativa.getTitolo();
-        java.time.LocalDate data = iniziativa.getData();
-        if(iniziativa.getId() == null){
-            if(iniziativaRepository.existsByTitoloAndData(titolo, data))
-                throw new DuplicateIniziativaException(titolo, data);
-        } else {
-            if(iniziativaRepository.existsByTitoloAndDataAndIdNot(titolo, data, iniziativa.getId()))
-                throw new DuplicateIniziativaException(titolo,data);
-        }----------------------------*/
+        /*
+         * String titolo = iniziativa.getTitolo();
+         * java.time.LocalDate data = iniziativa.getData();
+         * if(iniziativa.getId() == null){
+         * if(iniziativaRepository.existsByTitoloAndData(titolo, data))
+         * throw new DuplicateIniziativaException(titolo, data);
+         * } else {
+         * if(iniziativaRepository.existsByTitoloAndDataAndIdNot(titolo, data,
+         * iniziativa.getId()))
+         * throw new DuplicateIniziativaException(titolo,data);
+         * }----------------------------
+         */
         return iniziativaRepository.save(iniziativa);
     }
 
-       @Transactional
+
+    //Per le foto
+    @Transactional
+    public Iniziativa save(Iniziativa iniziativa, MultipartFile file) {
+        if (iniziativa.getId() != null) {
+            // in modifica, l'immagine attuale la prendo dal DB e non dal form
+            iniziativa.setImmagine(iniziativaRepository.findById(iniziativa.getId()).get().getImmagine());
+        }
+        if (file != null && !file.isEmpty()) {
+            String vecchia = iniziativa.getImmagine();
+            iniziativa.setImmagine(fileStorageService.salva(file));
+            fileStorageService.elimina(vecchia);
+        }
+        return this.save(iniziativa); 
+    }
+
+    @Transactional
     public void delete(Long id) {
         iniziativaRepository.deleteById(id);
+        fileStorageService.elimina(getIniziativa(id).getImmagine());
     }
-
 
     public void addUtenteIscritto(Long iniziativaId, Utente utente) {
-    Iniziativa iniziativa = iniziativaRepository.findById(iniziativaId)
-            .orElseThrow(() -> new RuntimeException("Iniziativa non trovata")); //TODO errrore a caso
+        Iniziativa iniziativa = iniziativaRepository.findById(iniziativaId)
+                .orElseThrow(() -> new RuntimeException("Iniziativa non trovata")); // TODO errrore a caso
 
-    if (!iniziativa.getIscrizioni().contains(utente)) {
-        iniziativa.getIscrizioni().add(utente);
+        if (!iniziativa.getIscrizioni().contains(utente)) {
+            iniziativa.getIscrizioni().add(utente);
+            iniziativaRepository.save(iniziativa);
+        }
+    }
+
+    public void removeUtenteIscritto(Long iniziativaId, Utente utente) {
+        Iniziativa iniziativa = iniziativaRepository.findById(iniziativaId)
+                .orElseThrow(() -> new RuntimeException("Iniziativa non trovata")); // TODO errrore a caso
+
+        iniziativa.getIscrizioni().remove(utente);
         iniziativaRepository.save(iniziativa);
     }
-}
 
-public void removeUtenteIscritto(Long iniziativaId, Utente utente) {
-    Iniziativa iniziativa = iniziativaRepository.findById(iniziativaId)
-            .orElseThrow(() -> new RuntimeException("Iniziativa non trovata")); //TODO errrore a caso
+    public boolean isUtenteIscritto(Long iniziativaId, Utente utente) {
 
-    iniziativa.getIscrizioni().remove(utente);
-    iniziativaRepository.save(iniziativa);
-}
+        Iniziativa iniziativa = getIniziativa(iniziativaId);
 
-public boolean isUtenteIscritto(Long iniziativaId, Utente utente) {
+        return iniziativa.getIscrizioni().contains(utente);
+    }
 
-    Iniziativa iniziativa = getIniziativa(iniziativaId);
+    public boolean isCoordinatore(Long iniziativaId, Utente utente) {
 
-    return iniziativa.getIscrizioni().contains(utente);
-}
+        Iniziativa iniziativa = getIniziativa(iniziativaId);
 
-public boolean isCoordinatore(Long iniziativaId, Utente utente) {
-
-    Iniziativa iniziativa = getIniziativa(iniziativaId);
-
-    return iniziativa.getCoordinatore() != null
-            && iniziativa.getCoordinatore().getId().equals(utente.getId());
-}
-
-
-
-
-
+        return iniziativa.getCoordinatore() != null
+                && iniziativa.getCoordinatore().getId().equals(utente.getId());
+    }
 
 }

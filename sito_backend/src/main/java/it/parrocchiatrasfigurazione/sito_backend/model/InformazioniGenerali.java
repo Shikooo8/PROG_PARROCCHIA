@@ -2,6 +2,8 @@ package it.parrocchiatrasfigurazione.sito_backend.model;
 
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,10 +19,16 @@ public class InformazioniGenerali {
 
     private String indirizzo;
 
+    @DateTimeFormat(pattern = "HH:mm")
     private java.time.LocalTime orarioApertura;
+    @DateTimeFormat(pattern = "HH:mm")
     private java.time.LocalTime orarioChiusura;
+    @DateTimeFormat(pattern = "HH:mm")
     private List<java.time.LocalTime> orarioMessaFeriale;
+    @DateTimeFormat(pattern = "HH:mm")
     private List<java.time.LocalTime> orarioMessaFestivo;
+
+    //TODO prefestivo
 
 //TODO AGGIUNGERE DESCRIZIONE
 

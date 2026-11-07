@@ -67,10 +67,13 @@ Implementato ora:
 ## ☕ Sorgenti Java
 **Percorso:** `sito_backend/src/main/java/it/parrocchiatrasfigurazione/sito_backend`
 
-### 📁 `/authentication`
+###  `/authentication`
 *   **`SecurityConfiguration`**
 
-### 📁 `/controller`
+###  `/config`
+*   **`WebConfig`**
+
+###  `/controller`
 *   **`AdminController`**
     *   `@RequestMapping("/admin")`
     *   `@GetMapping("/index")` ➔ `return "admin/index"`
@@ -127,12 +130,13 @@ Implementato ora:
 
 ### 📁 `/exception`
 *   **`DuplicateEventoException`**: `titolo` & `data`
+*   **`ImmagineNonValidaException`**
 
 ### 📁 `/model`
 *   **`Credenziali`**: `Long id`, `String username`, `String password`, `String ruolo`, `@OneToOne utente`
-*   **`Evento`**: `Long id`, `boolean visibilità`, `String titolo`, `java.time.LocalDate data`, `String descrizione`
+*   **`Evento`**: `Long id`, `boolean visibilità`, `String titolo`, `java.time.LocalDate data`, `String descrizione`, `String immagine` 
 *   **`InformazioniGenerali`**: `Long id`, `String indirizzo`, `java.time.LocalTime orarioApertura`, `java.time.LocalTime orarioChiusura`, `private List<java.time.LocalTime> orarioMessaFeriale`, `List<java.time.LocalTime> orarioMessaFestivo`
-*   **`Iniziativa`**: `Long id`, `boolean visibilità`, `String titolo`, `String descrizione`, `@ManyToMany List<Utente> iscrizioni`, `@ManyToOne Utente coordinatore`
+*   **`Iniziativa`**: `Long id`, `boolean visibilità`, `String titolo`, `String descrizione`, `@ManyToMany List<Utente> iscrizioni`, `@ManyToOne Utente coordinatore`, `String immagine`
 *   **`Notizia`**: `Long id`, `String titolo`, `String descrizione`, `java.time.LocalDateTime data`
 *   **`Utente`**: `Long id`, `String nome`, `String cognome`, `java.time.LocalDate dataNascita`, `String email`, `@ManyToMany(mappedBy="iscrizioni") List<Iniziativa> iniziative`, `@OneToMany(mappedBy="coordinatore") List<Iniziativa> iniziativeCoordinate`
 *   **`UtenteRichiesta`**: `Long id`, `String nome`, `String cognome`, `String email`, `LocalDate dataNascita`, `String motivazioni`, `String username`, `String password`
@@ -178,6 +182,8 @@ Implementato ora:
     *   `Evento save(Evento evento)`
     *   `void nascondi(Long id)`
     *   `void delete(Long id)`
+*   **`FileStorageService`**
+    *   `sala(MultipartFile)`
 *   **`InformazioniGeneraliService`**
     *   `InformazioniGenerali getInformazioni()`
     *   `InformazioniGenerali save(InformazioniGenerali info)`

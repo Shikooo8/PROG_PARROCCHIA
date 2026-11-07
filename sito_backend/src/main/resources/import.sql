@@ -7,10 +7,10 @@ insert into utente (id, nome, cognome, email, data_nascita) values (nextval('ute
 insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Paolo', 'Enea', 'Paolo@gmail.com','1962-07-07' );
 
 -- Evento
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Pellegrinaggio a Lourdes!!', '2026-10-1', '58° iniziativa spirituale al bellissimo santuario con la parrocchia', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Raccolta cibo', '2026-10-18', 'Viene Martedì a dare cibo di prima necessità per chi ne ha bisogno. Servono Legumi, oggetti per la pulizia', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Cena di insediamento', '2026-10-15', 'Occasione di festa e di ritrovo conviviale nella restaurata sala', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Festa di benvenuto!', '2026-10-10', 'Diamo il benvenuto a Francesco che verrà a stare nella nostra parrocchia, lo ringraziamo del suo impegno che sarà preziosissimo', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Pellegrinaggio a Lourdes!!', '2026-12-1', '58° iniziativa spirituale al bellissimo santuario con la parrocchia', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Raccolta cibo', '2026-12-18', 'Viene Martedì a dare cibo di prima necessità per chi ne ha bisogno. Servono Legumi, oggetti per la pulizia', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Cena di insediamento', '2026-12-15', 'Occasione di festa e di ritrovo conviviale nella restaurata sala', '1');
+insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Festa di benvenuto!', '2026-12-10', 'Diamo il benvenuto a Francesco che verrà a stare nella nostra parrocchia, lo ringraziamo del suo impegno che sarà preziosissimo', '1');
 
 
 -- InformazioniGenerale

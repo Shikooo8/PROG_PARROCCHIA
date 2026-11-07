@@ -238,15 +238,9 @@
 
                 <a class="scheda" th:each="evento : ${eventi}" th:href="@{/eventi/{id}(id=${evento.id})}">
 
-                    <!--
-                    Per ora utilizziamo l'immagine segnaposto.
-                    Quando aggiungerai l'immagine a Evento,
-                    questo blocco potrà essere sostituito
-                    con una img.
-                -->
 
-                    <div class="scheda-immagine-segnaposto">
-                        ✝
+                    <div class="scheda-immagine">
+                        <img th:if="${evento.immagine}" th:src="@{'/uploads/' + ${evento.immagine}}" class="immagine-card" alt=""/>                  
                     </div>
 
                     <div class="scheda-corpo">
@@ -320,8 +314,8 @@
                 <a class="scheda" th:each="iniziativa : ${iniziative}"
                     th:href="@{/iniziative/{id}(id=${iniziativa.id})}">
 
-                    <div class="scheda-immagine-segnaposto">
-                        ✝
+                    <div class="scheda-immagine">
+                        <img th:if="${iniziativa.immagine}" th:src="@{'/uploads/' + ${iniziativa.immagine}}" class="immagine-card" alt=""/>
                     </div>
 
                     <div class="scheda-corpo">

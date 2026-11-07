@@ -48,8 +48,7 @@
 
                     <div class="sezione-intestazione">
 
-                        <h2 class="sezione-titolo"
-                            th:text="${iniziativa.id == null
+                        <h2 class="sezione-titolo" th:text="${iniziativa.id == null
                                      ? 'Crea una nuova iniziativa'
                                      : 'Modifica i dati dell’iniziativa'}">
                             Iniziativa
@@ -112,11 +111,10 @@
                         In modifica:
                         POST /admin/iniziative/{id}/modifica
                     -->
-                    <form th:object="${iniziativa}"
-                          th:action="${iniziativa.id == null}
+                    <form th:object="${iniziativa}" th:action="${iniziativa.id == null}
                                      ? @{/admin/iniziative/nuovo}
-                                     : @{/admin/iniziative/{id}/modifica(id=${iniziativa.id})}"
-                          method="post">
+                                     : @{/admin/iniziative/{id}/modifica(id=${iniziativa.id})}" method="post"
+                        enctype="multipart/form-data">
 
 
                         <!-- Titolo -->
@@ -126,11 +124,8 @@
                                 Titolo
                             </label>
 
-                            <input type="text"
-                                   id="titolo"
-                                   th:field="*{titolo}"
-                                   placeholder="Titolo dell'iniziativa"
-                                   required>
+                            <input type="text" id="titolo" th:field="*{titolo}" placeholder="Titolo dell'iniziativa"
+                                required>
 
                             <!--
                             Errore di validazione del titolo.
@@ -151,10 +146,8 @@
                                 Descrizione
                             </label>
 
-                            <textarea id="descrizione"
-                                      th:field="*{descrizione}"
-                                      placeholder="Inserisci la descrizione dell'iniziativa..."
-                                      required></textarea>
+                            <textarea id="descrizione" th:field="*{descrizione}"
+                                placeholder="Inserisci la descrizione dell'iniziativa..." required></textarea>
 
                             <!--
                             Errore di validazione della descrizione.
@@ -175,16 +168,14 @@
                                 Coordinatore
                             </label>
 
-                            <select id="coordinatore"
-                                    th:field="*{coordinatore}">
+                            <select id="coordinatore" th:field="*{coordinatore}">
 
                                 <option value="">
                                     Nessun coordinatore
                                 </option>
 
-                                <option th:each="utente : ${utenti}"
-                                        th:value="${utente.id}"
-                                        th:text="${utente.nome + ' ' + utente.cognome}">
+                                <option th:each="utente : ${utenti}" th:value="${utente.id}"
+                                    th:text="${utente.nome + ' ' + utente.cognome}">
                                 </option>
 
                             </select>
@@ -197,9 +188,7 @@
 
                             <div class="form-checkbox">
 
-                                <input type="checkbox"
-                                       id="visibilità"
-                                       th:field="*{visibilità}">
+                                <input type="checkbox" id="visibilità" th:field="*{visibilità}">
 
                                 <label for="visibilità">
                                     Rendere visibile l'iniziativa sul sito
@@ -221,17 +210,20 @@
                         -->
 
 
+                        <div>
+                            <label>Immagine:</label>
+                            <input type="file" name="file" accept="image/*" />
+                        </div>
+
+
                         <!-- Azioni -->
                         <div class="form-azioni">
 
-                            <a th:href="@{/admin/iniziative}"
-                               class="btn btn-secondario">
+                            <a th:href="@{/admin/iniziative}" class="btn btn-secondario">
                                 Annulla
                             </a>
 
-                            <button type="submit"
-                                    class="btn btn-primario"
-                                    th:text="${iniziativa.id == null
+                            <button type="submit" class="btn btn-primario" th:text="${iniziativa.id == null
                                               ? 'Crea iniziativa'
                                               : 'Salva modifiche'}">
                                 Salva

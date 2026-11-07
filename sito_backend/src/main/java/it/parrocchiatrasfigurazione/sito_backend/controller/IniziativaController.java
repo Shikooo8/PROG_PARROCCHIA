@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
@@ -120,18 +122,21 @@ public class IniziativaController {
     }
 
     @PostMapping("/admin/iniziative/nuovo")
-    public String saveNewIniziativa(@Valid @ModelAttribute("iniziativa") Iniziativa iniziativa,
-            BindingResult bindingResult) {
+    public String saveNewIniziativa(@Valid @ModelAttribute("iniziativa") Iniziativa iniziativa, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             return "admin/iniziativeForm";
         }
         // try{
-        iniziativaService.save(iniziativa);
+        iniziativaService.save(iniziativa,file);
         return "redirect:/admin/iniziative";
         /*
          * } catch(DuplicateIniziativaException e){
          * bindingResult.reject("iniziativa.duplicate", e.getMessage());
          * return "admin/iniziativeForm";
+         * catch (ImmagineNonValidaException e) {
+    bindingResult.reject("immagine.nonValida");
+    return "admin/eventiForm";
+}
          * 
          * }
          */
@@ -145,11 +150,7 @@ public class IniziativaController {
     }
 
     @PostMapping("/admin/iniziative/{id}/modifica")
-    public String saveExistentIniziativa(
-            @PathVariable Long id,
-            @Valid @ModelAttribute("iniziativa") Iniziativa datiIniziativa,
-            BindingResult bindingResult,
-            Model model) {
+    public String saveExistentIniziativa( @PathVariable Long id, @Valid @ModelAttribute("iniziativa") Iniziativa datiIniziativa, BindingResult bindingResult, Model model, @RequestParam("file") MultipartFile file) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("utenti", utenteService.getTuttiDaCognome());
@@ -163,9 +164,15 @@ public class IniziativaController {
         iniziativa.setVisibilità(datiIniziativa.isVisibilità());
         iniziativa.setCoordinatore(datiIniziativa.getCoordinatore());
 
-        iniziativaService.save(iniziativa);
+        iniziativaService.save(iniziativa,file);
 
         return "redirect:/admin/iniziative";
+
+
+//         catch (ImmagineNonValidaException e) {
+//     bindingResult.reject("immagine.nonValida");
+//     return "admin/eventiForm";
+// }
     }
 
     @PostMapping("/admin/iniziative/{id}/cancella")

@@ -10,25 +10,33 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Evento {
-    @Id 
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank 
+    @NotBlank
     private String titolo;
 
-    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private java.time.LocalDate data;
-    
+
     private String descrizione;
 
     private boolean visibilità;
 
-    
-    //====================================== GETTERS & SETTERS ==============================
-    
-    
-    
+    private String immagine;
+
+    // ====================================== GETTERS & SETTERS
+    // ==============================
+
+    public String getImmagine() {
+        return immagine;
+    }
+
+    public void setImmagine(String immagine) {
+        this.immagine = immagine;
+    }
+
     public boolean isVisibilità() {
         return visibilità;
     }
@@ -68,9 +76,5 @@ public class Evento {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-
-
-
-
 
 }

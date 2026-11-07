@@ -65,7 +65,8 @@
                     -->
                     <form th:object="${evento}" th:action="${evento.id == null}
                                      ? @{/admin/eventi/nuovo}
-                                     : @{/admin/eventi/{id}/modifica(id=${evento.id})}" method="post">
+                                     : @{/admin/eventi/{id}/modifica(id=${evento.id})}" method="post"
+                        enctype="multipart/form-data">
 
 
                         <!-- Titolo -->
@@ -126,6 +127,11 @@
                                 th:text="${errore}">
                             </div>
 
+                        </div>
+
+                        <div>
+                            <label>Immagine:</label>
+                            <input type="file" name="file" accept="image/*" />
                         </div>
 
 
