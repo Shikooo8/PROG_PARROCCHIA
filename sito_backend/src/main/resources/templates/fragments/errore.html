@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <main th:fragment="errorBox(codice, titolo, messaggio)" class="errore-box">
+        <p class="errore-codice" th:text="${codice}">404</p>
+        <h1 class="errore-titolo" th:text="${titolo}">Pagina non trovata</h1>
+        <p class="errore-testo" th:text="${errorMessage} ?: ${messaggio}">Messaggio</p>
+        <div class="errore-azioni">
+            <a th:href="@{/}">Torna alla home</a>
+            <a href="javascript:history.back()">Indietro</a>
+        </div>
+    </main>
+</body>
+</html>

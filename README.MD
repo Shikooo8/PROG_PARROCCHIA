@@ -28,7 +28,6 @@ Un sistema per la gestione degli eventi in parrocchia, utilizzato come progetto 
 
 ## Errori trovati
 - Quando si elimina un utente, bisogna prima controllare che non faccia parte di alcuna iniziativa
-- Non si modificano le informazioni generali
 
 # Descrizione del Progetto Personale 2026
 

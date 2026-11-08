@@ -1047,3 +1047,39 @@ h1, h2, h3, h4 {
 
 /* REGOLE */
 .immagine-card { width: 100%; max-height: 100%; object-fit: cover; border-radius: 8px; }
+
+
+/* ---------- Pagine di errore ---------- */
+.errore-box {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: .75rem;
+  padding: 4rem 1.5rem;
+}
+.errore-codice {
+  font-size: clamp(5rem, 18vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  color: var(--legno);
+}
+.errore-titolo { margin: 0; color: var(--marrone); }
+.errore-testo  { margin: 0 0 1rem; max-width: 46ch; color: var(--testo-sfumato); }
+.errore-azioni { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
+.errore-azioni a {
+  padding: .6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  background: var(--marrone);
+  color: var(--beige);
+  border: 1px solid var(--marrone);
+}
+.errore-azioni a:last-child {
+  background: transparent;
+  color: var(--marrone);
+  border-color: var(--avana);
+}

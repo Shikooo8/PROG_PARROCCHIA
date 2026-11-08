@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 · Parrocchia della Trasfigurazione</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}" />
+</head>
+<body>
+    <header th:replace="~{fragments/riquadroAltissimo.html :: riquadroAltissimo}"></header>
+    <main th:replace="~{fragments/errore.html :: errorBox('404', 'Pagina non trovata', 'La pagina che cerchi non esiste o è stata spostata.')}"></main>
+</body>
+</html>
