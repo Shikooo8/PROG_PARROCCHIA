@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import it.parrocchiatrasfigurazione.sito_backend.model.Evento;
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.repository.IniziativaRepository;
