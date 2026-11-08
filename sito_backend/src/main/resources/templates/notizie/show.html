@@ -80,31 +80,8 @@
             </a>
 
 
-            <!-- Data -->
-
-            <div class="dettaglio-meta">
-
-                <span th:text="${#temporals.format(notizia.data, 'dd/MM/yyyy HH:mm')}">
-                    01/01/2026 18:00
-                </span>
-
-            </div>
-
-
-            <!-- Titolo -->
-
-            <h2 class="dettaglio-titolo"
-                th:text="${notizia.titolo}">
-                Titolo della notizia
-            </h2>
-
-
-            <!-- Testo -->
-
-            <div class="dettaglio-testo"
-                 th:text="${notizia.descrizione}">
-                Testo della notizia.
-            </div>
+                       <!-- Contenuto notizia (React) -->
+            <div id="notizia-root" th:attr="data-id=${notizia.id}"></div>
 
         </div>
 
@@ -182,6 +159,10 @@
     </div>
 
 </footer>
+
+<script type="module" th:src="@{/react/notizia.js}"></script>
+
+</body>
 
 </body>
 </html>

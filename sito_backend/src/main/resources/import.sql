@@ -7,20 +7,22 @@ insert into utente (id, nome, cognome, email, data_nascita) values (nextval('ute
 insert into utente (id, nome, cognome, email, data_nascita) values (nextval('utente_seq'), 'Paolo', 'Enea', 'Paolo@gmail.com','1962-07-07' );
 
 -- Evento
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Pellegrinaggio a Lourdes!!', '2026-12-1', '58° iniziativa spirituale al bellissimo santuario con la parrocchia', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Raccolta cibo', '2026-12-18', 'Viene Martedì a dare cibo di prima necessità per chi ne ha bisogno. Servono Legumi, oggetti per la pulizia', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Cena di insediamento', '2026-12-15', 'Occasione di festa e di ritrovo conviviale nella restaurata sala', '1');
-insert into evento (id, titolo, data, descrizione, visibilità) values (nextval('evento_seq'), 'Festa di benvenuto!', '2026-12-10', 'Diamo il benvenuto a Francesco che verrà a stare nella nostra parrocchia, lo ringraziamo del suo impegno che sarà preziosissimo', '1');
+insert into evento (id, titolo, data, descrizione, visibilità, immagine) values (nextval('evento_seq'), 'Pellegrinaggio a Lourdes!!', '2026-12-1', '58° iniziativa spirituale al bellissimo santuario con la parrocchia', '1', 'lourdes.jpg');
+insert into evento (id, titolo, data, descrizione, visibilità, immagine) values (nextval('evento_seq'), 'Raccolta cibo', '2026-12-18', 'Viene Martedì a dare cibo di prima necessità per chi ne ha bisogno. Servono Legumi, oggetti per la pulizia', '1', 'cibo.jpg');
+insert into evento (id, titolo, data, descrizione, visibilità, immagine) values (nextval('evento_seq'), 'Cena di insediamento', '2026-12-15', 'Occasione di festa e di ritrovo conviviale nella restaurata sala', '1', 'cena.jpg');
+insert into evento (id, titolo, data, descrizione, visibilità, immagine) values (nextval('evento_seq'), 'Festa di benvenuto!', '2026-12-10', 'Diamo il benvenuto a Francesco che verrà a stare nella nostra parrocchia, lo ringraziamo del suo impegno che sarà preziosissimo', '1', 'benvenuto.jpg');
+insert into evento (id, titolo, data, descrizione, visibilità, immagine) values (nextval('evento_seq'), 'Visita dei Giovani a Papa Leone', '2026-11-21', 'I giovani di tutti la diocesi sono invitati a questo event', '1', 'leone.jpg');
 
 
 -- InformazioniGenerale
 insert into informazioni_generali (id, indirizzo, orario_apertura, orario_chiusura, orario_messa_feriale, orario_messa_festivo) values (nextval('informazioni_generali_seq'), 'Pz della Trasfigurzione, 5', '14:00', '18:00', '{8:00, 18:00}', '{9:00, 10:15, 11:30, 18:00}');
 
 -- iniziativa
-insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) values (nextval('iniziativa_seq'), 'Cresime', 'Per il Gruppo di Paola sono previste le iscrizioni entro la data riportata', '1', 1);
-insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) values (nextval('iniziativa_seq'), 'Comunioni', 'Per il gruppo di Fabio bisogna sbrigarsi!', '1', 1);
-insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) values (nextval('iniziativa_seq'), 'Corso pre matrimoniale', 'Il nuovo prete aprirà uno spazio per i futuri sposi della parrocchia!', '1', 1);
-insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id) values (nextval('iniziativa_seq'), 'Cresime Adulti', 'Per il santo sacramento della confermazione', '1', 1);
+insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id, immagine) values (nextval('iniziativa_seq'), 'Cresime', 'Per il Gruppo di Paola sono previste le iscrizioni entro la data riportata', '1', 1, 'cresima.jpg');
+insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id, immagine) values (nextval('iniziativa_seq'), 'Comunioni', 'Per il gruppo di Fabio bisogna sbrigarsi!', '1', 1, 'comunione.jpg');
+insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id, immagine) values (nextval('iniziativa_seq'), 'Corso pre matrimoniale', 'Il nuovo prete aprirà uno spazio per i futuri sposi della parrocchia!', '1', 1, 'Corsoprematrimoniale.webp');
+insert into iniziativa (id, titolo, descrizione, visibilità, coordinatore_id, immagine) values (nextval('iniziativa_seq'), 'Cresime Adulti', 'Per il santo sacramento della confermazione', '1', 1, 'cresimaadulti.jpg');
+insert into iniziativa (id, titolo, descrizione, visibilità, immagine) values (nextval('iniziativa_seq'), 'Gruppo Giovani', 'Insieme al seminarista Francesco si inizia un percorso con i giovani dai 18 ai 35 della parrocchia. Si prevedono incontri, uscite con la comunità e anche con la prefettura.', '1', 'noi.jpg');
 
 -- notizia
 insert into notizia (id, titolo, descrizione, data) values (nextval('notizia_seq'), 'Riprende il giornale!', 'Finalmente dopo anni di assenza torna il Tabor con tutte le notizie', '2026-09-10 10:00');
@@ -37,7 +39,7 @@ insert into credenziali (id, username, password, ruolo, utente_id) values (nextv
 
 --utente richiesta
 insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazioni, username, password) values (nextval('utente_richiesta_seq'), 'Nuovo', 'Novizio', 'a@a.a',' 1970-10-19' ,'voglio entrare', 'Utente9', '$2a$10$yWAIDyuEr78BBBFZ5cYh8.Nw4gUHFTRG5FwaWqNCGeOD8M4mh3.xy');
-insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazioni, username, password) values (nextval('utente_richiesta_seq'), 'Marco', 'Marco', 'm@m.com',' 1990-10-23' ,'voglio  aaaaaaaa fatemi entrare', 'Utente10', 'paolo');
+insert into utente_richiesta (id, nome, cognome, email, data_nascita, motivazioni, username, password) values (nextval('utente_richiesta_seq'), 'Marco', 'Marco', 'm@m.com',' 1990-10-23' ,'voglio capire comefunziona il nuovo sito', 'Utente10', '$2a$10$yWAIDyuEr78BBBFZ5cYh8.Nw4gUHFTRG5FwaWqNCGeOD8M4mh3.xy');
 
 -- iscrizioni - inziiative
 insert into iniziativa_iscrizioni (iniziative_id, iscrizioni_id) values (1, 101);

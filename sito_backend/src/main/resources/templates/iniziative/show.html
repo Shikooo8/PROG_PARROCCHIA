@@ -89,19 +89,9 @@
                      IMMAGINE
                      ================================================= -->
 
-                <!--
-                    Per ora viene mostrato il segnaposto.
-                    Quando aggiungerai l'immagine all'entità
-                    Iniziativa, questo blocco potrà essere sostituito
-                    con un <img>.
-                -->
-
-                <div class="scheda-immagine-segnaposto">
-
-                    ✝
-
-                </div>
-
+                    <div class="dettaglio-immagine">
+                        <img th:if= "${iniziativa.immagine}" th:src="@{'/uploads/' + ${iniziativa.immagine}}" class="immagine-card" alt=""/>
+                    </div>
 
                 <!-- =================================================
                      TITOLO

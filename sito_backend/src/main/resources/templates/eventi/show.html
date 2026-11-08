@@ -78,11 +78,9 @@
                 </a>
 
 
-                <!-- Immagine -->
-
-                <div class="scheda-immagine-segnaposto">
-                    ✝
-                </div>
+                    <div class="dettaglio-immagine">
+                        <img th:if= "${evento.immagine}" th:src="@{'/uploads/' + ${evento.immagine}}" class="immagine-card" alt=""/>
+                    </div>
 
 
                 <!-- Data -->
