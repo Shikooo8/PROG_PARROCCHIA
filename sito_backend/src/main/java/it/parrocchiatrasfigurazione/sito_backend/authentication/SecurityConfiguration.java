@@ -50,7 +50,7 @@ protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws 
         authorize.requestMatchers(HttpMethod.GET, "/", "/fragments", "/notizie/*", "/notizie", "/eventi", "/iniziative", "/eventi/*", "/iniziative/*", "/richiesta-registrazione", "/login", "/css/", "/css/**", "/images/**", "/react/", "/favicon.ico", "/api/utente/me", "/uploads/**", "/api/notizie/**", "/react/**").permitAll();
         authorize.requestMatchers(HttpMethod.POST, "/login", "/richiesta-registrazione").permitAll();
 
-        authorize.requestMatchers(HttpMethod.GET, "/admin/").hasAnyAuthority(Credenziali.ADMIN_ROLE);
+        authorize.requestMatchers(HttpMethod.GET, "/admin/", "/admin/**").hasAnyAuthority(Credenziali.ADMIN_ROLE);
         authorize.requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(Credenziali.ADMIN_ROLE);
         authorize.anyRequest().authenticated();
     });

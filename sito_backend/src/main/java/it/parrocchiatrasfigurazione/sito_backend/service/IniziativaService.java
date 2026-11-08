@@ -74,8 +74,8 @@ public class IniziativaService {
 
     @Transactional
     public void delete(Long id) {
-        iniziativaRepository.deleteById(id);
         fileStorageService.elimina(getIniziativa(id).getImmagine());
+        iniziativaRepository.deleteById(id);
     }
 
     public void addUtenteIscritto(Long iniziativaId, Utente utente) {

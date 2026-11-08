@@ -81,8 +81,8 @@ public class EventoService {
 
     @Transactional
     public void delete(Long id) {
-        eventoRepository.deleteById(id);
         fileStorageService.elimina(getEvento(id).getImmagine());
+        eventoRepository.deleteById(id);
     }
 
 }
