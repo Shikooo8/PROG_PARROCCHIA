@@ -30,7 +30,7 @@ public class InformazioniGenerali {
 
     //TODO prefestivo
 
-//TODO AGGIUNGERE DESCRIZIONE
+    //TODO AGGIUNGERE DESCRIZIONE
 
     public String getIndirizzo() {
         return indirizzo;

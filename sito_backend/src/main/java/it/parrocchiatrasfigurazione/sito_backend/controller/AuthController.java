@@ -3,17 +3,14 @@ package it.parrocchiatrasfigurazione.sito_backend.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import it.parrocchiatrasfigurazione.sito_backend.service.CredenzialiService;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller 
 public class AuthController {
 
-    private CredenzialiService credenzialiService;
 
-    public AuthController(CredenzialiService credenzialiService){
-        this.credenzialiService= credenzialiService;
+    public AuthController(){
     }
 
     @GetMapping("/login")

@@ -14,12 +14,10 @@ import it.parrocchiatrasfigurazione.sito_backend.repository.UtenteRichiestaRepos
 public class UtenteRichiestaService {
 
     private final CredenzialiService credenzialiService;
-    private final UtenteService utenteService;
     private UtenteRichiestaRepository utenteRichiestaRepository;
 
-    public UtenteRichiestaService(UtenteRichiestaRepository utenteRichiestaRepository, UtenteService utenteService, CredenzialiService credenzialiService) {
+    public UtenteRichiestaService(UtenteRichiestaRepository utenteRichiestaRepository, CredenzialiService credenzialiService) {
         this.utenteRichiestaRepository = utenteRichiestaRepository;
-        this.utenteService = utenteService;
         this.credenzialiService = credenzialiService;
     }
 

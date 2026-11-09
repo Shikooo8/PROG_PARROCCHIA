@@ -1083,3 +1083,15 @@ h1, h2, h3, h4 {
   color: var(--marrone);
   border-color: var(--avana);
 }
+
+.iscritti-lista li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.iscritti-lista form {
+    margin: 0;
+    flex-shrink: 0;
+}

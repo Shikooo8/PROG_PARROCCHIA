@@ -28,8 +28,8 @@ public class NotiziaService {
         }
 
     @Transactional(readOnly = true)
-    public List<Notizia> getUltimeNotizie() { //TODO usare una query
-        return notiziaRepository.findAllByOrderByDataDesc().stream().limit(3).toList();
+    public List<Notizia> getUltimeNotizie() { 
+        return notiziaRepository.findFirst3ByOrderByDataDesc();
     }
 
     @Transactional

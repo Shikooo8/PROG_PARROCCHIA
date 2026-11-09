@@ -89,9 +89,10 @@
                      IMMAGINE
                      ================================================= -->
 
-                    <div class="dettaglio-immagine">
-                        <img th:if= "${iniziativa.immagine}" th:src="@{'/uploads/' + ${iniziativa.immagine}}" class="immagine-card" alt=""/>
-                    </div>
+                <div class="dettaglio-immagine">
+                    <img th:if="${iniziativa.immagine}" th:src="@{'/uploads/' + ${iniziativa.immagine}}"
+                        class="immagine-card" alt="" />
+                </div>
 
                 <!-- =================================================
                      TITOLO
@@ -231,7 +232,7 @@
 
                     <div th:if="${iniziativa.iscrizioni != null and !iniziativa.iscrizioni.isEmpty()}">
 
-                        <ul class="orario-lista">
+                        <ul class="orario-lista iscritti-lista">
 
                             <li th:each="iscritto : ${iniziativa.iscrizioni}">
 
@@ -239,26 +240,13 @@
                                     Nome Cognome
                                 </span>
 
-
-                                <!--
-                                    Pulsante per rimuovere l'iscrizione.
-
-                                    Lo gestiremo nel controller con:
-
-                                    POST
-                                    /iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella
-
-                                -->
-
                                 <form th:action="@{/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella(
-                                        iniziativaId=${iniziativa.id},
-                                        utenteId=${iscritto.id}
-                                    )}" method="post" style="display: inline; margin-left: 10px;">
+                iniziativaId=${iniziativa.id},
+                utenteId=${iscritto.id}
+            )}" method="post">
 
                                     <button class="btn btn-pericolo btn-piccolo" type="submit">
-
                                         Cancella
-
                                     </button>
 
                                 </form>

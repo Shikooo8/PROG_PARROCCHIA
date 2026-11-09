@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.parrocchiatrasfigurazione.sito_backend.exception.DuplicateIniziativaException;
+import it.parrocchiatrasfigurazione.sito_backend.exception.ImmagineNonValidaException;
 import it.parrocchiatrasfigurazione.sito_backend.model.Iniziativa;
 import it.parrocchiatrasfigurazione.sito_backend.model.Utente;
 import it.parrocchiatrasfigurazione.sito_backend.service.CredenzialiService;
@@ -88,27 +90,21 @@ public class IniziativaController {
         return "redirect:/iniziative/" + id;
     }
 
+    //Per un utente che cancella la propria iscrizione
     @PostMapping("/iniziativa/{id}/cancella-iscrizione")
     public String cancellaIscrizioneUtente(@PathVariable Long id, Authentication authentication) {
-
         String username = authentication.getName();
-
         Utente utente = credenzialiService.getUtenteByUsername(username);
-
-        iniziativaService.removeUtenteIscritto(id, utente); // TODO credo bisogni cambiare anche nel'altro senso della
-                                                            // relazione
-
+        iniziativaService.removeUtenteIscritto(id, utente); // Iniziativa è proprietaria della relazione
         return "redirect:/iniziative/" + id;
     }
 
+    //===================== COORDINATORE ===========================================
+    // il coordinatore e l'admin possono cancellare
     @PostMapping("/iniziativa/{iniziativaId}/iscritti/{utenteId}/cancella")
     public String cancellaIscrizioneAltroUtente(@PathVariable Long iniziativaId, @PathVariable Long utenteId) {
-
-        Utente utente = utenteService.getUtenteById(utenteId); // TODO odio tutto
-
-        iniziativaService.removeUtenteIscritto(iniziativaId, utente); // TODO credo bisogni cambiare anche nel'altro
-                                                                      // senso della relazione
-
+        Utente utente = utenteService.getUtenteById(utenteId);
+        iniziativaService.removeUtenteIscritto(iniziativaId, utente);   
         return "redirect:/iniziative/" + iniziativaId;
     }
 
@@ -126,20 +122,17 @@ public class IniziativaController {
         if (bindingResult.hasErrors()) {
             return "admin/iniziativeForm";
         }
-        // try{
+        try{
         iniziativaService.save(iniziativa,file);
         return "redirect:/admin/iniziative";
-        /*
-         * } catch(DuplicateIniziativaException e){
-         * bindingResult.reject("iniziativa.duplicate", e.getMessage());
-         * return "admin/iniziativeForm";
-         * catch (ImmagineNonValidaException e) {
-    bindingResult.reject("immagine.nonValida");
-    return "admin/eventiForm";
-}
-         * 
-         * }
-         */
+        } catch(DuplicateIniziativaException e){
+          bindingResult.reject("iniziativa.duplicate", e.getMessage());
+          return "admin/iniziativeForm";
+        }
+          catch (ImmagineNonValidaException e) {
+          bindingResult.reject("immagine.nonValida");
+          return "admin/iniziativeForm";
+        }
     }
 
     @GetMapping("/admin/iniziative/{id}/modifica")
@@ -164,19 +157,22 @@ public class IniziativaController {
         iniziativa.setVisibilità(datiIniziativa.isVisibilità());
         iniziativa.setCoordinatore(datiIniziativa.getCoordinatore());
 
+        try{
         iniziativaService.save(iniziativa,file);
-
         return "redirect:/admin/iniziative";
 
-
-//         catch (ImmagineNonValidaException e) {
-//     bindingResult.reject("immagine.nonValida");
-//     return "admin/eventiForm";
-// }
+        } catch(DuplicateIniziativaException e){
+          bindingResult.reject("iniziativa.duplicate", e.getMessage());
+          return "admin/iniziativeForm";
+        }
+          catch (ImmagineNonValidaException e) {
+          bindingResult.reject("immagine.nonValida");
+          return "admin/iniziativeForm";
+        }
     }
 
     @PostMapping("/admin/iniziative/{id}/cancella")
-    public String deleteEvent(@PathVariable Long id) {
+    public String deleteIniziativa(@PathVariable Long id) {
         iniziativaService.delete(id);
         return "redirect:/admin/iniziative";
     }

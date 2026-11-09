@@ -27,7 +27,7 @@ public class CredenzialiService {
 
    public Utente getUtenteByUsername(String username) {
     return credenzialiRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("Credenziali non trovate")) //TODO errore a caso
+            .orElseThrow(() -> new RuntimeException("Credenziali non trovate"))
             .getUtente();
 }
 

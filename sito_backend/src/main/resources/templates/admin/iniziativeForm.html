@@ -61,60 +61,13 @@
                     </div>
 
 
-                    <!--
-                        ERRORE GLOBALE
-
-                        Per ora il controllo delle eccezioni è disattivato.
-                        Quando verrà aggiunta un'eccezione per le iniziative,
-                        sarà possibile utilizzare BindingResult.
-
-                        Esempio nel controller:
-
-                        catch (DuplicateIniziativaException e) {
-                            bindingResult.reject(
-                                "iniziativa.duplicate",
-                                e.getMessage()
-                            );
-                            return "admin/iniziative/form";
-                        }
-
-                        E nel template:
-
-                        <div th:if="${#fields.hasGlobalErrors()}"
-                             class="messaggio-globale">
-
-                            <div class="avviso avviso-errore"
-                                 th:each="errore : ${#fields.globalErrors()}"
-                                 th:text="${errore.defaultMessage}">
-                            </div>
-
-                        </div>
-                    -->
-
-                    <!--
-                    <div th:if="${#fields.hasGlobalErrors()}"
-                         class="messaggio-globale">
-
-                        <div class="avviso avviso-errore"
-                             th:each="errore : ${#fields.globalErrors()}"
-                             th:text="${errore.defaultMessage}">
-                        </div>
-
-                    </div>
-                    -->
-
-
-                    <!--
-                        In creazione:
-                        POST /admin/iniziative/nuova
-
-                        In modifica:
-                        POST /admin/iniziative/{id}/modifica
-                    -->
                     <form th:object="${iniziativa}" th:action="${iniziativa.id == null}
                                      ? @{/admin/iniziative/nuovo}
                                      : @{/admin/iniziative/{id}/modifica(id=${iniziativa.id})}" method="post"
                         enctype="multipart/form-data">
+                        <div th:if="${#fields.hasGlobalErrors()}" class="errore-form">
+                            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore</p>
+                        </div>
 
 
                         <!-- Titolo -->

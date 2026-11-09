@@ -13,7 +13,6 @@ public interface IniziativaRepository extends CrudRepository<Iniziativa, Long> {
 
     List<Iniziativa> findByVisibilitàTrue();
 
-    // TODO non ha senso ordinarli per id
     List<Iniziativa> findFirst3ByVisibilitàTrueOrderByIdDesc();
 
     List<Iniziativa> findAllByOrderByIdDesc();
@@ -21,4 +20,7 @@ public interface IniziativaRepository extends CrudRepository<Iniziativa, Long> {
     @Modifying
     @Query("UPDATE Iniziativa i SET i.coordinatore = null WHERE i.coordinatore.id = :id")
     void rimuoviCoordinatore(@Param("id") Long id );
+
+    boolean existsByTitolo(String titolo);
+    boolean existsByTitoloAndIdNot(String titolo, Long id);
 }

@@ -15,13 +15,9 @@ public class UtenteService {
 
     private final IniziativaRepository iniziativaRepository;
     private final UtenteRepository utenteRepository;
-    private final CredenzialiService credenzialiService;
-    private final PasswordEncoder passwordEncoder;
 
     public UtenteService(UtenteRepository utenteRepository, CredenzialiService credenzialiService, PasswordEncoder passwordEncoder, IniziativaRepository iniziativaRepository) {
         this.utenteRepository = utenteRepository;
-        this.credenzialiService = credenzialiService;
-        this.passwordEncoder = passwordEncoder;
         this.iniziativaRepository = iniziativaRepository;
     }
 
@@ -42,10 +38,9 @@ public class UtenteService {
 
     @Transactional
     public void delete(Long id) {
+        utenteRepository.rimuoviIscrizioni(id); 
         iniziativaRepository.rimuoviCoordinatore(id);
         utenteRepository.deleteById(id);
-
-        //TODO rimuovere le iscrizioni
     }
 
     public Utente getUtenteById(Long utenteId) {
